@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-struct OnboardingView: View {
+struct OnboardingFirstView: View {
     var body: some View {
         NavigationStack {
             ZStack {
@@ -16,7 +16,7 @@ struct OnboardingView: View {
                 VStack {
                     Spacer()
                         .frame(maxHeight: 150)
-                    Image(Asset.whitelogo)
+                    Image(Asset.Logo.light)
                     Spacer()
                     PLEPButton(
                         title: "시작하기",
@@ -37,5 +37,5 @@ struct OnboardingView: View {
 }
 
 #Preview {
-    OnboardingView()
+    OnboardingFirstView()
 }
