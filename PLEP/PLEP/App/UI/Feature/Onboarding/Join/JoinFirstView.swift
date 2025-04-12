@@ -10,9 +10,17 @@ import SwiftUI
 struct JoinFirstView: View {
     @State private var email = ""
     @State private var password = ""
+    @State private var isOn: Bool = false
     
     var body: some View {
-        
+        PLEPToggle(
+            type: .light,
+            enabled: isOn,
+            color: .purple,
+            action: {
+                isOn.toggle()
+            }
+        )
         PLEPTextField(
             text: $email,
             placeholder: "이메일",
