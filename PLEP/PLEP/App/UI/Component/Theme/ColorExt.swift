@@ -124,8 +124,8 @@ extension Color {
         private let named: [String: Color] = [
             "red": Color(hex: "#E16868"),
             "orange": Color(hex: "#E19E68"),
-            "yello": Color(hex: "#E1D568"),
-            "lime": Color(hex: "#B9E168"),
+            "yellow": Color(hex: "#E1D568"),
+            "lame": Color(hex: "#B9E168"),
             "green": Color(hex: "#68E180"),
             "sky": Color(hex: "#68D5E1"),
             "blue": Color(hex: "#6882E1"),
