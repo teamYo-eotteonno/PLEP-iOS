@@ -21,6 +21,18 @@ struct PLEPTextFieldStyle {
     let color: PLEPTextFieldColor
     let type: PLEPTextFieldType
     let login: Bool
+    
+    var isSecure: Bool {
+        return type == .security
+    }
+
+    var showBorder: Bool {
+        return type == .focus || type == .error
+    }
+
+    var borderWidth: CGFloat {
+        showBorder ? 1 : 0
+    }
 
     var textColor: Color {
         switch color {
