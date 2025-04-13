@@ -7,11 +7,11 @@
 
 import SwiftUI
 
-enum PLEPToggleType {
+enum PLEPToggleType: CaseIterable {
     case dark, light
 }
 
-enum PLEPToggleColor {
+enum PLEPToggleColor: CaseIterable {
     case purple, gray, black
 }
 

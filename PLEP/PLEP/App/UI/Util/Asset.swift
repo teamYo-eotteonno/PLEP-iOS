@@ -51,4 +51,8 @@ class Asset{
         static let `default` = "Sun-Dark"
         static let choice = "Sun-Purple"
     }
+    struct Check {
+        static let white = "Check-White"
+        static let gray = "Check-Gray"
+    }
 }
