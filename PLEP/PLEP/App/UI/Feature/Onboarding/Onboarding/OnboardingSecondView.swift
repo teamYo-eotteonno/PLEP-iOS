@@ -8,6 +8,10 @@
 import SwiftUI
 
 struct OnboardingSecondView: View {
+    @Environment(\.dismiss) private var dismiss
+    @State private var join: Bool = false
+    @State private var login: Bool = false
+    
     var body: some View {
         NavigationStack {
             ZStack {
@@ -43,7 +47,7 @@ struct OnboardingSecondView: View {
                             color: .dark,
                             icon: false
                         ) {
-                            
+                            login = true
                         }
                         PLEPButton(
                             title: "아니요",
@@ -53,14 +57,23 @@ struct OnboardingSecondView: View {
                             color: .purple,
                             icon: false
                         ) {
-                            
+                            join = true
                         }
                     }
-//                    .padding(.bottom, 35)
+                    NavigationLink(destination: JoinFirstView(), isActive: $join) {
+                        EmptyView()
+                    }
                 }
                 .padding(.horizontal, 30)
+                .padding(.top)
             }
         }
+        .toolbar {
+            PLEPToolbarBackButton {
+                    dismiss()
+                }
+        }
+        .navigationBarBackButtonHidden(true)
     }
 }
 

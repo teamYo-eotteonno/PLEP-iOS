@@ -8,37 +8,59 @@
 import SwiftUI
 
 struct JoinFirstView: View {
-    @State private var email = ""
-    @State private var password = ""
-    @State private var isOn: Bool = false
+    @State private var id = ""
+    @Environment(\.dismiss) private var dismiss
     
     var body: some View {
-        PLEPToggle(
-            type: .light,
-            enabled: isOn,
-            color: .purple,
-            action: {
-                isOn.toggle()
+        NavigationStack {
+            ZStack {
+                Color.b[500].ignoresSafeArea()
+                VStack {
+                    VStack(spacing: 25) {
+                        VStack(alignment: .leading) {
+                            HStack {
+                                Image(Asset.Join.id)
+                                    .resizable()
+                                    .frame(width: 60, height: 60)
+                                Spacer()
+                            }
+                            Text("아이디를 입력해주세요.")
+                                .textStyle(TextStyle.title2.bold)
+                                .foregroundColor(.txtop.white.primary)
+                        }
+                        PLEPTextField(
+                            text: $id,
+                            placeholder: "ID를 입력해주세요.",
+                            color: .gray,
+                            login: false,
+                            isSecure: false,
+                            validate: { !$0.isEmpty },
+                            errorMessage: "ID를 입력해주세요"
+                        )
+                    }
+                    Spacer()
+                    PLEPButton(
+                        title: "넘어가기",
+                        type: .filled,
+                        size: .medium,
+                        enabled: id.isEmpty ? false : true,
+                        color: .purple,
+                        icon: false
+                    ) {
+                        
+                    }
+                    .padding(.bottom, 65)
+                }
+                .padding(.horizontal, 30)
+                .padding(.top)
             }
-        )
-        PLEPTextField(
-            text: $email,
-            placeholder: "이메일",
-            color: .gray,
-            login: false,
-            validate: { $0.contains("@") },
-            errorMessage: "올바른 이메일 주소를 입력해주세요."
-        )
-        
-        PLEPTextField(
-            text: $password,
-            placeholder: "비밀번호",
-            color: .dark,
-            login: false,
-            isSecure: true,
-            validate: { $0.count >= 6 },
-            errorMessage: "올바른 이메일 주소를 입력해주세요."
-        )
+        }
+        .toolbar {
+            PLEPToolbarBackButton {
+                    dismiss()
+                }
+        }
+        .navigationBarBackButtonHidden(true)
     }
 }
 

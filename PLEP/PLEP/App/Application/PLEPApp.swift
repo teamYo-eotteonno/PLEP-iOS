@@ -11,16 +11,10 @@ import SwiftUI
 struct PLEPApp: App {
     var body: some Scene {
         WindowGroup {
-            PLEPButton(
-                title: "Label",
-                type: .neutral,
-                size: .medium,
-                enabled: true,
-                color: .dark,
-                icon: true
-            ) {
-                print("Button tapped!")
-            }
+            OnboardingFirstView()
+                .onAppear {
+                    _ = UINavigationController()
+                }
         }
     }
 }

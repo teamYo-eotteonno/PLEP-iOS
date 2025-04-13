@@ -8,6 +8,8 @@
 import SwiftUI
 
 struct OnboardingFirstView: View {
+    @State private var next: Bool = false
+    
     var body: some View {
         NavigationStack {
             ZStack {
@@ -26,9 +28,12 @@ struct OnboardingFirstView: View {
                         color: .purple,
                         icon: false
                     ) {
-                        
+                        next = true
                     }
                     .padding(.bottom, 65)
+                    NavigationLink(destination: OnboardingSecondView(), isActive: $next) {
+                        EmptyView()
+                    }
                 }
                 .padding(.horizontal, 30)
             }
