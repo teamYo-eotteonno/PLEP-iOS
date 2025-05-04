@@ -1,15 +1,16 @@
 //
-//  JoinFirstView.swift
+//  LoginView.swift
 //  PLEP
 //
-//  Created by 이다경 on 4/12/25.
+//  Created by 이다경 on 5/4/25.
 //
 
 import SwiftUI
 
-struct JoinFirstView: View {
+struct LoginFirstView: View {
     @State private var next: Bool = false
     @State private var id = ""
+    @State private var pass = ""
     @Environment(\.dismiss) private var dismiss
     
     var body: some View {
@@ -17,34 +18,32 @@ struct JoinFirstView: View {
             ZStack {
                 Color.b[500].ignoresSafeArea()
                 VStack {
-                    VStack(spacing: 25) {
-                        VStack(alignment: .leading) {
-                            HStack {
-                                Image(Asset.Join.id)
-                                    .resizable()
-                                    .frame(width: 60, height: 60)
-                                Spacer()
-                            }
-                            Text("아이디를 입력해주세요.")
-                                .textStyle(TextStyle.title2.bold)
-                                .foregroundColor(.txtop.white.primary)
-                        }
+                    Spacer()
+                    Image(Asset.Logo.light)
                         PLEPTextField(
                             text: $id,
                             placeholder: "ID를 입력해주세요.",
                             color: .gray,
-                            login: false,
+                            login: true,
                             isSecure: false,
                             validate: { !$0.isEmpty },
                             errorMessage: "ID를 입력해주세요"
                         )
-                    }
+                    PLEPTextField(
+                        text: $pass,
+                        placeholder: "PW를 입력해주세요.",
+                        color: .gray,
+                        login: true,
+                        isSecure: true,
+                        validate: { !$0.isEmpty },
+                        errorMessage: "PW를 입력해주세요"
+                    )
                     Spacer()
                     PLEPButton(
-                        title: "넘어가기",
+                        title: "로그인",
                         type: .filled,
                         size: .medium,
-                        enabled: id.isEmpty ? false : true,
+                        enabled: id.isEmpty || pass.isEmpty ? false : true,
                         color: .purple,
                         icon: false
                     ) {
@@ -69,7 +68,6 @@ struct JoinFirstView: View {
     }
 }
 
-
 #Preview {
-    JoinFirstView()
+    LoginFirstView()
 }

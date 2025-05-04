@@ -1,15 +1,15 @@
 //
-//  JoinFirstView.swift
+//  JoinThirdView.swift
 //  PLEP
 //
-//  Created by 이다경 on 4/12/25.
+//  Created by 이다경 on 5/4/25.
 //
 
 import SwiftUI
 
-struct JoinFirstView: View {
+struct JoinThirdView: View {
     @State private var next: Bool = false
-    @State private var id = ""
+    @State private var email = ""
     @Environment(\.dismiss) private var dismiss
     
     var body: some View {
@@ -20,31 +20,36 @@ struct JoinFirstView: View {
                     VStack(spacing: 25) {
                         VStack(alignment: .leading) {
                             HStack {
-                                Image(Asset.Join.id)
+                                Image(Asset.Join.email)
                                     .resizable()
                                     .frame(width: 60, height: 60)
                                 Spacer()
                             }
-                            Text("아이디를 입력해주세요.")
+                            Text("이메일을 입력해주세요.")
                                 .textStyle(TextStyle.title2.bold)
                                 .foregroundColor(.txtop.white.primary)
                         }
-                        PLEPTextField(
-                            text: $id,
-                            placeholder: "ID를 입력해주세요.",
-                            color: .gray,
-                            login: false,
-                            isSecure: false,
-                            validate: { !$0.isEmpty },
-                            errorMessage: "ID를 입력해주세요"
-                        )
+                        HStack {
+                            PLEPTextField(
+                                text: $email,
+                                placeholder: "Email를 입력해주세요.",
+                                color: .gray,
+                                login: false,
+                                isSecure: false,
+                                validate: { !$0.isEmpty },
+                                errorMessage: "Email를 입력해주세요"
+                            )
+                            Text("@")
+                                .textStyle(TextStyle.body.default)
+                                .foregroundColor(.txtop.white.primary)
+                        }
                     }
                     Spacer()
                     PLEPButton(
                         title: "넘어가기",
                         type: .filled,
                         size: .medium,
-                        enabled: id.isEmpty ? false : true,
+                        enabled: email.isEmpty ? false : true,
                         color: .purple,
                         icon: false
                     ) {
@@ -52,7 +57,7 @@ struct JoinFirstView: View {
                     }
                     .padding(.bottom, 65)
                     
-                    NavigationLink(destination: JoinSecondView(), isActive: $next) {
+                    NavigationLink(destination: JoinFourthView(), isActive: $next) {
                         EmptyView()
                     }
                 }
@@ -69,7 +74,6 @@ struct JoinFirstView: View {
     }
 }
 
-
 #Preview {
-    JoinFirstView()
+    JoinThirdView()
 }
