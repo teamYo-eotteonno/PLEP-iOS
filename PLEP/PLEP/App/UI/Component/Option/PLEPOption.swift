@@ -46,13 +46,13 @@ struct PLEPOption: View {
 
                 Text(title)
                     .textStyle(TextStyle.body.bold)
-                    .foregroundColor(.txtop.black.primary)
+//                    .foregroundColor(.txtop.black.primary)
 
                 Spacer()
             }
         }
         .frame(maxWidth: .infinity)
-        .padding(.leading)
+//        .padding(.leading)
     }
 
     private var style: PLEPOptionStyle {

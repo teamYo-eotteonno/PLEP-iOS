@@ -13,31 +13,49 @@ struct LoginFirstView: View {
     @State private var pass = ""
     @Environment(\.dismiss) private var dismiss
     
+    @State private var isSelected = false
+    
     var body: some View {
         NavigationStack {
             ZStack {
                 Color.b[500].ignoresSafeArea()
                 VStack {
                     Spacer()
-                    Image(Asset.Logo.light)
-                        PLEPTextField(
-                            text: $id,
-                            placeholder: "ID를 입력해주세요.",
-                            color: .gray,
-                            login: true,
-                            isSecure: false,
-                            validate: { !$0.isEmpty },
-                            errorMessage: "ID를 입력해주세요"
-                        )
-                    PLEPTextField(
-                        text: $pass,
-                        placeholder: "PW를 입력해주세요.",
-                        color: .gray,
-                        login: true,
-                        isSecure: true,
-                        validate: { !$0.isEmpty },
-                        errorMessage: "PW를 입력해주세요"
-                    )
+                        .frame(height: 130)
+                    VStack(spacing: 50) {
+                        Image(Asset.Logo.light)
+                        VStack(alignment: .leading, spacing: 10) {
+                            PLEPTextField(
+                                text: $id,
+                                placeholder: "ID를 입력해주세요.",
+                                color: .gray,
+                                login: true,
+                                iconName: "person",
+                                isSecure: false,
+                                validate: { !$0.isEmpty },
+                                errorMessage: "ID를 입력해주세요"
+                            )
+                            PLEPTextField(
+                                text: $pass,
+                                placeholder: "PW를 입력해주세요.",
+                                color: .gray,
+                                login: true,
+                                iconName: "lock.fill",
+                                isSecure: true,
+                                validate: { !$0.isEmpty },
+                                errorMessage: "PW를 입력해주세요"
+                            )
+                            PLEPOption(
+                                title: "로그인 상태 유지",
+                                type: .filled,
+                                state: isSelected,
+                                action: {
+                                    isSelected.toggle()
+                                }
+                            )
+                            .foregroundColor(.txtop.white.primary)
+                        }
+                    }
                     Spacer()
                     PLEPButton(
                         title: "로그인",
@@ -56,7 +74,6 @@ struct LoginFirstView: View {
                     }
                 }
                 .padding(.horizontal, 30)
-                .padding(.top)
             }
         }
         .toolbar {
