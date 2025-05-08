@@ -11,6 +11,7 @@ struct JoinThirdView: View {
     @State private var next: Bool = false
     @State private var email = ""
     @Environment(\.dismiss) private var dismiss
+    @State private var selected = ""
     
     var body: some View {
         NavigationStack {
@@ -42,6 +43,12 @@ struct JoinThirdView: View {
                             Text("@")
                                 .textStyle(TextStyle.body.default)
                                 .foregroundColor(.txtop.white.primary)
+                            
+                            PLEPDropdown(
+                                options: ["naver.com", "gmail.com", "kakao.com", "기타"],
+                                selection: $selected,
+                                type: .dark
+                            )
                         }
                     }
                     Spacer()
