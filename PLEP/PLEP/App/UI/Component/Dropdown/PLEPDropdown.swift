@@ -8,42 +8,33 @@
 import SwiftUI
 
 struct PLEPDropdown: View {
+    let title: String
     let options: [String]
     @Binding var selection: String
-    let type: PLEPDropdownType
-
     @State private var isExpanded = false
+    let type: PLEPDropdownType
 
     private var style: PLEPDropdownStyle {
         PLEPDropdownStyle(type: type)
     }
 
     var body: some View {
-        VStack(spacing: 0) {
-            Button(action: {
-                withAnimation {
-                    isExpanded.toggle()
-                }
-            }) {
-                HStack {
-                    Text(selection.isEmpty ? "선택하세요" : selection)
-                        .textStyle(TextStyle.caption1.default)
-                        .foregroundColor(style.titletextColor)
-                    Spacer()
-                    Image(systemName: isExpanded ? "chevron.up" : "chevron.down")
-                        .foregroundColor(style.titletextColor)
-                }
-                .padding(.vertical)
-                .padding(.horizontal, 18)
-                .background(style.textbackColor)
-                .cornerRadius(8)
-            }
-
+        VStack(spacing: isExpanded ? -20 : 0) {
+            PLEPDropdownHeader(
+                title: selection.isEmpty ? title : selection,
+                isExpanded: $isExpanded,
+                style: style
+            )
+            .zIndex(1)
             if isExpanded {
                 VStack(spacing: 0) {
+                    Rectangle()
+                        .frame(maxWidth: .infinity)
+                        .frame(height: 20)
+                        .foregroundColor(style.contentbackColor)
                     ForEach(options.indices, id: \.self) { index in
                         let isLast = index == options.count - 1
-
+                        
                         Button(action: {
                             withAnimation {
                                 selection = options[index]
@@ -58,13 +49,23 @@ struct PLEPDropdown: View {
                                 .frame(maxWidth: .infinity, alignment: .leading)
                                 .background(style.contentbackColor)
                         }
-                        .cornerRadius(
-                            isLast ? 8 : 0,
-                            corners: isLast ? [.bottomLeft, .bottomRight] : []
-                        )
+                        Rectangle()
+                            .foregroundColor(style.dividerColor)
+                            .frame(height: 1)
+                            .frame(maxWidth: .infinity)
                     }
                 }
+                .cornerRadius(10)
+                .overlay(
+                    RoundedRectangle(cornerRadius: 10)
+                        .stroke(style.dividerColor, lineWidth: 1)
+                )
+                .zIndex(0)
             }
         }
     }
+}
+
+#Preview {
+    DropdownTestView()
 }

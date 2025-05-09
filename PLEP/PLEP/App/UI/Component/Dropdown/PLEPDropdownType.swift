@@ -17,14 +17,14 @@ struct PLEPDropdownStyle {
     var textbackColor: Color {
         switch type {
         case .light: return .g[100]
-        case .dark: return .g[800]
+        case .dark: return .black
         }
     }
     
     var contentbackColor: Color {
         switch type {
-        case .light: return .b[0]
-        case .dark: return .g[800]
+        case .light: return .g[0]
+        case .dark: return .black
         }
     }
     
@@ -41,4 +41,12 @@ struct PLEPDropdownStyle {
         case .dark: return .txtop.white.primary
         }
     }
+    
+    var dividerColor: Color {
+        switch type {
+        case .light: return .g[200]
+        case .dark: return .g[800]
+        }
+    }
+    
 }

@@ -37,7 +37,7 @@ struct OnboardingSecondView: View {
                         Image(Asset.Character.loke)
                     }
                     Spacer()
-                        .frame(height: 100)
+                        .frame(height: 90)
                     VStack(spacing: 15) {
                         PLEPButton(
                             title: "네",
@@ -65,7 +65,6 @@ struct OnboardingSecondView: View {
                     }
                 }
                 .padding(.horizontal, 30)
-                .padding(.top)
             }
         }
         .toolbar {

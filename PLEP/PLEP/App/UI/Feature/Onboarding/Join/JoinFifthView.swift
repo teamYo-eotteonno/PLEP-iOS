@@ -1,17 +1,17 @@
 //
-//  JoinThirdView.swift
+//  JoinFifthView.swift
 //  PLEP
 //
-//  Created by 이다경 on 5/4/25.
+//  Created by 이다경 on 5/9/25.
 //
 
 import SwiftUI
 
-struct JoinThirdView: View {
+struct JoinFifthView: View {
     @State private var next: Bool = false
-    @State private var email = ""
+    @State private var id = ""
     @Environment(\.dismiss) private var dismiss
-    @State private var selected = ""
+    @State private var randomType: ProfileCellType = .way
     
     var body: some View {
         NavigationStack {
@@ -21,44 +21,34 @@ struct JoinThirdView: View {
                     VStack(spacing: 25) {
                         VStack(alignment: .leading) {
                             HStack {
-                                Image(Asset.Join.email)
+                                Image(Asset.Join.profile)
                                     .resizable()
                                     .frame(width: 60, height: 60)
                                 Spacer()
                             }
-                            Text("이메일을 입력해주세요.")
+                            Text("프로필을 설정해주세요.")
                                 .textStyle(TextStyle.title2.bold)
                                 .foregroundColor(.txtop.white.primary)
-                        }
-                        HStack {
-                            PLEPTextField(
-                                text: $email,
-                                placeholder: "mail를 입력해주세요.",
-                                color: .gray,
-                                login: false,
-                                isSecure: false,
-                                validate: { !$0.isEmpty },
-                                errorMessage: "mail를 입력해주세요"
-                            )
-                            Text("@")
-                                .textStyle(TextStyle.body.default)
-                                .foregroundColor(.txtop.white.primary)
-                            
-                            PLEPDropdown(
-                                title: "naver.com",
-                                options: ["gmail.com", "kakao.com", "기타"],
-                                selection: $selected,
-                                type: .dark
-                            )
-                            .frame(width: 144)
+                                .padding(.bottom, 1)
+                            VStack(alignment: .leading) {
+                                Text("후에 수정이 가능한 항목입니다.")
+                                Text("(현재 이미지로 설정됩니다.)")
+                            }
+                            .textStyle(TextStyle.caption1.default)
+                            .foregroundColor(.txtop.white.primary)
                         }
                     }
+                    Spacer()
+                    ProfileCell(type: randomType)
+                        .onAppear {
+                            randomType = Bool.random() ? .loke : .way
+                        }
                     Spacer()
                     PLEPButton(
                         title: "넘어가기",
                         type: .filled,
                         size: .medium,
-                        enabled: email.isEmpty ? false : true,
+                        enabled: id.isEmpty ? false : true,
                         color: .purple,
                         icon: false
                     ) {
@@ -66,7 +56,7 @@ struct JoinThirdView: View {
                     }
                     .padding(.bottom, 65)
                     
-                    NavigationLink(destination: JoinFourthView(), isActive: $next) {
+                    NavigationLink(destination: JoinSecondView(), isActive: $next) {
                         EmptyView()
                     }
                 }
@@ -83,6 +73,7 @@ struct JoinThirdView: View {
     }
 }
 
+
 #Preview {
-    JoinThirdView()
+    JoinFifthView()
 }

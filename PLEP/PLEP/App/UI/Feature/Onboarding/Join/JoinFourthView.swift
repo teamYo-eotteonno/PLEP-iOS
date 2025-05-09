@@ -94,6 +94,18 @@ struct JoinFourthView: View {
                                     errorMessage: ""
                                 )
                             }
+                            PLEPButton(
+                                title: "메일 다시 전송 받기",
+                                type: .neutral,
+                                size: .sSmall,
+                                enabled: true,
+                                color: .purple,
+                                icon: false,
+                                action: {
+                                    
+                                }
+                            )
+                            .frame(width: 124)
                         }
                     }
                     Spacer()
