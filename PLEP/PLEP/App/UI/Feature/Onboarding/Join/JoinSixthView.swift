@@ -1,16 +1,16 @@
 //
-//  JoinFifthView.swift
+//  JoinSixthView.swift
 //  PLEP
 //
-//  Created by 이다경 on 5/9/25.
+//  Created by 이다경 on 5/17/25.
 //
 
 import SwiftUI
 
-struct JoinFifthView: View {
+struct JoinSixthView: View {
     @State private var next: Bool = false
+    @State private var introduce = ""
     @Environment(\.dismiss) private var dismiss
-    @State private var randomType: ProfileCellType = .way
     
     var body: some View {
         NavigationStack {
@@ -25,23 +25,22 @@ struct JoinFifthView: View {
                                     .frame(width: 60, height: 60)
                                 Spacer()
                             }
-                            Text("프로필을 설정해주세요.")
+                            Text("자기소개를 작성해주세요.")
                                 .textStyle(TextStyle.title2.bold)
-                                .foregroundColor(.txtop.white.primary)
                                 .padding(.bottom, 1)
-                            VStack(alignment: .leading) {
-                                Text("후에 수정이 가능한 항목입니다.")
-                                Text("(현재 이미지로 설정됩니다.)")
-                            }
-                            .textStyle(TextStyle.caption1.default)
-                            .foregroundColor(.txtop.white.primary)
+                            Text("바로 넘어갈 수 있는 항목입니다.")
+                                .textStyle(TextStyle.caption1.default)
                         }
+                        .foregroundColor(.txtop.white.primary)
+                        PLEPTextField(
+                            text: $introduce,
+                            placeholder: "개성 넘치는 자기소개를 부탁해요!",
+                            color: .gray,
+                            login: false,
+                            errorMessage: ""
+                        )
                     }
                     Spacer()
-                    ProfileCell(type: randomType)
-                        .onAppear {
-                            randomType = Bool.random() ? .loke : .way
-                        }
                     Spacer()
                     PLEPButton(
                         title: "넘어가기",
@@ -55,7 +54,7 @@ struct JoinFifthView: View {
                     }
                     .padding(.bottom, 65)
                     
-                    NavigationLink(destination: JoinSixthView(), isActive: $next) {
+                    NavigationLink(destination: JoinSeventhView(), isActive: $next) {
                         EmptyView()
                     }
                 }
@@ -72,7 +71,6 @@ struct JoinFifthView: View {
     }
 }
 
-
 #Preview {
-    JoinFifthView()
+    JoinSixthView()
 }

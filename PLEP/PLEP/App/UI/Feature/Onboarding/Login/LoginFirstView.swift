@@ -81,7 +81,7 @@ struct LoginFirstView: View {
                     dismiss()
                 }
         }
-        .navigationBarBackButtonHidden(true)
+        .navigationBarBackButtonHidden()
     }
 }
 

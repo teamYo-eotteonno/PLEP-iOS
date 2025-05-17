@@ -63,6 +63,9 @@ struct OnboardingSecondView: View {
                     NavigationLink(destination: JoinFirstView(), isActive: $join) {
                         EmptyView()
                     }
+                    NavigationLink(destination: LoginFirstView(), isActive: $login) {
+                        EmptyView()
+                    }
                 }
                 .padding(.horizontal, 30)
             }
@@ -72,7 +75,7 @@ struct OnboardingSecondView: View {
                     dismiss()
                 }
         }
-        .navigationBarBackButtonHidden(true)
+        .navigationBarBackButtonHidden()
     }
 }
 

@@ -12,6 +12,7 @@ struct JoinThirdView: View {
     @State private var email = ""
     @Environment(\.dismiss) private var dismiss
     @State private var selected = ""
+    @State private var lastmail = ""
     
     var body: some View {
         NavigationStack {
@@ -30,7 +31,7 @@ struct JoinThirdView: View {
                                 .textStyle(TextStyle.title2.bold)
                                 .foregroundColor(.txtop.white.primary)
                         }
-                        HStack {
+                        HStack(alignment: .top) {
                             PLEPTextField(
                                 text: $email,
                                 placeholder: "mail를 입력해주세요.",
@@ -40,17 +41,33 @@ struct JoinThirdView: View {
                                 validate: { !$0.isEmpty },
                                 errorMessage: "mail를 입력해주세요"
                             )
+                            .textInputAutocapitalization(.never)
                             Text("@")
                                 .textStyle(TextStyle.body.default)
                                 .foregroundColor(.txtop.white.primary)
+                                .padding(.top, 12)
                             
-                            PLEPDropdown(
-                                title: "naver.com",
-                                options: ["gmail.com", "kakao.com", "기타"],
-                                selection: $selected,
-                                type: .dark
-                            )
-                            .frame(width: 144)
+                            if selected == "기타" {
+                                PLEPTextField(
+                                    text: $lastmail,
+                                    placeholder: "직접입력",
+                                    color: .gray,
+                                    login: false,
+                                    isSecure: false,
+                                    validate: { !$0.isEmpty },
+                                    errorMessage: "도메인을 입력해주세요"
+                                )
+                                .textInputAutocapitalization(.never)
+                                .frame(width: 144)
+                            } else {
+                                PLEPDropdown(
+                                    title: "naver.com",
+                                    options: ["gmail.com", "kakao.com", "기타"],
+                                    selection: $selected,
+                                    type: .dark
+                                )
+                                .frame(width: 144)
+                            }
                         }
                     }
                     Spacer()
@@ -79,7 +96,7 @@ struct JoinThirdView: View {
                     dismiss()
                 }
         }
-        .navigationBarBackButtonHidden(true)
+        .navigationBarBackButtonHidden()
     }
 }
 

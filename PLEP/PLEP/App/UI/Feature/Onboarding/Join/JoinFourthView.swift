@@ -34,7 +34,7 @@ struct JoinFourthView: View {
                                 .textStyle(TextStyle.body.default)
                                 .foregroundColor(.txtop.white.primary)
                             
-                            PLEPSingleTextFieldGroup(inputs: $inputs, limit: 720)
+                            PLEPSingleTextFieldGroup(inputs: $inputs, limit: 300)
                             
                             PLEPButton(
                                 title: "메일 다시 전송 받기",
@@ -62,7 +62,7 @@ struct JoinFourthView: View {
                     )
                     .padding(.bottom, 65)
 
-                    NavigationLink(destination: JoinFourthView(), isActive: $next) {
+                    NavigationLink(destination: JoinFifthView(), isActive: $next) {
                         EmptyView()
                     }
                 }
@@ -75,7 +75,7 @@ struct JoinFourthView: View {
                 dismiss()
             }
         }
-        .navigationBarBackButtonHidden(true)
+        .navigationBarBackButtonHidden()
     }
 }
 

@@ -47,7 +47,10 @@ struct PLEPTextField: View {
                 HStack(spacing: 5) {
                     if login, let iconName = iconName {
                         Image(systemName: iconName)
+                            .resizable()
+                            .frame(width: 16, height: 16)
                             .foregroundColor(style.textColor)
+                            .padding(.bottom, fieldType == .error ? 17 : 0)
                             .padding(.leading)
                     }
 
@@ -56,16 +59,17 @@ struct PLEPTextField: View {
                             if showPassword {
                                 TextField("", text: $text)
                                     .focused($isFocused)
-                                    .padding(.leading)
+                                    .padding(.leading, login && iconName != nil ? 5 : 18)
                             } else {
                                 SecureField("", text: $text)
                                     .focused($isFocused)
-                                    .padding(.leading)
+                                    .padding(.leading, login && iconName != nil ? 5 : 18)
                             }
                         } else {
                             TextField("", text: $text)
                                 .focused($isFocused)
-                                .padding(.leading)
+                                .padding(.leading, login && iconName != nil ? 5 : 18)
+                                .textInputAutocapitalization(.never)
                         }
                     }
                     .accentColor(.p[500])
@@ -108,4 +112,8 @@ struct PLEPTextField: View {
             }
         }
     }
+}
+
+#Preview {
+    LoginFirstView()
 }

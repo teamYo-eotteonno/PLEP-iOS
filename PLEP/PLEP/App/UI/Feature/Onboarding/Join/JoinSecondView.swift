@@ -77,7 +77,7 @@ struct JoinSecondView: View {
                     dismiss()
                 }
         }
-        .navigationBarBackButtonHidden(true)
+        .navigationBarBackButtonHidden()
     }
 }
 

@@ -65,7 +65,7 @@ struct JoinFirstView: View {
                     dismiss()
                 }
         }
-        .navigationBarBackButtonHidden(true)
+        .navigationBarBackButtonHidden()
     }
 }
 
