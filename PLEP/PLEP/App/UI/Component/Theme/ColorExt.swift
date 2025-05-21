@@ -30,36 +30,17 @@ extension Color {
     
     struct Palette_g {
         private let shades: [Int: Color] = [
-            0: Color(hex: "#FFFFFF"),
-            50:  Color(hex: "#FBFAFB"),
-            100: Color(hex: "#F6F5F8"),
-            200: Color(hex: "#EDEBF0"),
-            300: Color(hex: "#E4E1E9"),
-            400: Color(hex: "#DBD7E2"),
-            500: Color(hex: "#D2CDDB"),
-            600: Color(hex: "#A8A4AF"),
-            700: Color(hex: "#7E7B83"),
-            800: Color(hex: "#545257"),
-            900: Color(hex: "#2A292C")
-        ]
-
-        subscript(index: Int) -> Color {
-            return shades[index] ?? .black
-        }
-    }
-    
-    struct Palette_b {
-        private let shades: [Int: Color] = [
-            50:  Color(hex: "#EBEAEB"),
-            100: Color(hex: "#D6D5D8"),
-            200: Color(hex: "#AEACB0"),
-            300: Color(hex: "#858289"),
-            400: Color(hex: "#5D5861"),
-            500: Color(hex: "#342F3A"),
-            600: Color(hex: "#2A252E"),
-            700: Color(hex: "#1F1C23"),
-            800: Color(hex: "#151317"),
-            900: Color(hex: "#0A090C")
+            0: Color.dynamic(light: Color(hex: "#FFFFFF"), dark: Color(hex: "#15131A")),
+            50: Color.dynamic(light: Color(hex: "#FBFAFB"), dark: Color(hex: "#201D27")),
+            100: Color.dynamic(light: Color(hex: "#F6F5F8"), dark: Color(hex: "#2B2734")),
+            200: Color.dynamic(light: Color(hex: "#EDEBF0"), dark: Color(hex: "#35303F")),
+            300: Color.dynamic(light: Color(hex: "#E4E1E9"), dark: Color(hex: "#3E3849")),
+            400: Color.dynamic(light: Color(hex: "#DBD7E2"), dark: Color(hex: "#454051")),
+            500: Color.dynamic(light: Color(hex: "#D2CDDB"), dark: Color(hex: "#4C4656")),
+            600: Color.dynamic(light: Color(hex: "#A8A4AF"), dark: Color(hex: "#514C5B")),
+            700: Color.dynamic(light: Color(hex: "#7E7B83"), dark: Color(hex: "#56525E")),
+            800: Color.dynamic(light: Color(hex: "#545257"), dark: Color(hex: "#5B5860")),
+            900: Color.dynamic(light: Color(hex: "#2A292C"), dark: Color(hex: "#5E5D61"))
         ]
 
         subscript(index: Int) -> Color {
@@ -79,40 +60,26 @@ extension Color {
         }
     }
     
-    struct ThemePalette {
-            let primary: Color
-            var secondary: Color { primary.opacity(0.72) }
-            var tertiary: Color { primary.opacity(0.48) }
-            var quarternary: Color { primary.opacity(0.32) }
-
-            subscript(key: String) -> Color {
-                switch key {
-                case "primary": return primary
-                case "secondary": return secondary
-                case "tertiary": return tertiary
-                case "quarternary": return quarternary
-                default: return .black
-                    
-                }
-            }
-        }
-    
-    struct Palette_text_color {
-        let white = ThemePalette(
-            primary: Color(hex: "#FFFFFF")
-        )
-        
-        let black = ThemePalette(
-            primary: Color(hex: "#020303")
-        )
-    }
-    
     struct Palette_text {
         private let named: [String: Color] = [
-            "primary": Color(hex: "#020303"),
-            "secondary": Color(hex: "#464C53"),
-            "tertiary": Color(hex: "#777F88"),
-            "quarternary": Color(hex: "#AFB2B6")
+            "primary": Color.dynamic(light: Color(hex: "#151118"), dark: Color(hex: "#FFFFFF")),
+            "secondary": Color.dynamic(light: Color(hex: "#151118"), dark: Color(hex: "#FFFFFF")).opacity(0.72),
+            "tertiary": Color.dynamic(light: Color(hex: "#151118"), dark: Color(hex: "#FFFFFF")).opacity(0.48),
+            "quartemary": Color.dynamic(light: Color(hex: "#151118"), dark: Color(hex: "#FFFFFF")).opacity(0.32),
+        ]
+        
+        subscript(key: String) -> Color {
+            named[key] ?? .black
+        }
+    }
+    
+    struct Palette_icon {
+        private let named: [String: Color] = [
+            "primary": Color(hex: "#42394D"),
+            "secondary": Color(hex: "#4E4653"),
+            "tertiary": Color(hex: "#827788"),
+            "quartemary": Color(hex: "#B4AFB6"),
+            "while": Color(hex: "#FFFFFF"),
         ]
         
         subscript(key: String) -> Color {
@@ -141,10 +108,9 @@ extension Color {
 
     static let p = Palette_p()
     static let g = Palette_g()
-    static let b = Palette_b()
     static let s = Palette_s()
-    static let txtop = Palette_text_color()
     static let txt = Palette_text()
+    static let icon = Palette_icon()
     static let file = Palette_file()
 }
 
@@ -174,5 +140,13 @@ extension Color {
             blue: Double(b) / 255,
             opacity: Double(a) / 255
         )
+    }
+}
+
+extension Color {
+    static func dynamic(light: Color, dark: Color) -> Color {
+        return Color(UIColor { trait in
+            trait.userInterfaceStyle == .dark ? UIColor(dark) : UIColor(light)
+        })
     }
 }
