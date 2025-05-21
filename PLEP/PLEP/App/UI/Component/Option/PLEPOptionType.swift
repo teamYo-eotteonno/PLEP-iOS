@@ -21,10 +21,10 @@ struct PLEPOptionStyle {
         switch (type, state) {
         case (.filled, true): return .p[500]
         case (.filled, false): return .p[500].opacity(0.2)
-        case (.outlined, true): return .g[100]
-        case (.outlined, false): return .g[100].opacity(0.4)
-        case (.neutral, true): return .g[300]
-        case (.neutral, false): return .g[300].opacity(0.4)
+        case (.outlined, true): return .g[400]
+        case (.outlined, false): return .g[400].opacity(0.4)
+        case (.neutral, true): return .g[200]
+        case (.neutral, false): return .g[200].opacity(0.4)
         }
     }
 
@@ -32,10 +32,10 @@ struct PLEPOptionStyle {
         switch (type, state) {
         case (.filled, true): return .p[500]
         case (.filled, false): return .p[500].opacity(0.2)
-        case (.outlined, true): return .g[600]
-        case (.outlined, false): return .g[600].opacity(0.4)
-        case (.neutral, true): return .g[300]
-        case (.neutral, false): return .g[300].opacity(0.4)
+        case (.outlined, true): return .g[400]
+        case (.outlined, false): return .g[400].opacity(0.4)
+        case (.neutral, true): return .txt["tertiary"]
+        case (.neutral, false): return .txt["tertiary"].opacity(0.4)
         }
     }
 

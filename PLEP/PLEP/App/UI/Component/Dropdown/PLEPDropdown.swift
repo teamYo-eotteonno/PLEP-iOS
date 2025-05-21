@@ -12,18 +12,12 @@ struct PLEPDropdown: View {
     let options: [String]
     @Binding var selection: String
     @State private var isExpanded = false
-    let type: PLEPDropdownType
-
-    private var style: PLEPDropdownStyle {
-        PLEPDropdownStyle(type: type)
-    }
 
     var body: some View {
         VStack(spacing: isExpanded ? -20 : 0) {
             PLEPDropdownHeader(
                 title: selection.isEmpty ? title : selection,
-                isExpanded: $isExpanded,
-                style: style
+                isExpanded: $isExpanded
             )
             .zIndex(1)
             if isExpanded {
@@ -31,7 +25,7 @@ struct PLEPDropdown: View {
                     Rectangle()
                         .frame(maxWidth: .infinity)
                         .frame(height: 20)
-                        .foregroundColor(style.contentbackColor)
+                        .foregroundColor(.g[0])
                     ForEach(options.indices, id: \.self) { index in
                         let isLast = index == options.count - 1
                         
@@ -42,15 +36,15 @@ struct PLEPDropdown: View {
                             }
                         }) {
                             Text(options[index])
-                                .textStyle(TextStyle.caption1.default)
-                                .foregroundColor(style.contenttextColor)
+                                .textStyle.body.small
+                                .foregroundColor(.txt["primary"])
                                 .padding(.vertical, 12)
                                 .padding(.horizontal, 18)
                                 .frame(maxWidth: .infinity, alignment: .leading)
-                                .background(style.contentbackColor)
+                                .background(Color.g[0])
                         }
                         Rectangle()
-                            .foregroundColor(style.dividerColor)
+                            .foregroundColor(Color.g[50])
                             .frame(height: 1)
                             .frame(maxWidth: .infinity)
                     }
@@ -58,7 +52,7 @@ struct PLEPDropdown: View {
                 .cornerRadius(10)
                 .overlay(
                     RoundedRectangle(cornerRadius: 10)
-                        .stroke(style.dividerColor, lineWidth: 1)
+                        .stroke(Color.g[50], lineWidth: 1)
                 )
                 .zIndex(0)
             }

@@ -25,7 +25,7 @@ struct PLEPCountdown: View {
 
     var body: some View {
         Text("*남은 시간 \(formattedTime)")
-            .textStyle(TextStyle.caption1.default)
+            .textStyle.title.pre
             .foregroundColor(.s["error"])
             .onReceive(timer) { _ in
                 if remainingSeconds > 0 {

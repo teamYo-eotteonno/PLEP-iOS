@@ -43,42 +43,9 @@ struct ColorTestView: View {
                 .padding(.horizontal, 10)
                 
                 HStack(spacing: 0) {
-                    ColorCeil(.b[50])
-                    ColorCeil(.b[100])
-                    ColorCeil(.b[200])
-                    ColorCeil(.b[300])
-                    ColorCeil(.b[400])
-                    ColorCeil(.b[500])
-                    ColorCeil(.b[600])
-                    ColorCeil(.b[700])
-                    ColorCeil(.b[800])
-                    ColorCeil(.b[900])
-                }
-                .clipShape(RoundedRectangle(cornerSize: CGSize(width: 10, height: 10)))
-                .padding(.horizontal, 10)
-                
-                HStack(spacing: 0) {
                     ColorCeil(.s["success"])
                     ColorCeil(.s["error"])
                     ColorCeil(.s["warning"])
-                }
-                .clipShape(RoundedRectangle(cornerSize: CGSize(width: 10, height: 10)))
-                .padding(.horizontal, 10)
-                
-                HStack(spacing: 0) {
-                    ColorCeil(.txtop.white.primary)
-                    ColorCeil(.txtop.white.secondary)
-                    ColorCeil(.txtop.white.tertiary)
-                    ColorCeil(.txtop.white.quarternary)
-                }
-                .clipShape(RoundedRectangle(cornerSize: CGSize(width: 10, height: 10)))
-                .padding(.horizontal, 10)
-                
-                HStack(spacing: 0) {
-                    ColorCeil(.txtop.black.primary)
-                    ColorCeil(.txtop.black.secondary)
-                    ColorCeil(.txtop.black.tertiary)
-                    ColorCeil(.txtop.black.quarternary)
                 }
                 .clipShape(RoundedRectangle(cornerSize: CGSize(width: 10, height: 10)))
                 .padding(.horizontal, 10)
@@ -88,6 +55,15 @@ struct ColorTestView: View {
                     ColorCeil(.txt["secondary"])
                     ColorCeil(.txt["tertiary"])
                     ColorCeil(.txt["quarternary"])
+                }
+                .clipShape(RoundedRectangle(cornerSize: CGSize(width: 10, height: 10)))
+                .padding(.horizontal, 10)
+                
+                HStack(spacing: 0) {
+                    ColorCeil(.icon["primary"])
+                    ColorCeil(.icon["secondary"])
+                    ColorCeil(.icon["tertiary"])
+                    ColorCeil(.icon["quarternary"])
                 }
                 .clipShape(RoundedRectangle(cornerSize: CGSize(width: 10, height: 10)))
                 .padding(.horizontal, 10)

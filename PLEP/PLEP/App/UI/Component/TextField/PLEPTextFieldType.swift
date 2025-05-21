@@ -11,16 +11,10 @@ enum PLEPTextFieldType {
     case null, `in`, focus, error, security
 }
 
-enum PLEPTextFieldColor {
-    case gray, dark
-}
-
 // MARK: - Style Resolver
 
 struct PLEPTextFieldStyle {
-    let color: PLEPTextFieldColor
     let type: PLEPTextFieldType
-    let login: Bool
     
     var isSecure: Bool {
         return type == .security
@@ -34,27 +28,27 @@ struct PLEPTextFieldStyle {
         showBorder ? 1 : 0
     }
 
-    var textColor: Color {
-        switch color {
-        case .gray:
-            switch type {
-            case .null: return .txt["quarternary"]
-            default: return .txt["secondary"]
-            }
-        case .dark:
-            switch type {
-            case .null: return .txtop.white.tertiary
-            default: return .txtop.white.primary
-        }
-        }
-    }
+//    var textColor: Color {
+//        switch color {
+//        case .gray:
+//            switch type {
+//            case .null: return .txt["quarternary"]
+//            default: return .txt["secondary"]
+//            }
+//        case .dark:
+//            switch type {
+//            case .null: return .txtop.white.tertiary
+//            default: return .txtop.white.primary
+//        }
+//        }
+//    }
 
-    var backgroundColor: Color {
-        switch color {
-        case .gray: return .g[100]
-        case .dark: return .b[700]
-        }
-    }
+//    var backgroundColor: Color {
+//        switch type {
+//        case .gray: return .g[100]
+//        case .dark: return .b[700]
+//        }
+//    }
 
     var borderColor: Color {
         switch type {

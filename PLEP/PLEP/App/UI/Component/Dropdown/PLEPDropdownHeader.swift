@@ -10,7 +10,6 @@ import SwiftUI
 struct PLEPDropdownHeader: View {
     let title: String
     @Binding var isExpanded: Bool
-    let style: PLEPDropdownStyle
 
     var body: some View {
         Button(action: {
@@ -20,16 +19,20 @@ struct PLEPDropdownHeader: View {
         }) {
             HStack {
                 Text(title)
-                    .textStyle(TextStyle.caption1.default)
-                    .foregroundColor(style.titletextColor)
+                    .textStyle.body.default
+                    .foregroundColor(.txt["quarternary"])
                 Spacer()
                 Image(systemName: isExpanded ? "chevron.up" : "chevron.down")
-                    .foregroundColor(style.titletextColor)
+                    .foregroundColor(.icon["tertiary"])
             }
             .padding(.vertical)
             .padding(.horizontal, 18)
-            .background(style.textbackColor)
+            .background(Color.g[50])
             .cornerRadius(10)
+            .overlay(
+                RoundedRectangle(cornerRadius: 10)
+                    .stroke(Color.g[50], lineWidth: 1)
+            )
         }
     }
 }

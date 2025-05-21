@@ -14,7 +14,6 @@ struct PLEPButton: View {
     let type: PLEPButtonType
     let size: PLEPButtonSize
     let enabled: Bool
-    let color: PLEPButtonColor
     let icon: Bool
 
     let action: () -> Void
@@ -27,15 +26,19 @@ struct PLEPButton: View {
                 .foregroundColor(style.textColor)
                 .background(style.backgroundColor)
                 .overlay(
-                    RoundedRectangle(cornerRadius: 10)
+                    RoundedRectangle(cornerRadius: 15)
                         .stroke(style.borderColor, lineWidth: style.borderWidth)
                 )
-                .cornerRadius(10)
+                .cornerRadius(15)
         }
         .disabled(!enabled)
     }
 
     private var style: PLEPButtonStyle {
-        PLEPButtonStyle(type: type, size: size, enabled: enabled, color: color)
+        PLEPButtonStyle(type: type, size: size, enabled: enabled)
     }
 }
+
+//#Preview {
+//    PLEPButton(title: "d", type: .filled, size: .medium, enabled: true, icon: false, action: {})
+//}

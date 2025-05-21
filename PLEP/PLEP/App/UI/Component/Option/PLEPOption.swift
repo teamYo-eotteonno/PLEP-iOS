@@ -45,7 +45,8 @@ struct PLEPOption: View {
                 }
 
                 Text(title)
-                    .textStyle(TextStyle.body.bold)
+                    .textStyle.body.small
+                    .foregroundColor(.txt["primary"])
 
                 Spacer()
             }

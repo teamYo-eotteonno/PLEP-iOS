@@ -12,11 +12,7 @@ enum PLEPButtonType {
 }
 
 enum PLEPButtonSize {
-    case sSmall, small, medium, large, lLarge
-}
-
-enum PLEPButtonColor {
-    case purple, dark
+    case small, medium, large
 }
 
 // MARK: - Style Resolver
@@ -25,65 +21,44 @@ struct PLEPButtonStyle {
     let type: PLEPButtonType
     let size: PLEPButtonSize
     let enabled: Bool
-    let color: PLEPButtonColor
 
     var height: CGFloat {
         switch size {
-        case .lLarge: return 80
-        case .large: return 55
-        case .medium: return 51
-        case .small: return 52
-        case .sSmall: return 34
+        case .large: return 70
+        case .medium: return 57
+        case .small: return 41
         }
     }
 
     var textStyle: TextStyle {
         switch size {
-        case .lLarge: return TextStyle.largetitle.bold
-        case .large: return TextStyle.button.icon
-        case .medium: return TextStyle.button.text
-        case .small: return TextStyle.button.smalltext
-        case .sSmall: return TextStyle.caption1.bold
+        case .large: return .title.header3
+        case .medium: return .title.subtitle
+        case .small: return .body.bold
         }
     }
 
     var textColor: Color {
-        if type == .filled {
-            return .txtop.white.primary
-        } else {
-            return enabled ? .txt["tertiary"] : .txtop.black.tertiary
+        switch type {
+        case .filled: return enabled ? .icon["white"] : .icon["white"].opacity(0.6)
+        case .outlined: return enabled ? .icon["tertiary"] : .icon["tertiary"].opacity(0.6)
+        case .neutral: return enabled ? .txt["tertiary"] : .txt["tertiary"].opacity(0.6)
         }
     }
 
     var backgroundColor: Color {
         switch type {
-        case .filled:
-            switch (enabled, color) {
-            case (true, .purple): return .p[500]
-            case (false, .purple): return .p[300]
-            case (true, .dark): return .b[600]
-            case (false, .dark): return .b[600].opacity(0.6)
-            }
-        case .outlined:
-            return .g[0]
-        case .neutral:
-            switch (enabled, color) {
-            case (true, .purple): return .g[100]
-            case (false, .purple): return .g[100].opacity(0.6)
-            case (true, .dark): return .p[50]
-            case (false, .dark): return .p[50].opacity(0.6)
-            }
+        case .filled: return enabled ? .p[500] : .p[500].opacity(0.6)
+        case .outlined: return enabled ? .g[0] : .g[0].opacity(0.6)
+        case .neutral: return enabled ? .g[200] : .g[200].opacity(0.6)
         }
     }
 
     var borderColor: Color {
-        guard type == .outlined else { return .clear }
-
-        switch (enabled, color) {
-        case (true, .purple): return .g[200]
-        case (false, .purple): return .g[200].opacity(0.6)
-        case (true, .dark): return .p[500]
-        case (false, .dark): return .p[500].opacity(0.6)
+        switch type {
+        case .filled: return .clear
+        case .outlined: return enabled ? .g[200] : .g[200].opacity(0.6)
+        case .neutral: return .clear
         }
     }
 

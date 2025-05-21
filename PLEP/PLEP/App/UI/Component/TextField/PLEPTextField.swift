@@ -10,9 +10,9 @@ import SwiftUI
 struct PLEPTextField: View {
     @Binding var text: String
     var placeholder: String
-    var color: PLEPTextFieldColor
-    var login: Bool
-    var iconName: String? = nil
+//    var color: PLEPTextFieldColor
+//    var login: Bool
+//    var iconName: String? = nil
     var isSecure: Bool = false
     var validate: ((String) -> Bool)? = nil
     var errorMessage: String
@@ -22,7 +22,7 @@ struct PLEPTextField: View {
     @State private var showPassword = false
 
     private var style: PLEPTextFieldStyle {
-        PLEPTextFieldStyle(color: color, type: fieldType, login: login)
+        PLEPTextFieldStyle(type: fieldType)
     }
 
     var body: some View {
@@ -30,7 +30,7 @@ struct PLEPTextField: View {
             ZStack(alignment: .leading) {
                 if text.isEmpty {
                     Text(placeholder)
-                        .padding(.leading, login && iconName != nil ? 44 : 18)
+                        .padding(.leading, 18)
                         .foregroundColor(.txt["quarternary"])
                         .textStyle.body.default
                         .padding(.bottom, fieldType == .error ? 20 : 0)
@@ -40,20 +40,11 @@ struct PLEPTextField: View {
                     Text("*" + errorMessage)
                         .padding(.leading, 18)
                         .foregroundColor(.s["error"])
-                        .textStyle(TextStyle.caption2.default)
+                        .textStyle.body.small
                         .padding(.top, 25)
                 }
 
                 HStack(spacing: 5) {
-                    if login, let iconName = iconName {
-                        Image(systemName: iconName)
-                            .resizable()
-                            .frame(width: 16, height: 16)
-                            .foregroundColor(style.textColor)
-                            .padding(.bottom, fieldType == .error ? 17 : 0)
-                            .padding(.leading)
-                    }
-
                     Group {
                         if isSecure {
                             if showPassword {
