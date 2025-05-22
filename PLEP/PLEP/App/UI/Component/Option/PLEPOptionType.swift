@@ -18,28 +18,30 @@ struct PLEPOptionStyle {
     let state: Bool
 
     var backgroundColor: Color {
-        switch (type, state) {
-        case (.filled, true): return .p[500]
-        case (.filled, false): return .p[500].opacity(0.2)
-        case (.outlined, true): return .g[400]
-        case (.outlined, false): return .g[400].opacity(0.4)
-        case (.neutral, true): return .g[200]
-        case (.neutral, false): return .g[200].opacity(0.4)
+        switch type {
+        case .filled: return state ? .p[500] : .p[500].opacity(0.2)
+        case .outlined: return state ? .g[200] : .g[200].opacity(0.4)
+        case .neutral: return state ? .g[400] : .g[400].opacity(0.4)
         }
     }
 
+    var checkColor: Color {
+        switch type {
+        case .filled: return state ? .icon.white : .icon.white.opacity(0.2)
+        case .outlined: return state ? .txt.tertiary : .txt.tertiary.opacity(0.4)
+        case .neutral: return state ? .txt.tertiary : .txt.tertiary.opacity(0.4)
+        }
+    }
+    
     var borderColor: Color {
-        switch (type, state) {
-        case (.filled, true): return .p[500]
-        case (.filled, false): return .p[500].opacity(0.2)
-        case (.outlined, true): return .g[400]
-        case (.outlined, false): return .g[400].opacity(0.4)
-        case (.neutral, true): return .txt["tertiary"]
-        case (.neutral, false): return .txt["tertiary"].opacity(0.4)
+        switch type {
+        case .filled: return state ? .p[500] : .p[500].opacity(0.2)
+        case .outlined: return state ? .txt.tertiary : .txt.tertiary.opacity(0.4)
+        case .neutral: return state ? .g[400] : .g[400].opacity(0.4)
         }
     }
 
     var borderWidth: CGFloat {
-        return 0.5
+        return 1
     }
 }

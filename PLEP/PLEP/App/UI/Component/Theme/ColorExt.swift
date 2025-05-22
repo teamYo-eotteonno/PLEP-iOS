@@ -49,61 +49,39 @@ extension Color {
     }
     
     struct Palette_s {
-        private let named: [String: Color] = [
-            "success": Color(hex: "#01D281"),
-            "error": Color(hex: "#CF4747"),
-            "warning": Color(hex: "#E8C141"),
-        ]
-        
-        subscript(key: String) -> Color {
-            named[key] ?? .black
-        }
+        var success: Color { Color(hex: "#01D281") }
+        var error: Color { Color(hex: "#CF4747") }
+        var warning: Color { Color(hex: "#E8C141") }
     }
     
     struct Palette_text {
-        private let named: [String: Color] = [
-            "primary": Color.dynamic(light: Color(hex: "#151118"), dark: Color(hex: "#FFFFFF")),
-            "secondary": Color.dynamic(light: Color(hex: "#151118"), dark: Color(hex: "#FFFFFF")).opacity(0.72),
-            "tertiary": Color.dynamic(light: Color(hex: "#151118"), dark: Color(hex: "#FFFFFF")).opacity(0.48),
-            "quartemary": Color.dynamic(light: Color(hex: "#151118"), dark: Color(hex: "#FFFFFF")).opacity(0.32),
-        ]
-        
-        subscript(key: String) -> Color {
-            named[key] ?? .black
-        }
+        var primary: Color { Color.dynamic(light: Color(hex: "#151118"), dark: Color(hex: "#FFFFFF")) }
+        var secondary: Color { Color.dynamic(light: Color(hex: "#151118"), dark: Color(hex: "#FFFFFF")).opacity(0.72) }
+        var tertiary: Color { Color.dynamic(light: Color(hex: "#151118"), dark: Color(hex: "#FFFFFF")).opacity(0.48) }
+        var quartemary: Color { Color.dynamic(light: Color(hex: "#151118"), dark: Color(hex: "#FFFFFF")).opacity(0.32) }
     }
+
     
     struct Palette_icon {
-        private let named: [String: Color] = [
-            "primary": Color(hex: "#42394D"),
-            "secondary": Color(hex: "#4E4653"),
-            "tertiary": Color(hex: "#827788"),
-            "quartemary": Color(hex: "#B4AFB6"),
-            "while": Color(hex: "#FFFFFF"),
-        ]
-        
-        subscript(key: String) -> Color {
-            named[key] ?? .black
-        }
+        var primary: Color { Color(hex: "#42394D") }
+        var secondary: Color { Color(hex: "#4E4653") }
+        var tertiary: Color { Color(hex: "#827788") }
+        var quartemary: Color { Color(hex: "#B4AFB6") }
+        var white: Color { Color(hex: "#FFFFFF") }
     }
+
     
     struct Palette_file {
-        private let named: [String: Color] = [
-            "red": Color(hex: "#E16868"),
-            "orange": Color(hex: "#E19E68"),
-            "yellow": Color(hex: "#E1D568"),
-            "lame": Color(hex: "#B9E168"),
-            "green": Color(hex: "#68E180"),
-            "sky": Color(hex: "#68D5E1"),
-            "blue": Color(hex: "#6882E1"),
-            "purple": Color(hex: "#8068E1"),
-            "magenta": Color(hex: "#CD68E1"),
-            "pink": Color(hex: "#E168B1")
-        ]
-        
-        subscript(key: String) -> Color {
-            named[key] ?? .black
-        }
+        var red: Color { Color(hex: "#E16868") }
+        var orange: Color { Color(hex: "#E19E68") }
+        var yellow: Color { Color(hex: "#E1D568") }
+        var lame: Color { Color(hex: "#B9E168") }
+        var green: Color { Color(hex: "#68E180") }
+        var sky: Color { Color(hex: "#68D5E1") }
+        var blue: Color { Color(hex: "#6882E1") }
+        var purple: Color { Color(hex: "#8068E1") }
+        var magenta: Color { Color(hex: "#CD68E1") }
+        var pink: Color { Color(hex: "#E168B1") }
     }
 
     static let p = Palette_p()

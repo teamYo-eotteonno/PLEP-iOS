@@ -14,15 +14,13 @@ struct DropdownTestView: View {
         PLEPDropdown(
             title: "E-mail",
             options: ["naver.com", "gmail.com", "kakao.com", "기타"],
-            selection: $selected,
-            type: .dark
+            selection: $selected
         )
         
         PLEPDropdown(
             title: "E-mail",
             options: ["naver.com", "gmail.com", "kakao.com", "기타"],
-            selection: $selected,
-            type: .light
+            selection: $selected
         )
     }
 }

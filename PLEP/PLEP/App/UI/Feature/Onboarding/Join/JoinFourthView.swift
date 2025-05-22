@@ -10,70 +10,51 @@ import SwiftUI
 struct JoinFourthView: View {
     @State private var next: Bool = false
     @Environment(\.dismiss) private var dismiss
-    @State private var inputs = Array(repeating: "", count: 6)
-
+    @State private var randomType: ProfileCellType = .way
+    
     var body: some View {
         NavigationStack {
             ZStack {
-                Color.b[500].ignoresSafeArea()
-                VStack {
-                    VStack(spacing: 25) {
-                        VStack(alignment: .leading) {
-                            HStack {
-                                Image(Asset.Join.email)
-                                    .resizable()
-                                    .frame(width: 60, height: 60)
-                                Spacer()
+                Color.g[0].ignoresSafeArea()
+                VStack(alignment: .leading) {
+                    Text("프로필을 설정해주세요.")
+                        .textStyle.title.header3
+                        .foregroundColor(.txt.primary)
+                        .padding(.bottom, 1)
+                    Text("(후에 수정이 가능한 항목입니다.)")
+                        .textStyle.body.default
+                        .foregroundColor(.txt.primary)
+                    Spacer()
+                    HStack {
+                        Spacer()
+                        ProfileCell(type: randomType)
+                            .onAppear {
+                                randomType = Bool.random() ? .loke : .way
                             }
-                            Text("이메일을 입력해주세요.")
-                                .textStyle(TextStyle.title2.bold)
-                                .foregroundColor(.txtop.white.primary)
-                        }
-                        VStack(alignment: .leading, spacing: 10) {
-                            Text("이메일 인증 번호 작성")
-                                .textStyle(TextStyle.body.default)
-                                .foregroundColor(.txtop.white.primary)
-                            
-                            PLEPSingleTextFieldGroup(inputs: $inputs, limit: 300)
-                            
-                            PLEPButton(
-                                title: "메일 다시 전송 받기",
-                                type: .neutral,
-                                size: .sSmall,
-                                enabled: true,
-                                color: .purple,
-                                icon: false,
-                                action: {}
-                            )
-                            .frame(width: 124)
-                        }
+                        Spacer()
                     }
                     Spacer()
                     PLEPButton(
                         title: "넘어가기",
-                        type: .filled,
+                        type: .neutral,
                         size: .medium,
-                        enabled: inputs.allSatisfy { !$0.isEmpty },
-                        color: .purple,
-                        icon: false,
-                        action: {
-                            next = true
-                        }
-                    )
+                        enabled: true,
+                        icon: false
+                    ) {
+                        next = true
+                    }
                     .padding(.bottom, 65)
-
+                    
                     NavigationLink(destination: JoinFifthView(), isActive: $next) {
                         EmptyView()
                     }
                 }
-                .padding(.horizontal, 30)
+                .padding(.horizontal, 20)
                 .padding(.top)
             }
         }
         .toolbar {
-            PLEPToolbarBackButton {
-                dismiss()
-            }
+            PLEPToolbarBackButton { dismiss() }
         }
         .navigationBarBackButtonHidden()
     }

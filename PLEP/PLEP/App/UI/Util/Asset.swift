@@ -6,57 +6,47 @@
 //
 
 class Asset{
-    struct Character {
-        static let loke = "Loke"
-        static let way = "Way"
+    static let flag = "Flag"
+    
+    struct Plane {
+        static let fall = "Plane-Fall"
+        static let rise = "Plane-Rise"
     }
-    struct Logo {
-        static let `default` = "Logo-Purple"
-        static let dark = "Logo-Black"
-        static let light = "Logo-White"
+    
+    struct Loke {
+        static let `default` = "Loke-Default"
+        static let start = "Loke-Start"
+        static let travel = "Loke-Travel"
     }
-    struct Join {
-        static let first = "User-Tag-White"
-        static let id = "User-Cirlce-Add-White"
-        static let pass = "Password-Check-White"
-        static let email = "Sms-Edit-White"
-        static let profile = "User-Edit-White"
-        static let camera = "Camera-White"
+    
+    struct Way {
+        static let `default` = "Way-Default"
+        static let start = "Way-Start"
+        static let travel = "Way-Travel"
     }
-    struct LogIn {
-        static let id = "User-Gray"
-        static let pass = "Password-Check-Gray"
-        struct passcheck {
-            static let open = "Eye-Gray"
-            static let close = "Eye-Slash-Gray"
-        }
-    }
+    
     struct Calendar {
-        static let `default` = "Calendar-Dark"
-        static let choice = "Calendar-Purple"
+        static let `default` = "Calendar"
+        static let tap = "Calendar-Tap"
     }
+    
     struct Home {
-        static let `default` = "Home-Dark"
-        static let choice = "Home-Purple"
+        static let `default` = "Home"
+        static let tap = "Home-Tap"
     }
+    
     struct Profile {
-        static let `default` = "Profile-Circle-Dark"
-        static let choice = "Profile-Circle-Purple"
+        static let `default` = "Profile"
+        static let tap = "Profile-Tap"
     }
+    
     struct Search {
-        static let `default` = "Search-Normal-Dark"
-        static let choice = "Search-Normal-Purple"
+        static let `default` = "Search"
+        static let tap = "Search-Tap"
     }
+    
     struct Sun {
-        static let `default` = "Sun-Dark"
-        static let choice = "Sun-Purple"
-    }
-    struct Check {
-        static let white = "Check-White"
-        static let gray = "Check-Gray"
-    }
-    struct Back {
-        static let white = "Back-White"
-        static let gray = "Back-Gray"
+        static let `default` = "Sun"
+        static let tap = "Sun-Tap"
     }
 }

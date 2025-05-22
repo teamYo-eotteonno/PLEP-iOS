@@ -37,7 +37,7 @@ struct PLEPDropdown: View {
                         }) {
                             Text(options[index])
                                 .textStyle.body.small
-                                .foregroundColor(.txt["primary"])
+                                .foregroundColor(.txt.primary)
                                 .padding(.vertical, 12)
                                 .padding(.horizontal, 18)
                                 .frame(maxWidth: .infinity, alignment: .leading)

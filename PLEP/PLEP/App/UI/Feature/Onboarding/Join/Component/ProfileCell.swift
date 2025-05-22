@@ -29,9 +29,9 @@ struct ProfileCell: View {
                     Circle()
                         .frame(width: 44)
                         .foregroundColor(.p[300])
-                    Image(Asset.Join.camera)
-                        .resizable()
-                        .frame(width: 24, height: 24)
+//                    Image(Asset.Join.camera)
+//                        .resizable()
+//                        .frame(width: 24, height: 24)
                 }
             }
         }

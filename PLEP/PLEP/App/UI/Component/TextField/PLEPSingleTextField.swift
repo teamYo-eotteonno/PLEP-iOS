@@ -30,9 +30,9 @@ struct PLEPSingleTextField: View {
                     input = ""
                 }
             }
-            .frame(width: 47.5, height: 62)
+            .frame(width: 37.5, height: 46)
             .background(Color.g[100])
             .cornerRadius(10)
-            .foregroundColor(.txtop.black.primary)
+            .foregroundColor(.txt.primary)
     }
 }

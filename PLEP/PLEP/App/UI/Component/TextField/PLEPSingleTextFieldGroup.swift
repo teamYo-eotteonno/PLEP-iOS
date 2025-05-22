@@ -24,6 +24,7 @@ struct PLEPSingleTextFieldGroup: View {
                     )
                 }
             }
+            .frame(maxWidth: .infinity)
             .onAppear {
                 focusedIndex = 0
             }

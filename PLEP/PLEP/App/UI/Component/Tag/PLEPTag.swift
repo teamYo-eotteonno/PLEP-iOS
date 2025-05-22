@@ -8,11 +8,26 @@
 import SwiftUI
 
 struct PLEPTag: View {
-    var body: some View {
-        Text(/*@START_MENU_TOKEN@*/"Hello, World!"/*@END_MENU_TOKEN@*/)
-    }
-}
+    let title: String
+    let type: PLEPTagType
+    let size: PLEPTagSize
+    let enabled: Bool
 
-#Preview {
-    PLEPTag()
+    var body: some View {
+        Text(title)
+            .padding(.horizontal, style.width)
+            .textStyle(style.textStyle)
+            .frame(minHeight: style.height)
+            .foregroundColor(style.textColor)
+            .background(style.backgroundColor)
+            .overlay(
+                RoundedRectangle(cornerRadius: 15)
+                    .stroke(style.borderColor, lineWidth: style.borderWidth)
+            )
+            .cornerRadius(25)
+    }
+
+    private var style: PLEPTagStyle {
+        PLEPTagStyle(type: type, size: size, enabled: enabled)
+    }
 }

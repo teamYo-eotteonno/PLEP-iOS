@@ -15,37 +15,26 @@ struct JoinFirstView: View {
     var body: some View {
         NavigationStack {
             ZStack {
-                Color.b[500].ignoresSafeArea()
+                Color.g[0].ignoresSafeArea()
                 VStack {
-                    VStack(spacing: 25) {
-                        VStack(alignment: .leading) {
-                            HStack {
-                                Image(Asset.Join.id)
-                                    .resizable()
-                                    .frame(width: 60, height: 60)
-                                Spacer()
-                            }
-                            Text("아이디를 입력해주세요.")
-                                .textStyle(TextStyle.title2.bold)
-                                .foregroundColor(.txtop.white.primary)
-                        }
+                    VStack(alignment: .leading, spacing: 25) {
+                        Text("아이디를 입력해주세요.")
+                            .textStyle.title.header3
+                            .foregroundColor(.txt.primary)
                         PLEPTextField(
                             text: $id,
-                            placeholder: "ID를 입력해주세요.",
-                            color: .gray,
-                            login: false,
+                            placeholder: "아이디를 입력해주세요.",
                             isSecure: false,
                             validate: { !$0.isEmpty },
-                            errorMessage: "ID를 입력해주세요"
+                            errorMessage: "아이디를 입력해주세요"
                         )
                     }
                     Spacer()
                     PLEPButton(
                         title: "넘어가기",
-                        type: .filled,
+                        type: .neutral,
                         size: .medium,
                         enabled: id.isEmpty ? false : true,
-                        color: .purple,
                         icon: false
                     ) {
                         next = true
@@ -56,14 +45,12 @@ struct JoinFirstView: View {
                         EmptyView()
                     }
                 }
-                .padding(.horizontal, 30)
+                .padding(.horizontal, 20)
                 .padding(.top)
             }
         }
         .toolbar {
-            PLEPToolbarBackButton {
-                    dismiss()
-                }
+            PLEPToolbarBackButton { dismiss() }
         }
         .navigationBarBackButtonHidden()
     }

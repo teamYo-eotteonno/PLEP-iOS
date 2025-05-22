@@ -38,7 +38,3 @@ struct PLEPButton: View {
         PLEPButtonStyle(type: type, size: size, enabled: enabled)
     }
 }
-
-//#Preview {
-//    PLEPButton(title: "d", type: .filled, size: .medium, enabled: true, icon: false, action: {})
-//}

@@ -13,9 +13,10 @@ struct PLEPToolbarBackButton: ToolbarContent {
     var body: some ToolbarContent {
         ToolbarItem(placement: .topBarLeading) {
             Button(action: action) {
-                Image(Asset.Back.white)
+                Image(systemName: "chevron.left")
                     .resizable()
-                    .frame(width: 23, height: 23)
+                    .foregroundColor(.txt.primary)
+                    .frame(width: 10, height: 16)
                     .padding(.leading, 10)
             }
         }

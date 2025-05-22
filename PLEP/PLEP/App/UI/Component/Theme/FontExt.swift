@@ -75,6 +75,10 @@ extension TextStyle {
         static let `default` = pretendardStyle(size: 16, weight: .medium, lineHeight: 19.1)
         static let bold = pretendardStyle(size: 16, weight: .bold, lineHeight: 19.1)
     }
+    
+    static let logo = TextStyle(font: .custom("TitanOne", size: 80), lineHeight: 92, fontSize: 80)
+    
+    static let end = TextStyle(font: .custom("OTMBC-1961M", size: 60), lineHeight: 140, fontSize: 60)
 
     static let title = Title.self
     static let body = Body.self
@@ -120,6 +124,14 @@ struct TextStyleAccessProxy<V: View> {
 
     var button: TextStyleProxy<TextStyle.Button.Type> {
         TextStyleProxy(view: view, styleSet: TextStyle.button)
+    }
+    
+    var logo: some View {
+        view.textStyle(TextStyle.logo)
+    }
+    
+    var end: some View {
+        view.textStyle(TextStyle.end)
     }
 }
 

@@ -18,19 +18,17 @@ struct LoginFirstView: View {
     var body: some View {
         NavigationStack {
             ZStack {
-                Color.b[500].ignoresSafeArea()
+                Color.g[0].ignoresSafeArea()
                 VStack {
                     Spacer()
-                        .frame(height: 130)
                     VStack(spacing: 50) {
-                        Image(Asset.Logo.light)
+                        Text("PLEP")
+                            .textStyle.logo
+                            .foregroundColor(.txt.primary)
                         VStack(alignment: .leading, spacing: 10) {
                             PLEPTextField(
                                 text: $id,
                                 placeholder: "ID를 입력해주세요.",
-                                color: .gray,
-                                login: true,
-                                iconName: "person",
                                 isSecure: false,
                                 validate: { !$0.isEmpty },
                                 errorMessage: "ID를 입력해주세요"
@@ -38,31 +36,26 @@ struct LoginFirstView: View {
                             PLEPTextField(
                                 text: $pass,
                                 placeholder: "PW를 입력해주세요.",
-                                color: .gray,
-                                login: true,
-                                iconName: "lock.fill",
                                 isSecure: true,
                                 validate: { !$0.isEmpty },
                                 errorMessage: "PW를 입력해주세요"
                             )
                             PLEPOption(
                                 title: "로그인 상태 유지",
-                                type: .filled,
+                                type: .neutral,
                                 state: isSelected,
                                 action: {
                                     isSelected.toggle()
                                 }
                             )
-                            .foregroundColor(.txtop.white.primary)
                         }
                     }
                     Spacer()
                     PLEPButton(
                         title: "로그인",
-                        type: .filled,
+                        type: .outlined,
                         size: .medium,
                         enabled: id.isEmpty || pass.isEmpty ? false : true,
-                        color: .purple,
                         icon: false
                     ) {
                         next = true
@@ -73,13 +66,11 @@ struct LoginFirstView: View {
                         EmptyView()
                     }
                 }
-                .padding(.horizontal, 30)
+                .padding(.horizontal, 20)
             }
         }
         .toolbar {
-            PLEPToolbarBackButton {
-                    dismiss()
-                }
+            PLEPToolbarBackButton { dismiss() }
         }
         .navigationBarBackButtonHidden()
     }

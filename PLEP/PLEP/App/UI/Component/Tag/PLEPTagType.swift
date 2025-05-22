@@ -38,8 +38,8 @@ struct PLEPTagStyle {
 
     var textColor: Color {
         switch type {
-        case .filled: return enabled ? .txt["white"] : .txt["white"].opacity(0.4)
-        case .outlined, .neutral: return enabled ? .txt["secondary"] : .txt["secondary"].opacity(0.4)
+        case .filled: return enabled ? .icon.white : .icon.white.opacity(0.4)
+        case .outlined, .neutral: return enabled ? .txt.secondary : .txt.secondary.opacity(0.4)
         }
     }
 
@@ -61,5 +61,13 @@ struct PLEPTagStyle {
 
     var borderWidth: CGFloat {
         return type == .outlined ? 1 : 0
+    }
+    
+    var width: CGFloat {
+        switch size {
+        case .large: return 20
+        case .medium: return 20
+        case .small: return 16
+        }
     }
 }

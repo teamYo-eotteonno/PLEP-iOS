@@ -9,46 +9,36 @@ import SwiftUI
 
 struct JoinFifthView: View {
     @State private var next: Bool = false
+    @State private var introduce = ""
     @Environment(\.dismiss) private var dismiss
-    @State private var randomType: ProfileCellType = .way
     
     var body: some View {
         NavigationStack {
             ZStack {
-                Color.b[500].ignoresSafeArea()
+                Color.g[0].ignoresSafeArea()
                 VStack {
-                    VStack(spacing: 25) {
-                        VStack(alignment: .leading) {
-                            HStack {
-                                Image(Asset.Join.profile)
-                                    .resizable()
-                                    .frame(width: 60, height: 60)
-                                Spacer()
-                            }
-                            Text("프로필을 설정해주세요.")
-                                .textStyle(TextStyle.title2.bold)
-                                .foregroundColor(.txtop.white.primary)
-                                .padding(.bottom, 1)
-                            VStack(alignment: .leading) {
-                                Text("후에 수정이 가능한 항목입니다.")
-                                Text("(현재 이미지로 설정됩니다.)")
-                            }
-                            .textStyle(TextStyle.caption1.default)
-                            .foregroundColor(.txtop.white.primary)
-                        }
+                    VStack(alignment: .leading) {
+                        Text("자기소개를 작성해주세요.")
+                            .textStyle.title.header3
+                            .foregroundColor(.txt.primary)
+                            .padding(.bottom, 1)
+                        Text("(작성 없이 넘어갈 수 있는 항목입니다.)")
+                            .textStyle.body.default
+                            .foregroundColor(.txt.primary)
+                            .padding(.bottom, 25)
+                        PLEPTextField(
+                            text: $introduce,
+                            placeholder: "개성 넘치는 자기소개를 부탁해요!",
+                            errorMessage: ""
+                        )
                     }
                     Spacer()
-                    ProfileCell(type: randomType)
-                        .onAppear {
-                            randomType = Bool.random() ? .loke : .way
-                        }
                     Spacer()
                     PLEPButton(
                         title: "넘어가기",
-                        type: .filled,
+                        type: .neutral,
                         size: .medium,
                         enabled: true,
-                        color: .purple,
                         icon: false
                     ) {
                         next = true
@@ -59,19 +49,16 @@ struct JoinFifthView: View {
                         EmptyView()
                     }
                 }
-                .padding(.horizontal, 30)
+                .padding(.horizontal, 20)
                 .padding(.top)
             }
         }
         .toolbar {
-            PLEPToolbarBackButton {
-                    dismiss()
-                }
+            PLEPToolbarBackButton { dismiss() }
         }
         .navigationBarBackButtonHidden()
     }
 }
-
 
 #Preview {
     JoinFifthView()

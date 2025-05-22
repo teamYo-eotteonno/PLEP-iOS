@@ -25,28 +25,15 @@ struct PLEPOption: View {
                             RoundedRectangle(cornerRadius: 8)
                                 .stroke(style.borderColor, lineWidth: style.borderWidth)
                         )
-                    
-                    if type == .outlined {
-                        if state {
-                            Image(Asset.Check.gray)
-                                .resizable()
-                                .frame(width: 8, height: 6)
-                        } else {
-                            Image(Asset.Check.gray)
-                                .resizable()
-                                .frame(width: 8, height: 6)
-                                .opacity(0.4)
-                        }
-                    } else {
-                        Image(Asset.Check.white)
-                            .resizable()
-                            .frame(width: 8, height: 6)
-                    }
+                    Image(systemName: "checkmark")
+                        .resizable()
+                        .frame(width: 8, height: 6)
+                        .foregroundColor(style.checkColor)
                 }
 
                 Text(title)
                     .textStyle.body.small
-                    .foregroundColor(.txt["primary"])
+                    .foregroundColor(.txt.primary)
 
                 Spacer()
             }

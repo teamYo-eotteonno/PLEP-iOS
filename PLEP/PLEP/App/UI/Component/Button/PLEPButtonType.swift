@@ -40,9 +40,9 @@ struct PLEPButtonStyle {
 
     var textColor: Color {
         switch type {
-        case .filled: return enabled ? .icon["white"] : .icon["white"].opacity(0.6)
-        case .outlined: return enabled ? .icon["tertiary"] : .icon["tertiary"].opacity(0.6)
-        case .neutral: return enabled ? .txt["tertiary"] : .txt["tertiary"].opacity(0.6)
+        case .filled: return enabled ? .icon.white : .icon.white.opacity(0.6)
+        case .outlined: return enabled ? .icon.tertiary : .icon.tertiary.opacity(0.6)
+        case .neutral: return enabled ? .txt.tertiary : .txt.tertiary.opacity(0.6)
         }
     }
 
@@ -63,6 +63,6 @@ struct PLEPButtonStyle {
     }
 
     var borderWidth: CGFloat {
-        return type == .outlined ? 1 : 0
+        return type == .outlined ? 4 : 0
     }
 }

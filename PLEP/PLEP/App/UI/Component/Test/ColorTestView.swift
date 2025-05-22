@@ -11,6 +11,7 @@ struct ColorTestView: View {
     var body: some View {
         ScrollView {
             VStack(spacing: 10) {
+                
                 HStack(spacing: 0) {
                     ColorCeil(.p[50])
                     ColorCeil(.p[100])
@@ -25,7 +26,7 @@ struct ColorTestView: View {
                 }
                 .clipShape(RoundedRectangle(cornerSize: CGSize(width: 10, height: 10)))
                 .padding(.horizontal, 10)
-                
+
                 HStack(spacing: 0) {
                     ColorCeil(.g[0])
                     ColorCeil(.g[50])
@@ -41,65 +42,66 @@ struct ColorTestView: View {
                 }
                 .clipShape(RoundedRectangle(cornerSize: CGSize(width: 10, height: 10)))
                 .padding(.horizontal, 10)
-                
+
                 HStack(spacing: 0) {
-                    ColorCeil(.s["success"])
-                    ColorCeil(.s["error"])
-                    ColorCeil(.s["warning"])
+                    ColorCeil(.s.success)
+                    ColorCeil(.s.error)
+                    ColorCeil(.s.warning)
                 }
                 .clipShape(RoundedRectangle(cornerSize: CGSize(width: 10, height: 10)))
                 .padding(.horizontal, 10)
-                
+
                 HStack(spacing: 0) {
-                    ColorCeil(.txt["primary"])
-                    ColorCeil(.txt["secondary"])
-                    ColorCeil(.txt["tertiary"])
-                    ColorCeil(.txt["quarternary"])
+                    ColorCeil(.txt.primary)
+                    ColorCeil(.txt.secondary)
+                    ColorCeil(.txt.tertiary)
+                    ColorCeil(.txt.quartemary)
                 }
                 .clipShape(RoundedRectangle(cornerSize: CGSize(width: 10, height: 10)))
                 .padding(.horizontal, 10)
-                
+
                 HStack(spacing: 0) {
-                    ColorCeil(.icon["primary"])
-                    ColorCeil(.icon["secondary"])
-                    ColorCeil(.icon["tertiary"])
-                    ColorCeil(.icon["quarternary"])
+                    ColorCeil(.icon.primary)
+                    ColorCeil(.icon.secondary)
+                    ColorCeil(.icon.tertiary)
+                    ColorCeil(.icon.quartemary)
                 }
                 .clipShape(RoundedRectangle(cornerSize: CGSize(width: 10, height: 10)))
                 .padding(.horizontal, 10)
-                
+
                 HStack(spacing: 0) {
-                    ColorCeil(.file["red"])
-                    ColorCeil(.file["orange"])
-                    ColorCeil(.file["yellow"])
-                    ColorCeil(.file["lame"])
-                    ColorCeil(.file["green"])
-                    ColorCeil(.file["sky"])
-                    ColorCeil(.file["blue"])
-                    ColorCeil(.file["purple"])
-                    ColorCeil(.file["magenta"])
-                    ColorCeil(.file["pink"])
+                    ColorCeil(.file.red)
+                    ColorCeil(.file.orange)
+                    ColorCeil(.file.yellow)
+                    ColorCeil(.file.lame)
+                    ColorCeil(.file.green)
+                    ColorCeil(.file.sky)
+                    ColorCeil(.file.blue)
+                    ColorCeil(.file.purple)
+                    ColorCeil(.file.magenta)
+                    ColorCeil(.file.pink)
                 }
                 .clipShape(RoundedRectangle(cornerSize: CGSize(width: 10, height: 10)))
                 .padding(.horizontal, 10)
             }
-            
         }
     }
 }
 
 struct ColorCeil: View {
-    
     let color: Color
-    
+
     init(_ color: Color) {
         self.color = color
     }
-    
+
     var body: some View {
-        Rectangle().frame(height: 160).foregroundStyle(color)
+        Rectangle()
+            .frame(height: 160)
+            .foregroundStyle(color)
     }
 }
+
 #Preview {
     ColorTestView()
 }

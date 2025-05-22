@@ -20,10 +20,10 @@ struct PLEPDropdownHeader: View {
             HStack {
                 Text(title)
                     .textStyle.body.default
-                    .foregroundColor(.txt["quarternary"])
+                    .foregroundColor(.txt.quartemary)
                 Spacer()
                 Image(systemName: isExpanded ? "chevron.up" : "chevron.down")
-                    .foregroundColor(.icon["tertiary"])
+                    .foregroundColor(.icon.tertiary)
             }
             .padding(.vertical)
             .padding(.horizontal, 18)

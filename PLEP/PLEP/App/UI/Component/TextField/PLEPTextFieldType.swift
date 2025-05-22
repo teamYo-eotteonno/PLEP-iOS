@@ -25,34 +25,12 @@ struct PLEPTextFieldStyle {
     }
 
     var borderWidth: CGFloat {
-        showBorder ? 1 : 0
+        showBorder ? 2 : 0
     }
-
-//    var textColor: Color {
-//        switch color {
-//        case .gray:
-//            switch type {
-//            case .null: return .txt["quarternary"]
-//            default: return .txt["secondary"]
-//            }
-//        case .dark:
-//            switch type {
-//            case .null: return .txtop.white.tertiary
-//            default: return .txtop.white.primary
-//        }
-//        }
-//    }
-
-//    var backgroundColor: Color {
-//        switch type {
-//        case .gray: return .g[100]
-//        case .dark: return .b[700]
-//        }
-//    }
 
     var borderColor: Color {
         switch type {
-        case .error: return .s["error"]
+        case .error: return .s.error
         default: return .clear
         }
     }

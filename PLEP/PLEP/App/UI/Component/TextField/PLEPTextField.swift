@@ -10,81 +10,76 @@ import SwiftUI
 struct PLEPTextField: View {
     @Binding var text: String
     var placeholder: String
-//    var color: PLEPTextFieldColor
-//    var login: Bool
-//    var iconName: String? = nil
     var isSecure: Bool = false
     var validate: ((String) -> Bool)? = nil
     var errorMessage: String
-
+    
     @FocusState private var isFocused: Bool
     @State private var fieldType: PLEPTextFieldType = .null
     @State private var showPassword = false
-
+    
     private var style: PLEPTextFieldStyle {
         PLEPTextFieldStyle(type: fieldType)
     }
-
+        
     var body: some View {
         VStack(alignment: .leading, spacing: 4) {
             ZStack(alignment: .leading) {
                 if text.isEmpty {
                     Text(placeholder)
                         .padding(.leading, 18)
-                        .foregroundColor(.txt["quarternary"])
                         .textStyle.body.default
+                        .foregroundColor(.txt.quartemary)
                         .padding(.bottom, fieldType == .error ? 20 : 0)
                 }
-
+                
                 if fieldType == .error {
                     Text("*" + errorMessage)
-                        .padding(.leading, 18)
-                        .foregroundColor(.s["error"])
                         .textStyle.body.small
+                        .foregroundColor(.s.error)
+                        .padding(.leading, 18)
                         .padding(.top, 25)
                 }
-
-                HStack(spacing: 5) {
+                
+                HStack {
                     Group {
                         if isSecure {
                             if showPassword {
                                 TextField("", text: $text)
                                     .focused($isFocused)
-                                    .padding(.leading, login && iconName != nil ? 5 : 18)
+                                    .padding(.leading, 18)
+                                    .textInputAutocapitalization(.never)
                             } else {
                                 SecureField("", text: $text)
                                     .focused($isFocused)
-                                    .padding(.leading, login && iconName != nil ? 5 : 18)
+                                    .padding(.leading, 18)
+                                    .textInputAutocapitalization(.never)
                             }
                         } else {
                             TextField("", text: $text)
                                 .focused($isFocused)
-                                .padding(.leading, login && iconName != nil ? 5 : 18)
+                                .padding(.leading, 18)
                                 .textInputAutocapitalization(.never)
                         }
                     }
                     .accentColor(.p[500])
-                    .foregroundColor(style.textColor)
-                    .textStyle.body.default
-                    .padding(.bottom, fieldType == .error ? 20 : 0)
-
+                    .foregroundColor(.txt.primary)
+                    .frame(maxWidth: .infinity)
+                    .frame(height: fieldType == .error ? 64 : 48)
                     Spacer()
-
+                    
                     if isSecure {
                         Button(action: {
                             showPassword.toggle()
                         }) {
                             Image(systemName: showPassword ? "eye" : "eye.slash")
-                                .foregroundColor(.gray)
+                                .foregroundColor(.icon.quartemary)
                                 .padding(.trailing, 12)
                         }
                     }
                 }
-                .padding(.trailing, isSecure ? 0 : 18)
             }
-            .frame(height: fieldType == .error ? 64 : 48)
-            .frame(maxWidth: .infinity)
-            .background(style.backgroundColor)
+            .background(Color.g[100])
             .overlay(
                 RoundedRectangle(cornerRadius: 10)
                     .stroke(style.borderColor, lineWidth: style.borderWidth)
@@ -103,8 +98,4 @@ struct PLEPTextField: View {
             }
         }
     }
-}
-
-#Preview {
-    LoginFirstView()
 }

@@ -23,8 +23,8 @@ struct ProfileCellStyle {
     
     var imageName: String {
         switch type {
-        case .way: return Asset.Character.way
-        case .loke: return Asset.Character.loke
+        case .way: return Asset.Way.default
+        case .loke: return Asset.Loke.default
         }
     }
 }
