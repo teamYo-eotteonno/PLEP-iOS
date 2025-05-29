@@ -49,4 +49,17 @@ class Asset{
         static let `default` = "Sun"
         static let tap = "Sun-Tap"
     }
+    
+    static let camera = "Camera"
+    
+    struct Heart {
+        static let `default` = "Heart"
+        static let tap = "Heart-Tap"
+    }
+    
+    static let address = "Address"
+    
+    static let call = "Call"
+    
+    static let url = "Url"
 }

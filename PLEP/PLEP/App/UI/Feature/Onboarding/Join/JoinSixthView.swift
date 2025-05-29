@@ -16,6 +16,19 @@ struct JoinSixthView: View {
         NavigationStack {
             ZStack {
                 Color.g[0].ignoresSafeArea()
+                Image(Asset.flag)
+                    .resizable()
+                    .frame(width: 1093.23, height: 408.91)
+                    .offset(x: -200, y: -200)
+                HStack(alignment: .bottom, spacing: -60){
+                    Image(Asset.Way.travel)
+                        .resizable()
+                        .frame(width: 195.93, height: 207)
+                        .zIndex(1)
+                    Image(Asset.Loke.travel)
+                        .resizable()
+                        .frame(width: 245.38, height: 296)
+                }
                 VStack {
                     Text("환영해요!")
                         .textStyle.end

@@ -9,7 +9,7 @@ import SwiftUI
 
 struct LoginFirstView: View {
     @State private var next: Bool = false
-    @State private var id = ""
+    @State private var name = ""
     @State private var pass = ""
     @Environment(\.dismiss) private var dismiss
     
@@ -27,18 +27,18 @@ struct LoginFirstView: View {
                             .foregroundColor(.txt.primary)
                         VStack(alignment: .leading, spacing: 10) {
                             PLEPTextField(
-                                text: $id,
-                                placeholder: "ID를 입력해주세요.",
+                                text: $name,
+                                placeholder: "이메일을 입력해주세요.",
                                 isSecure: false,
                                 validate: { !$0.isEmpty },
-                                errorMessage: "ID를 입력해주세요"
+                                errorMessage: "이메일을 입력해주세요"
                             )
                             PLEPTextField(
                                 text: $pass,
-                                placeholder: "PW를 입력해주세요.",
+                                placeholder: "비밀번호를 입력해주세요.",
                                 isSecure: true,
                                 validate: { !$0.isEmpty },
-                                errorMessage: "PW를 입력해주세요"
+                                errorMessage: "비밀번호를 입력해주세요"
                             )
                             PLEPOption(
                                 title: "로그인 상태 유지",
@@ -55,7 +55,7 @@ struct LoginFirstView: View {
                         title: "로그인",
                         type: .outlined,
                         size: .medium,
-                        enabled: id.isEmpty || pass.isEmpty ? false : true,
+                        enabled: name.isEmpty || pass.isEmpty ? false : true,
                         icon: false
                     ) {
                         next = true

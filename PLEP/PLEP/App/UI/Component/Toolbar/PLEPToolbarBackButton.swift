@@ -9,6 +9,7 @@ import SwiftUI
 
 struct PLEPToolbarBackButton: ToolbarContent {
     let action: () -> Void
+    var title: String?
 
     var body: some ToolbarContent {
         ToolbarItem(placement: .topBarLeading) {
@@ -18,6 +19,12 @@ struct PLEPToolbarBackButton: ToolbarContent {
                     .foregroundColor(.txt.primary)
                     .frame(width: 10, height: 16)
                     .padding(.leading, 10)
+                
+                if (title != nil) {
+                    Text(title ?? "")
+                        .textStyle.body.bold
+                        .foregroundColor(.txt.primary)
+                }
             }
         }
     }

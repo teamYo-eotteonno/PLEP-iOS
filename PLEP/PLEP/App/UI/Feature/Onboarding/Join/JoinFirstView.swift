@@ -9,7 +9,7 @@ import SwiftUI
 
 struct JoinFirstView: View {
     @State private var next: Bool = false
-    @State private var id = ""
+    @State private var name = ""
     @Environment(\.dismiss) private var dismiss
     
     var body: some View {
@@ -18,15 +18,15 @@ struct JoinFirstView: View {
                 Color.g[0].ignoresSafeArea()
                 VStack {
                     VStack(alignment: .leading, spacing: 25) {
-                        Text("아이디를 입력해주세요.")
+                        Text("닉네임을 입력해주세요.")
                             .textStyle.title.header3
                             .foregroundColor(.txt.primary)
                         PLEPTextField(
-                            text: $id,
-                            placeholder: "아이디를 입력해주세요.",
+                            text: $name,
+                            placeholder: "닉네임을 입력해주세요.",
                             isSecure: false,
                             validate: { !$0.isEmpty },
-                            errorMessage: "아이디를 입력해주세요"
+                            errorMessage: "닉네임을 입력해주세요"
                         )
                     }
                     Spacer()
@@ -34,7 +34,7 @@ struct JoinFirstView: View {
                         title: "넘어가기",
                         type: .neutral,
                         size: .medium,
-                        enabled: id.isEmpty ? false : true,
+                        enabled: name.isEmpty ? false : true,
                         icon: false
                     ) {
                         next = true
