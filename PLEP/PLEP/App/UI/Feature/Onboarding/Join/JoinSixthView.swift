@@ -30,9 +30,18 @@ struct JoinSixthView: View {
                         .frame(width: 245.38, height: 296)
                 }
                 VStack {
-                    Text("환영해요!")
-                        .textStyle.end
-                        .foregroundColor(.txt.primary)
+                    VStack(spacing: 13) {
+                        HStack {
+                            Spacer()
+                            Image(Asset.Plane.rise)
+                                .resizable()
+                                .frame(width: 104.32, height: 86.84)
+                        }
+                        Text("환영해요!")
+                            .textStyle.end
+                            .foregroundColor(.txt.primary)
+                    }
+                    .padding(.top)
                     Spacer()
                     Text("플렙에서 새로운 여행을")
                         .textStyle.title.header3
@@ -56,6 +65,7 @@ struct JoinSixthView: View {
                     }
                 }
                 .padding(.horizontal, 20)
+                .frame(width: 400)
                 .padding(.top)
             }
         }
