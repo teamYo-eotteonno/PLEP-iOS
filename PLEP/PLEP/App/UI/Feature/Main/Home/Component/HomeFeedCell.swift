@@ -54,7 +54,7 @@ struct HomeFeedCell: View {
                 )
             ScrollView(.horizontal, showsIndicators: false) {
                 HStack(spacing: 8) {
-                    ForEach(0..<4) { _ in
+                    ForEach(0..<7) { _ in
                         PLEPTag(
                             title: "핫플",
                             type: .neutral,
@@ -65,7 +65,6 @@ struct HomeFeedCell: View {
                 }
             }
         }
-//        .frame(width: 311)
     }
 }
 

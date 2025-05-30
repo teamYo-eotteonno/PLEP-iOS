@@ -62,4 +62,6 @@ class Asset{
     static let call = "Call"
     
     static let url = "Url"
+    
+    static let gps = "Gps"
 }

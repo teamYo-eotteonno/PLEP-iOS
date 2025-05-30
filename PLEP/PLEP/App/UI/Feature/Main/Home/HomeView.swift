@@ -24,7 +24,8 @@ struct HomeView: View {
                     feednum: 99,
                     address: "빅히트 본사",
                     phonenum: "010-1234-1234",
-                    url: "http://www.bighit.com"
+                    url: "http://www.bighit.com",
+                    feed: false
                 )
             }
         }

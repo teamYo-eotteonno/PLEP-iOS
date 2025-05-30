@@ -13,6 +13,7 @@ struct PLEPTextField: View {
     var isSecure: Bool = false
     var validate: ((String) -> Bool)? = nil
     var errorMessage: String
+    var icon: Bool?
     
     @FocusState private var isFocused: Bool
     @State private var fieldType: PLEPTextFieldType = .null
@@ -74,9 +75,21 @@ struct PLEPTextField: View {
                         }) {
                             Image(systemName: showPassword ? "eye" : "eye.slash")
                                 .foregroundColor(.icon.quartemary)
-                                .padding(.trailing, 12)
+                                .padding(.trailing, 18)
                         }
                     }
+                    
+                    if icon ?? false {
+                        Button(action: {
+                            showPassword.toggle()
+                        }) {
+                            Image(Asset.Search.default)
+                                .resizable()
+                                .frame(width: 24, height: 24)
+                                .padding(.trailing, 18)
+                        }
+                    }
+                    
                 }
             }
             .background(Color.g[100])
@@ -99,3 +112,4 @@ struct PLEPTextField: View {
         }
     }
 }
+

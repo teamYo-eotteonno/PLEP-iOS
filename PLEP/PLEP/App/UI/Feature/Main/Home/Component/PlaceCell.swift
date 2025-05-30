@@ -44,7 +44,7 @@ struct PlaceCell: View {
                         .foregroundColor(.p[500])
                 }
             }
-            .frame(width: 291, alignment: .leading)
+            .frame(maxWidth: .infinity, alignment: .leading)
             if enabled {
                 PLEPButton(
                     title: "위치 선택",
@@ -59,7 +59,7 @@ struct PlaceCell: View {
         }
         .padding(.horizontal, 10)
 //        .padding(.horizontal, 51)
-        .frame(width: 311)
+//        .frame(width: 311)
     }
 }
 

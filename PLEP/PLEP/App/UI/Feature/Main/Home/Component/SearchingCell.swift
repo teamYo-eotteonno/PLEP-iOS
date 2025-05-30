@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-struct AiSearchingCell: View {
+struct SearchingCell: View {
     let name: String
     let category: String
     var information: String?
@@ -27,6 +27,7 @@ struct AiSearchingCell: View {
                         .clipped()
                 )
                 .cornerRadius(10)
+                .padding(.horizontal, 10)
             PlaceCell(
                 name: name,
                 category: category,
@@ -36,14 +37,15 @@ struct AiSearchingCell: View {
                 enabled: false
             )
         }
-        .padding(.horizontal, 51)
-//        .padding(.horizontal, 10)
+        .frame(maxWidth: .infinity)
+//        .padding(.horizontal, 51)
+        .padding(.vertical, 10)
 //        .frame(width: 311)
     }
 }
 
 #Preview {
-    AiSearchingCell(
+    SearchingCell(
         name: "방탄소년단",
         category: "아이돌",
         information: "세계적인 아티스트",
