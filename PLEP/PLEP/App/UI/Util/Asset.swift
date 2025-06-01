@@ -64,4 +64,6 @@ class Asset{
     static let url = "Url"
     
     static let gps = "Gps"
+    
+    static let travel = "Loke_Way_Travel"
 }
