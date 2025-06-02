@@ -1,5 +1,5 @@
 //
-//  PlacesListSheet.swift
+//  AiSearchingSheet.swift
 //  PLEP
 //
 //  Created by 이다경 on 5/30/25.
@@ -7,13 +7,14 @@
 
 import SwiftUI
 
-struct PlacesListSheet: View {
+struct AiSearchingSheet: View {
     @State private var search = ""
     
     var body: some View {
         ZStack {
             Color.g[50].ignoresSafeArea()
-        ScrollView {
+            
+            ScrollView {
                 VStack(spacing: 20) {
                     VStack(alignment: .trailing) {
                         PLEPTextField(
@@ -33,19 +34,21 @@ struct PlacesListSheet: View {
                                 .foregroundColor(.txt.quartemary)
                         }
                     }
-                    
                     VStack(alignment: .leading) {
                         if search.isEmpty {
-                            Text("주변에 있는 장소들")
+                            Text("추천 장소들")
                                 .textStyle.title.header3
                                 .foregroundColor(.txt.primary)
-                            
                             HStack(spacing: 0) {
-                                Text("현재 위치를 기준으로 반경 ")
+                                Text("자주가시는 ")
                                     .foregroundColor(.txt.primary)
-                                Text("1km")
+                                Text("카페")
                                     .foregroundColor(.p[500])
-                                Text("에 있는 장소들")
+                                Text("나 ")
+                                    .foregroundColor(.txt.primary)
+                                Text("오락시설")
+                                    .foregroundColor(.p[500])
+                                Text("을 위주로 서칭했어요!")
                                     .foregroundColor(.txt.primary)
                             }
                             .textStyle.body.default
@@ -77,12 +80,11 @@ struct PlacesListSheet: View {
                     }
                 }
                 .padding(.horizontal, 25)
-//                .padding(.top, 20)
             }
         }
     }
 }
 
 #Preview {
-    PlacesListSheet()
+    AiSearchingSheet()
 }

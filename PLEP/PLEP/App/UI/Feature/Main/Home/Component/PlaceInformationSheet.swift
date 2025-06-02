@@ -22,7 +22,9 @@ struct PlaceInformationSheet: View {
     let feed: Bool
     
     var body: some View {
-        NavigationStack {
+        ZStack {
+            Color.g[50].ignoresSafeArea()
+            
             ScrollView {
                 VStack(alignment: .leading, spacing: 28) {
                     VStack(alignment: .leading, spacing: 15) {
@@ -51,7 +53,6 @@ struct PlaceInformationSheet: View {
                             }
                         }
                     }
-                    //            .frame(width: 291, alignment: .leading)
                     Divider()
                     VStack(alignment: .leading, spacing: 15) {
                         Text("관련 정보")
@@ -125,18 +126,4 @@ struct PlaceInformationSheet: View {
             }
         }
     }
-}
-
-#Preview {
-    PlaceInformationSheet(
-        title: "방탄소년단",
-        name: "BTS",
-        category: "아이돌",
-        information: "세계적인 아티스트",
-        feednum: 99,
-        address: "빅히트 본사",
-        phonenum: "010-1234-1234",
-        url: "http://www.bighit.com",
-        feed: false
-    )
 }
