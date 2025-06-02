@@ -49,7 +49,6 @@ struct JoinThirdView: View {
                                 type: .neutral,
                                 size: .small,
                                 enabled: true,
-                                icon: false,
                                 action: {}
                             )
                             .frame(width: 176)
@@ -63,8 +62,7 @@ struct JoinThirdView: View {
                         title: "넘어가기",
                         type: .neutral,
                         size: .medium,
-                        enabled: isNextButtonEnabled,
-                        icon: false
+                        enabled: isNextButtonEnabled
                     ) {
                         if emailSubmitted {
                             next = true

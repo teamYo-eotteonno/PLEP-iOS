@@ -53,8 +53,7 @@ struct JoinSixthView: View {
                         title: "넘어가기",
                         type: .filled,
                         size: .medium,
-                        enabled: true,
-                        icon: false
+                        enabled: true
                     ) {
                         next = true
                     }

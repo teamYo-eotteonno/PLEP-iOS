@@ -51,7 +51,6 @@ struct PlaceCell: View {
                     type: .neutral,
                     size: .small,
                     enabled: true,
-                    icon: false,
                     action: {}
                 )
                 .padding(.top, 20)

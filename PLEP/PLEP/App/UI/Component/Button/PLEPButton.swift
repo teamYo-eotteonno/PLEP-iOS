@@ -14,12 +14,15 @@ struct PLEPButton: View {
     let type: PLEPButtonType
     let size: PLEPButtonSize
     let enabled: Bool
-    let icon: Bool
+    var icon: String?
 
     let action: () -> Void
 
     var body: some View {
         Button(action: action) {
+            if (icon != nil) {
+                Image(icon ?? "")
+            }
             Text(title)
                 .textStyle(style.textStyle)
                 .frame(maxWidth: .infinity, minHeight: style.height)

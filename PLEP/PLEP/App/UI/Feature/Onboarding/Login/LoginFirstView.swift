@@ -55,8 +55,7 @@ struct LoginFirstView: View {
                         title: "로그인",
                         type: .outlined,
                         size: .medium,
-                        enabled: name.isEmpty || pass.isEmpty ? false : true,
-                        icon: false
+                        enabled: name.isEmpty || pass.isEmpty ? false : true
                     ) {
                         next = true
                     }

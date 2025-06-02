@@ -56,8 +56,7 @@ struct OnboardingFirstView: View {
                             title: "네",
                             type: .outlined,
                             size: .medium,
-                            enabled: true,
-                            icon: false
+                            enabled: true
                         ) {
                             login = true
                         }
@@ -67,8 +66,7 @@ struct OnboardingFirstView: View {
                             title: "아니요",
                             type: .neutral,
                             size: .medium,
-                            enabled: true,
-                            icon: false
+                            enabled: true
                         ) {
                             join = true
                         }

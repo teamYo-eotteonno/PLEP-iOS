@@ -34,8 +34,7 @@ struct JoinFirstView: View {
                         title: "넘어가기",
                         type: .neutral,
                         size: .medium,
-                        enabled: name.isEmpty ? false : true,
-                        icon: false
+                        enabled: name.isEmpty ? false : true
                     ) {
                         next = true
                     }

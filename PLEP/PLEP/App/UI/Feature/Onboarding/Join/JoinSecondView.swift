@@ -44,8 +44,7 @@ struct JoinSecondView: View {
                         title: "넘어가기",
                         type: .neutral,
                         size: .medium,
-                        enabled: passcheck.isEmpty ? false : true,
-                        icon: false
+                        enabled: passcheck.isEmpty ? false : true
                     ) {
                         next = true
                     }
