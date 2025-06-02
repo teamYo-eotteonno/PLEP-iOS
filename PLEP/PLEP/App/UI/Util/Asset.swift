@@ -66,4 +66,8 @@ class Asset{
     static let gps = "Gps"
     
     static let travel = "Loke_Way_Travel"
+    
+    static let magic = "Magic"
+    
+    static let users = "Users"
 }

@@ -23,66 +23,96 @@ struct HomeView: View {
 
 struct CustomBottomSheet: View {
     @State private var offset: CGFloat = UIScreen.main.bounds.height * 0.5
-    @GestureState private var dragOffset: CGFloat = 0
-
+    @State private var dragAmount: CGFloat = 0
+    
     var body: some View {
         let totalHeight = UIScreen.main.bounds.height
-        let currentHeight = totalHeight - (offset + dragOffset)
+        let currentHeight = totalHeight - (offset + dragAmount)
         let isOver60 = currentHeight > totalHeight * 0.6
         
         VStack {
-            ZStack(alignment: isOver60 ? .bottomTrailing : .topLeading) {
-                Color.red
+            ZStack {
+                Color.white
                     .cornerRadius(20)
-                    .shadow(radius: 10)
-
-                PlaceInformationSheet(
-                                    title: "방탄소년단",
-                                    name: "BTS",
-                                    category: "아이돌",
-                                    information: "세계적인 아티스트",
-                                    feednum: 99,
-                                    address: "빅히트 본사",
-                                    phonenum: "010-1234-1234",
-                                    url: "http://www.bighit.com",
-                                    feed: false
-                                )
+                    .shadow(radius: 5)
                 
-                Button(action: {
-                    print("버튼 클릭됨")
-                }) {
-                    Image(systemName: "xmark.circle.fill")
-                        .resizable()
-                        .frame(width: 30, height: 30)
-                        .foregroundColor(.blue)
-                        .padding()
+                VStack(spacing: 0) {
+                    VStack {
+                        Capsule()
+                            .foregroundColor(.g[500])
+                            .frame(width: 64, height: 1)
+                            .padding(.top, 20)
+                    }
+                    
+                    ZStack {
+                        // 콘텐츠 뷰
+                         PlacesListSheet()
+                        
+                        // 버튼: 위치 조건에 따라 다르게 배치
+                        if isOver60 {
+                            VStack {
+                                Spacer()
+                                HStack {
+                                    Spacer()
+                                    button
+                                }
+                            }
+                            .padding()
+                        } else {
+                            VStack {
+                                HStack {
+                                    button
+                                    Spacer()
+                                }
+                                Spacer()
+                            }
+                            .padding()
+                        }
+                    }
                 }
             }
             .frame(height: totalHeight)
-            .offset(y: offset + dragOffset)
+            .offset(y: offset + dragAmount)
             .gesture(
                 DragGesture()
-                    .updating($dragOffset) { value, state, _ in
-                        state = value.translation.height
+                    .onChanged { value in
+                        dragAmount = value.translation.height
                     }
                     .onEnded { value in
                         let newOffset = offset + value.translation.height
-                        withAnimation {
+                        withAnimation(.easeInOut) {
                             if newOffset < totalHeight * 0.4 {
-                                offset = totalHeight * 0.2 // 위로 확장
+                                offset = totalHeight * 0.2
                             } else if newOffset > totalHeight * 0.7 {
-                                offset = totalHeight * 0.7 // 아래로 축소
+                                offset = totalHeight * 0.7
                             } else {
-                                offset = totalHeight * 0.5 // 중간
+                                offset = totalHeight * 0.5
                             }
+                            dragAmount = 0
                         }
                     }
             )
         }
         .ignoresSafeArea()
-        .animation(.easeInOut, value: offset)
+    }
+    
+    // 버튼 정의
+    var button: some View {
+        VStack {
+            PLEPButton(
+                title: "함께 장소 공유하기",
+                type: .outlined,
+                size: .small,
+                enabled: true,
+                icon: Asset.users,
+                action: {}
+            )
+        }
+        .frame(width: 183)
     }
 }
+
+
 
 
 #Preview {

@@ -20,21 +20,27 @@ struct PLEPButton: View {
 
     var body: some View {
         Button(action: action) {
-            if (icon != nil) {
-                Image(icon ?? "")
+            HStack(spacing: 0) {
+                if (icon != nil) {
+                    Image(icon ?? "")
+                        .resizable()
+                        .frame(width: 20, height: 20)
+                        .padding(.trailing, 5)
+                }
+                
+                Text(title)
+                    .textStyle(style.textStyle)
+                    .foregroundColor(style.textColor)
             }
-            Text(title)
-                .textStyle(style.textStyle)
-                .frame(maxWidth: .infinity, minHeight: style.height)
-                .foregroundColor(style.textColor)
-                .background(style.backgroundColor)
-                .overlay(
-                    RoundedRectangle(cornerRadius: 15)
-                        .stroke(style.borderColor, lineWidth: style.borderWidth)
-                )
-                .cornerRadius(15)
         }
         .disabled(!enabled)
+        .frame(maxWidth: .infinity, minHeight: style.height)
+        .background(style.backgroundColor)
+        .overlay(
+            RoundedRectangle(cornerRadius: 15)
+                .stroke(style.borderColor, lineWidth: style.borderWidth)
+        )
+        .cornerRadius(15)
     }
 
     private var style: PLEPButtonStyle {
