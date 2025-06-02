@@ -60,7 +60,7 @@ struct PlaceInformationSheet: View {
                             .foregroundColor(.txt.primary)
                         VStack(alignment: .leading, spacing: 12) {
                             HStack(spacing: 4) {
-                                Image(Asset.address)
+                                Image(Asset.Address.add)
                                     .resizable()
                                     .frame(width: 18, height: 18)
                                 Text(address)

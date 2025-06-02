@@ -62,7 +62,7 @@ struct PlacesListSheet: View {
                         } else {
                             VStack(spacing: 13) {
                                 ForEach(0..<7) { _ in
-                                    PlaceCell(
+                                    PlaceSheetCell(
                                         name: "방탄소년단",
                                         category: "아이돌",
                                         information: "세계적인 아티스트",

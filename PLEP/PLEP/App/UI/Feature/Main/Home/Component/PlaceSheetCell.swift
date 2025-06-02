@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-struct PlaceCell: View {
+struct PlaceSheetCell: View {
     let name: String
     let category: String
     var information: String?
@@ -57,18 +57,5 @@ struct PlaceCell: View {
             }
         }
         .padding(.horizontal, 10)
-//        .padding(.horizontal, 51)
-//        .frame(width: 311)
     }
-}
-
-#Preview {
-    PlaceCell(
-        name: "온오븐",
-        category: "카페,디저트",
-//        information: "맛있는 케이크와 디저트의 낙타",
-        address: "대구광역시 달성군 화원읍 천내리 54-1 104호",
-        feednum: 103,
-        enabled: false
-    )
 }

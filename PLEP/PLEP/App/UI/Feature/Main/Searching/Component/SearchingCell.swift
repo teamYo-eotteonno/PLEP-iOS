@@ -28,7 +28,7 @@ struct SearchingCell: View {
                 )
                 .cornerRadius(10)
                 .padding(.horizontal, 10)
-            PlaceCell(
+            PlaceSheetCell(
                 name: name,
                 category: category,
                 information: information,

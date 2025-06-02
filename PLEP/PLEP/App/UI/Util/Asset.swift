@@ -57,7 +57,11 @@ class Asset{
         static let tap = "Heart-Tap"
     }
     
-    static let address = "Address"
+    struct Address {
+        static let `default` = "Address"
+        static let add = "Address-Add"
+        static let bigadd = "Address-Add-Big"
+    }
     
     static let call = "Call"
     
@@ -70,4 +74,8 @@ class Asset{
     static let magic = "Magic"
     
     static let users = "Users"
+    
+    static let crown = "Crown"
+    
+    static let useradd = "User-Add"
 }

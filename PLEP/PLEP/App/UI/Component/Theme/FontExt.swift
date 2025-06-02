@@ -68,7 +68,7 @@ extension TextStyle {
     struct Body {
         static let `default` = pretendardStyle(size: 16, weight: .medium, lineHeight: 140)
         static let bold = pretendardStyle(size: 16, weight: .bold, lineHeight: 19.1)
-        static let small = pretendardStyle(size: 14, weight: .medium, lineHeight: 140)
+        static let small = pretendardStyle(size: 14, weight: .medium, lineHeight: 14.3)
     }
     
     struct Button {
