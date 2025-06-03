@@ -49,7 +49,7 @@ struct JoinFirstView: View {
             }
         }
         .toolbar {
-            PLEPToolbarBackButton { dismiss() }
+            PLEPToolbar { dismiss() }
         }
         .navigationBarBackButtonHidden()
     }

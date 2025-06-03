@@ -26,7 +26,7 @@ struct MemberList: View {
             }
             Button(action: {}) {
                 HStack(spacing: 3) {
-                    Image(Asset.useradd)
+                    Image(Asset.User.Add.default)
                         .resizable()
                         .frame(width: 20, height: 20)
                     Text("멤버추가")

@@ -59,7 +59,7 @@ struct JoinSecondView: View {
             }
         }
         .toolbar {
-            PLEPToolbarBackButton { dismiss() }
+            PLEPToolbar { dismiss() }
         }
         .navigationBarBackButtonHidden()
     }

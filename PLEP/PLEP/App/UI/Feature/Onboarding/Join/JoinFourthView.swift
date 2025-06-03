@@ -53,7 +53,7 @@ struct JoinFourthView: View {
             }
         }
         .toolbar {
-            PLEPToolbarBackButton { dismiss() }
+            PLEPToolbar { dismiss() }
         }
         .navigationBarBackButtonHidden()
     }

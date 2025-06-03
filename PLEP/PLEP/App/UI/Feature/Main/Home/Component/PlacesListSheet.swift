@@ -40,12 +40,12 @@ struct PlacesListSheet: View {
                                 .textStyle.title.header3
                                 .foregroundColor(.txt.primary)
                             
-                            HStack(spacing: 0) {
+                            HStack {
                                 Text("현재 위치를 기준으로 반경 ")
                                     .foregroundColor(.txt.primary)
-                                Text("1km")
+                                + Text("1km")
                                     .foregroundColor(.p[500])
-                                Text("에 있는 장소들")
+                                + Text("에 있는 장소들")
                                     .foregroundColor(.txt.primary)
                             }
                             .textStyle.body.default

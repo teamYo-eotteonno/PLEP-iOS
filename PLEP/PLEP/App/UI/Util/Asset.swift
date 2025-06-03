@@ -73,9 +73,17 @@ class Asset{
     
     static let magic = "Magic"
     
-    static let users = "Users"
+    struct User {
+        static let `default` = "User"
+        struct Users {
+            static let `default` = "Users"
+            static let color = "Users-Color"
+        }
+        struct Add {
+            static let `default` = "User-Add"
+            static let big = "User-Add-Big"
+        }
+    }
     
     static let crown = "Crown"
-    
-    static let useradd = "User-Add"
 }

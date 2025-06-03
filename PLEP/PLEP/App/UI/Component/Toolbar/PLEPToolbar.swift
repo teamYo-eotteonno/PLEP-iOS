@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-struct PLEPToolbarBackButton: ToolbarContent {
+struct PLEPToolbar: ToolbarContent {
     let action: () -> Void
     var title: String?
 

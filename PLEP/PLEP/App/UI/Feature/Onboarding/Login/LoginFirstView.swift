@@ -69,7 +69,7 @@ struct LoginFirstView: View {
             }
         }
         .toolbar {
-            PLEPToolbarBackButton { dismiss() }
+            PLEPToolbar { dismiss() }
         }
         .navigationBarBackButtonHidden()
     }

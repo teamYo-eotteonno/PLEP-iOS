@@ -40,7 +40,7 @@ struct MemberListCell: View {
                 .foregroundColor(.txt.tertiary)
                 .fixedSize(horizontal: false, vertical: true)
         }
-        .frame(width: 275, alignment: .leading)
+        .frame(maxWidth: .infinity, alignment: .leading)
         .padding(.vertical, 10)
         .padding(.horizontal, 15)
         .background(Color.g[0])

@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-struct PlacesList: View {
+struct MyPlacesList: View {
     let null: Bool
     
     var body: some View {
@@ -21,7 +21,8 @@ struct PlacesList: View {
             }
             .textStyle.body.default
             .foregroundColor(.txt.tertiary)
-            .padding(.horizontal, 76)
+//            .frame(width: 330)
+            .frame(maxWidth: .infinity)
             .padding(.vertical, 56)
             .background(Color.g[100])
             .cornerRadius(15)
@@ -37,6 +38,7 @@ struct PlacesList: View {
                         me: true,
                         action: {}
                     )
+//                    .frame(width: 310)
                 }
                 Button(action: {}) {
                     HStack(spacing: 3) {
@@ -51,12 +53,9 @@ struct PlacesList: View {
                 }
             }
             .padding(.all, 10)
+            .frame(maxWidth: .infinity)
             .background(Color.g[100])
             .cornerRadius(15)
         }
     }
-}
-
-#Preview {
-    PlacesList(null: true)
 }

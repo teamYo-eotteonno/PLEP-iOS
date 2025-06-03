@@ -14,8 +14,8 @@ struct PlaceListCell: View {
     let address: String
     let feednum: Int
     var me: Bool?
-    var numbering: Bool?
     var action: (() -> Void)?
+    var numbering: Bool?
     var number: Int?
     
     var body: some View {
@@ -71,7 +71,7 @@ struct PlaceListCell: View {
                     }
                 }
             }
-            .frame(width: 323, alignment: .leading)
+            .frame(maxWidth: .infinity, alignment: .leading)
             .padding(.vertical, 10)
             .padding(.horizontal, 15)
             .background(Color.g[0])

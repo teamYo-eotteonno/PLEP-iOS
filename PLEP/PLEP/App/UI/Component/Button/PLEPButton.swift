@@ -32,15 +32,15 @@ struct PLEPButton: View {
                     .textStyle(style.textStyle)
                     .foregroundColor(style.textColor)
             }
+            .frame(maxWidth: .infinity, minHeight: style.height)
+            .background(style.backgroundColor)
+            .overlay(
+                RoundedRectangle(cornerRadius: 15)
+                    .stroke(style.borderColor, lineWidth: style.borderWidth)
+            )
+            .cornerRadius(15)
         }
         .disabled(!enabled)
-        .frame(maxWidth: .infinity, minHeight: style.height)
-        .background(style.backgroundColor)
-        .overlay(
-            RoundedRectangle(cornerRadius: 15)
-                .stroke(style.borderColor, lineWidth: style.borderWidth)
-        )
-        .cornerRadius(15)
     }
 
     private var style: PLEPButtonStyle {

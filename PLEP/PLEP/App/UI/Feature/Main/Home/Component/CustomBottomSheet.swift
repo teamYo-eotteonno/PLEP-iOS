@@ -80,7 +80,7 @@ struct CustomBottomSheet<Content: View>: View {
                                 type: .outlined,
                                 size: .small,
                                 enabled: true,
-                                icon: Asset.users,
+                                icon: Asset.User.Users.color,
                                 action: {}
                             )
                             .frame(width: 183)
@@ -96,7 +96,7 @@ struct CustomBottomSheet<Content: View>: View {
                             type: .outlined,
                             size: .small,
                             enabled: true,
-                            icon: Asset.users,
+                            icon: Asset.User.Users.color,
                             action: {}
                         )
                         .frame(width: 183)

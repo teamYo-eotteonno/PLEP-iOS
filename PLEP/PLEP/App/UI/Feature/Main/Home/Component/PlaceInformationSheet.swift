@@ -118,7 +118,7 @@ struct PlaceInformationSheet: View {
                 .padding(.vertical, 28)
                 .padding(.horizontal, 41)
                 .toolbar {
-                    PLEPToolbarBackButton(
+                    PLEPToolbar(
                         action: { dismiss() },
                         title: String(title)+" 정보"
                     )

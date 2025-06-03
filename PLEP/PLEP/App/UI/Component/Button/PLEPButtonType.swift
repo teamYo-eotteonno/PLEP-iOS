@@ -26,7 +26,7 @@ struct PLEPButtonStyle {
         switch size {
         case .large: return 70
         case .medium: return 57
-        case .small: return 41
+        case .small: return 42
         }
     }
 
