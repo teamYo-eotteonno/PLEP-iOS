@@ -12,24 +12,7 @@ struct SearchingResultView: View {
     
     var body: some View {
         ZStack {
-            VStack {
-                HStack {
-                    Button(action: { dismiss() }) {
-                        Image(systemName: "chevron.left")
-                            .resizable()
-                            .frame(width: 10, height: 16)
-                            .foregroundColor(.icon.tertiary)
-                    }
-                    Spacer()
-                }
-                .frame(maxWidth: .infinity)
-                .padding(.vertical, 15)
-                .padding(.top, 50)
-                .padding(.leading, 35)
-                .background(Color.g[0])
-                Spacer()
-            }
-            .ignoresSafeArea()
+            PLEPTopbar(type: .default, action: {})
             
             CustomBottomSheet {
                 AiSearchingSheet()

@@ -60,15 +60,8 @@ struct PLEPTopbar: View {
                     .foregroundColor(.g[100]),
                 alignment: .bottom
             )
+            Spacer()
         }
         .ignoresSafeArea()
     }
-}
-
-
-#Preview {
-    PLEPTopbar(type: .default, action: {})
-    PLEPTopbar(type: .profile, action: {})
-//    PLEPTopbar(type: .icon("dd"), action: {})
-    PLEPTopbar(type: .text("dd"), action: {})
 }
