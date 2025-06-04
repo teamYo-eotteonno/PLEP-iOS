@@ -21,7 +21,7 @@ struct PLEPTag: View {
             .foregroundColor(style.textColor)
             .background(style.backgroundColor)
             .overlay(
-                RoundedRectangle(cornerRadius: 15)
+                RoundedRectangle(cornerRadius: 25)
                     .stroke(style.borderColor, lineWidth: style.borderWidth)
             )
             .cornerRadius(25)

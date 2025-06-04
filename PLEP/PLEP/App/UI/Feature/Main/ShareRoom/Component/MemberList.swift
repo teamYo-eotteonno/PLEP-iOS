@@ -41,7 +41,3 @@ struct MemberList: View {
         .cornerRadius(15)
     }
 }
-
-#Preview {
-    MemberList()
-}

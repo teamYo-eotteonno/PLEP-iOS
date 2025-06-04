@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-struct ShaerRoomCreateView: View {
+struct ShareRoomCreateView: View {
     @State private var roomName: String = ""
     
     var body: some View {
@@ -44,5 +44,5 @@ struct ShaerRoomCreateView: View {
 }
 
 #Preview {
-    ShaerRoomCreateView()
+    ShareRoomCreateView()
 }

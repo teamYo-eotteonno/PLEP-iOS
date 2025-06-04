@@ -12,7 +12,10 @@ struct SearchingResultView: View {
     
     var body: some View {
         ZStack {
-            PLEPTopbar(type: .default, action: {})
+            VStack {
+                PLEPTopbar(type: .default, action: {})
+                Spacer()
+            }
             
             CustomBottomSheet {
                 AiSearchingSheet()

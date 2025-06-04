@@ -13,7 +13,9 @@ struct PLEPTextField: View {
     var isSecure: Bool = false
     var validate: ((String) -> Bool)? = nil
     var errorMessage: String
-    var icon: Bool?
+    var icon_l: Bool?
+    var icon_t: Bool?
+    var action: (() -> Void)?
     
     @FocusState private var isFocused: Bool
     @State private var fieldType: PLEPTextFieldType = .null
@@ -57,10 +59,19 @@ struct PLEPTextField: View {
                                     .textInputAutocapitalization(.never)
                             }
                         } else {
-                            TextField("", text: $text)
-                                .focused($isFocused)
-                                .padding(.leading, 18)
-                                .textInputAutocapitalization(.never)
+                            HStack {
+                                if icon_l ?? false {
+                                    Button(action: action ?? {}) {
+                                        Image(Asset.link)
+                                            .resizable()
+                                            .frame(width: 24, height: 24)
+                                    }
+                                }
+                                TextField("", text: $text)
+                                    .focused($isFocused)
+                                    .textInputAutocapitalization(.never)
+                            }
+                            .padding(.leading, 18)
                         }
                     }
                     .accentColor(.p[500])
@@ -79,10 +90,8 @@ struct PLEPTextField: View {
                         }
                     }
                     
-                    if icon ?? false {
-                        Button(action: {
-                            showPassword.toggle()
-                        }) {
+                    if icon_t ?? false {
+                        Button(action: action ?? {}) {
                             Image(Asset.Search.default)
                                 .resizable()
                                 .frame(width: 24, height: 24)
@@ -112,4 +121,3 @@ struct PLEPTextField: View {
         }
     }
 }
-

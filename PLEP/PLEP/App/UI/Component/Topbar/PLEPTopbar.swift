@@ -34,7 +34,7 @@ struct PLEPTopbar: View {
                 case .profile:
                     Spacer()
                     Button(action: action) {
-                        Image(Asset.User.default)
+                        Image(Asset.User.Add.Circle.default)
                             .resizable()
                             .frame(width: 24, height: 24)
                     }
@@ -60,8 +60,9 @@ struct PLEPTopbar: View {
                     .foregroundColor(.g[100]),
                 alignment: .bottom
             )
-            Spacer()
+//            Spacer()
         }
         .ignoresSafeArea()
     }
 }
+

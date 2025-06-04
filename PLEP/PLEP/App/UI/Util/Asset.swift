@@ -74,16 +74,33 @@ class Asset{
     static let magic = "Magic"
     
     struct User {
-        static let `default` = "User"
         struct Users {
             static let `default` = "Users"
             static let color = "Users-Color"
         }
+        
         struct Add {
             static let `default` = "User-Add"
-            static let big = "User-Add-Big"
+            
+            struct Circle {
+                static let `default` = "User-Circle-Add"
+                static let big = "User-Circle-Add-Big"
+            }
         }
     }
     
     static let crown = "Crown"
+    
+    struct Share {
+        static let target = "Share-Target"
+        static let kakao = "Share-Kakao"
+        static let discord = "Share-Discord"
+        static let email = "Share-Email"
+    }
+    
+    static let link = "Link"
+    
+    static let more = "More"
+    
+    static let trash = "Trash"
 }

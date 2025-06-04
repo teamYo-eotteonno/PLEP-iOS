@@ -54,7 +54,3 @@ struct NumberingListSheet: View {
         }
     }
 }
-
-#Preview {
-    NumberingListSheet(num: 12)
-}

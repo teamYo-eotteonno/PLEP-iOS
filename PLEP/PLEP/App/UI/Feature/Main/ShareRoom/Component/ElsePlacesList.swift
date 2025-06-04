@@ -13,7 +13,7 @@ struct ElsePlacesList: View {
     var body: some View {
         if null {
             VStack(spacing: 5) {
-                Image(Asset.User.Add.big)
+                Image(Asset.User.Add.Circle.big)
                     .resizable()
                     .frame(width: 100, height: 100)
                 Text("멤버들을 더 추가해 많은 플레이스를")

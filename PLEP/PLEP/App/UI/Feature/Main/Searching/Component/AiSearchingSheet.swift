@@ -23,7 +23,7 @@ struct AiSearchingSheet: View {
                             isSecure: false,
                             validate: { !$0.isEmpty },
                             errorMessage: "닉네임을 입력해주세요",
-                            icon: true
+                            icon_t: true
                         )
                         HStack(spacing: 3) {
                             Image(Asset.gps)
