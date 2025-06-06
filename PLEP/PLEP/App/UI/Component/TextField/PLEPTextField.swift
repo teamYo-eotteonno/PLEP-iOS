@@ -16,36 +16,59 @@ struct PLEPTextField: View {
     var icon_l: Bool?
     var icon_t: Bool?
     var action: (() -> Void)?
-    
+    var intro: Bool?
+
     @FocusState private var isFocused: Bool
     @State private var fieldType: PLEPTextFieldType = .null
     @State private var showPassword = false
-    
+
     private var style: PLEPTextFieldStyle {
         PLEPTextFieldStyle(type: fieldType)
     }
-        
+
     var body: some View {
         VStack(alignment: .leading, spacing: 4) {
-            ZStack(alignment: .leading) {
-                if text.isEmpty {
-                    Text(placeholder)
-                        .padding(.leading, 18)
-                        .textStyle.body.default
-                        .foregroundColor(.txt.quartemary)
-                        .padding(.bottom, fieldType == .error ? 20 : 0)
-                }
-                
-                if fieldType == .error {
-                    Text("*" + errorMessage)
-                        .textStyle.body.small
-                        .foregroundColor(.s.error)
-                        .padding(.leading, 18)
-                        .padding(.top, 25)
-                }
-                
-                HStack {
-                    Group {
+            ZStack(alignment: .topLeading) {
+                if intro == true {
+                    ZStack(alignment: .topLeading) {
+                        if text.isEmpty {
+                            Text(placeholder)
+                                .padding(.leading, 18)
+                                .padding(.top, 15)
+                                .textStyle.body.default
+                                .foregroundColor(.txt.quartemary)
+                                .fixedSize(horizontal: false, vertical: true)
+                                .multilineTextAlignment(.leading)
+                        }
+
+                        TextEditor(text: $text)
+                            .focused($isFocused)
+                            .padding(.leading, 14)
+                            .padding(.top, 6)
+                            .frame(minHeight: 100, maxHeight: 214)
+                            .textStyle.body.default
+                            .background(Color.clear)
+                            .scrollContentBackground(.hidden)
+                    }
+                    .padding(.horizontal, 4)
+                } else {
+                    if text.isEmpty {
+                        Text(placeholder)
+                            .padding(.leading, 18)
+                            .textStyle.body.default
+                            .foregroundColor(.txt.quartemary)
+                            .padding(.bottom, fieldType == .error ? 20 : 0)
+                    }
+
+                    if fieldType == .error {
+                        Text("*" + errorMessage)
+                            .textStyle.body.small
+                            .foregroundColor(.s.error)
+                            .padding(.leading, 18)
+                            .padding(.top, 25)
+                    }
+
+                    HStack {
                         if isSecure {
                             if showPassword {
                                 TextField("", text: $text)
@@ -73,32 +96,32 @@ struct PLEPTextField: View {
                             }
                             .padding(.leading, 18)
                         }
+
+                        Spacer()
+
+                        if isSecure {
+                            Button(action: {
+                                showPassword.toggle()
+                            }) {
+                                Image(systemName: showPassword ? "eye" : "eye.slash")
+                                    .foregroundColor(.icon.quartemary)
+                                    .padding(.trailing, 18)
+                            }
+                        }
+
+                        if icon_t ?? false {
+                            Button(action: action ?? {}) {
+                                Image(Asset.Search.default)
+                                    .resizable()
+                                    .frame(width: 24, height: 24)
+                                    .padding(.trailing, 18)
+                            }
+                        }
                     }
                     .accentColor(.p[500])
                     .foregroundColor(.txt.primary)
                     .frame(maxWidth: .infinity)
                     .frame(height: fieldType == .error ? 64 : 48)
-                    Spacer()
-                    
-                    if isSecure {
-                        Button(action: {
-                            showPassword.toggle()
-                        }) {
-                            Image(systemName: showPassword ? "eye" : "eye.slash")
-                                .foregroundColor(.icon.quartemary)
-                                .padding(.trailing, 18)
-                        }
-                    }
-                    
-                    if icon_t ?? false {
-                        Button(action: action ?? {}) {
-                            Image(Asset.Search.default)
-                                .resizable()
-                                .frame(width: 24, height: 24)
-                                .padding(.trailing, 18)
-                        }
-                    }
-                    
                 }
             }
             .background(Color.g[100])

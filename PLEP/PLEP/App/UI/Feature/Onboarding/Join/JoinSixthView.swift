@@ -63,7 +63,7 @@ struct JoinSixthView: View {
                         EmptyView()
                     }
                 }
-                .padding(.horizontal, 20)
+                .padding(.horizontal, 25)
                 .frame(width: 400)
                 .padding(.top)
             }

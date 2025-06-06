@@ -48,7 +48,7 @@ struct JoinFourthView: View {
                         EmptyView()
                     }
                 }
-                .padding(.horizontal, 20)
+                .padding(.horizontal, 25)
                 .padding(.top)
             }
         }

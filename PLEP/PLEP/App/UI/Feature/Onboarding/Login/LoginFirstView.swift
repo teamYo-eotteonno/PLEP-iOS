@@ -65,7 +65,7 @@ struct LoginFirstView: View {
                         EmptyView()
                     }
                 }
-                .padding(.horizontal, 20)
+                .padding(.horizontal, 25)
             }
         }
         .toolbar {
