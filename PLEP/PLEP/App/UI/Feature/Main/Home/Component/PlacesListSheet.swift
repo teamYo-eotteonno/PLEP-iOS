@@ -77,7 +77,7 @@ struct PlacesListSheet: View {
                     }
                 }
                 .padding(.horizontal, 25)
-//                .padding(.top, 20)
+//                .padding(.bottom, 250)
             }
         }
     }

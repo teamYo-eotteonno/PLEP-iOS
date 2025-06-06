@@ -8,9 +8,11 @@
 import SwiftUI
 
 struct NumberingList: View {
+    let num: Int
+    
     var body: some View {
         VStack(spacing: 5) {
-            ForEach(1..<4) { i in
+            ForEach(1..<num+1) { i in
                 PlaceListCell(
                     name: "방탄소년단",
                     category: "아이돌",

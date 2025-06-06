@@ -64,7 +64,8 @@ struct ShareRoomEditTitleView: View {
                 Spacer()
             }
             .padding(.horizontal, 25)
-            .padding(.top, 48)
+            .padding(.top, 40)
+            .background(Color.g[0])
         }
         .ignoresSafeArea()
     }

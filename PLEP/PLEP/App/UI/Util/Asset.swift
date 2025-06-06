@@ -79,6 +79,8 @@ class Asset{
             static let color = "Users-Color"
         }
         
+        static let edit = "User-Edit"
+        
         struct Add {
             static let `default` = "User-Add"
             
@@ -103,4 +105,6 @@ class Asset{
     static let more = "More"
     
     static let trash = "Trash"
+    
+    static let roomEdit = "Room-Edit"
 }

@@ -10,6 +10,9 @@ import SwiftUI
 struct ShareRoomTitle: View {
     let my: Bool
     let title: String
+    var invite: (() -> Void)?
+    var delete: (() -> Void)?
+    var more: (() -> Void)?
     
     var body: some View {
         VStack(spacing: 0) {
@@ -21,7 +24,7 @@ struct ShareRoomTitle: View {
                         .textStyle.title.header3
                     Spacer()
                     if my {
-                        Button(action: {}) {
+                        Button(action: { (more ?? {})() }) {
                             Image(Asset.more)
                                 .resizable()
                                 .frame(width: 20, height: 20)
@@ -42,7 +45,7 @@ struct ShareRoomTitle: View {
                 }
                 if my {
                     HStack(spacing: 5) {
-                        Button(action: {}) {
+                        Button(action: { (invite ?? {})() }) {
                             HStack(spacing: 3) {
                                 Image(Asset.User.Add.default)
                                     .resizable()
@@ -58,7 +61,7 @@ struct ShareRoomTitle: View {
                             .frame(width: 1, height: 18)
                             .foregroundColor(.g[400])
                         
-                        Button(action: {}) {
+                        Button(action: { (delete ?? {})()}) {
                             HStack(spacing: 3) {
                                 Image(Asset.trash)
                                     .resizable()
@@ -79,4 +82,8 @@ struct ShareRoomTitle: View {
         }
         .ignoresSafeArea()
     }
+}
+
+#Preview {
+    ShareRoomTitle(my: true, title: "dd", invite: {}, delete: {})
 }

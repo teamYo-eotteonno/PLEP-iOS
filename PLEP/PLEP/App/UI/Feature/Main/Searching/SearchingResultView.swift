@@ -17,9 +17,7 @@ struct SearchingResultView: View {
                 Spacer()
             }
             
-            CustomBottomSheet {
-                AiSearchingSheet()
-            }
+            MainBottomSheet { AiSearchingSheet() }
         }
     }
 }

@@ -9,6 +9,7 @@ import SwiftUI
 
 struct NumberingListSheet: View {
     let num: Int
+    let onPDF: () -> Void
     
     var body: some View {
         ZStack {
@@ -31,7 +32,7 @@ struct NumberingListSheet: View {
                             type: .filled,
                             size: .small,
                             enabled: true,
-                            action: {}
+                            action: { onPDF() }
                         )
                         .frame(width: 116)
                     }
@@ -47,7 +48,7 @@ struct NumberingListSheet: View {
                     }
                     .frame(maxWidth: .infinity, alignment: .leading)
                     
-                    NumberingList()
+                    NumberingList(num: num)
                 }
                 .padding(.horizontal, 25)
             }

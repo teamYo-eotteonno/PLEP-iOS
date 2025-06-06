@@ -8,6 +8,7 @@
 import SwiftUI
 
 struct MemberList: View {
+    let num: Int
     
     var body: some View {
         VStack(spacing: 5) {
@@ -16,7 +17,7 @@ struct MemberList: View {
                 description: "방탄소년단을 \"상남자\"때부터 좋아해왔다가 휴덕하다가 후회하고 돌아온 아미",
                 me: true
             )
-            ForEach(0..<4) { _ in
+            ForEach(1..<num) { _ in
                 MemberListCell(
                     name: "김태형",
                     description: "방탄소년단에서 막내라인에 속하며 저음이 가장어울리고 세계에서 가장 잘생긴 남자 1위로 선정된 곰도리",

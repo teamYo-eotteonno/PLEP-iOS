@@ -13,7 +13,7 @@ struct HomeView: View {
     var body: some View {
         ZStack {
             
-            CustomBottomSheet(showButton: true) { PlacesListSheet() }
+            MainBottomSheet(showButton: true) { PlacesListSheet() }
         }
     }
 }

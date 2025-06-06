@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-struct CustomBottomSheet<Content: View>: View {
+struct MainBottomSheet<Content: View>: View {
     @State private var offset: CGFloat = UIScreen.main.bounds.height * 0.5
     @State private var dragAmount: CGFloat = 0
 
@@ -35,15 +35,15 @@ struct CustomBottomSheet<Content: View>: View {
                         .cornerRadius(20)
                         .shadow(radius: 5)
 
-                    VStack(spacing: 0) {
-                        Capsule()
-                            .foregroundColor(.g[500])
-                            .frame(width: 64, height: 1)
-                            .padding(.vertical, 20)
-
-                        sheetContent
-
-                        Spacer(minLength: 40)
+                        VStack(spacing: 0) {
+                            Capsule()
+                                .foregroundColor(.g[500])
+                                .frame(width: 64, height: 1)
+                                .padding(.vertical, 20)
+                            
+                            sheetContent
+                            
+//                            Spacer(minLength: 200)
                     }
                 }
                 .frame(height: totalHeight)
@@ -110,4 +110,8 @@ struct CustomBottomSheet<Content: View>: View {
         }
         .ignoresSafeArea()
     }
+}
+
+#Preview {
+    HomeView()
 }
