@@ -40,7 +40,7 @@ struct ProfileFeedView: View {
                 VStack {
                     if !null {
                         LazyVGrid(columns: gridItems, spacing: 1) {
-                            ForEach(0..<30) { feed in
+                            ForEach(0..<20) { feed in
                                 
                                 NavigationLink {
                                     Image("Dummy3")

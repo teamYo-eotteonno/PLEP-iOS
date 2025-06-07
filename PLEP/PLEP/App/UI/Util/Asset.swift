@@ -116,6 +116,10 @@ class Asset{
         static let add = "Feed-Add"
     }
     
+    struct Img {
+        static let add = "Image-Add"
+    }
+    
     struct Arrow {
         static let left = "Arrow-Left"
     }
