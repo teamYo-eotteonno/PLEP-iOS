@@ -27,7 +27,7 @@ struct JoinFourthView: View {
                     Spacer()
                     HStack {
                         Spacer()
-                        ProfileCell(type: randomType)
+                        ProfileCell(type: randomType, size: .large, btn: true)
                             .onAppear {
                                 randomType = Bool.random() ? .loke : .way
                             }

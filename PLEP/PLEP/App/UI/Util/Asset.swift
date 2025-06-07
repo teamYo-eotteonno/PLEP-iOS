@@ -107,4 +107,16 @@ class Asset{
     static let trash = "Trash"
     
     static let roomEdit = "Room-Edit"
+    
+    static let setting = "Setting"
+    
+    static let plus = "Plus"
+    
+    struct Feed {
+        static let add = "Feed-Add"
+    }
+    
+    struct Arrow {
+        static let left = "Arrow-Left"
+    }
 }

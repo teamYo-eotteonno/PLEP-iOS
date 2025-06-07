@@ -22,7 +22,7 @@ struct PLEPButton: View {
         Button(action: action) {
             HStack(spacing: 0) {
                 if (icon != nil) {
-                    Image(icon ?? "")
+                    Image(icon!)
                         .resizable()
                         .frame(width: 20, height: 20)
                         .padding(.trailing, 5)

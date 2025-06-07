@@ -8,11 +8,46 @@
 import SwiftUI
 
 struct ProfileEditMainView: View {
+    let name: String
+    let intro: String
+    let email: String
+    
     var body: some View {
-        Text(/*@START_MENU_TOKEN@*/"Hello, World!"/*@END_MENU_TOKEN@*/)
+        ZStack {
+            Color.g[500].ignoresSafeArea()
+            
+            VStack(spacing: 0) {
+                PLEPTopbar(type: .default, action: {})
+                
+                VStack(spacing: 19) {
+                    ProfileCell(type: .etc, size: .medium, btn: true)
+                    
+                    VStack(spacing: 5) {
+                        Text(name)
+                            .textStyle.body.bold
+                            .foregroundColor(.txt.primary)
+                        Text(intro)
+                            .textStyle.title.pre
+                            .foregroundColor(.txt.tertiary)
+                    }
+                    .frame(maxWidth: .infinity)
+                }
+                .padding(.vertical, 30)
+                .background(Color.g[0])
+                
+                VStack(spacing: 23) {
+                    EditListCell(type: .profile, name: name, intro: intro)
+                    EditListCell(type: .setting, email: email)
+                    Spacer()
+                }
+                .padding(.horizontal, 25)
+                .padding(.top, 23)
+            }
+            .ignoresSafeArea()
+        }
     }
 }
 
 #Preview {
-    ProfileEditMainView()
+    ProfileEditMainView(name: "황금막내 전정국", intro: "안녕하세요 저는 방탄소년단 황금막내 전정국입니다", email: "bts@bighit.men")
 }
