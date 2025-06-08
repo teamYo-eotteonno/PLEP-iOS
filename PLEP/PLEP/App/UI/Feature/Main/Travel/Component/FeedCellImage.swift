@@ -18,7 +18,7 @@ struct FeedCellImage: View {
                     Image("Dummy3")
                         .resizable()
                         .scaledToFit()
-                        .frame(maxWidth: .infinity, maxHeight: UIScreen.main.bounds.width)
+                        .frame(maxWidth: .infinity, maxHeight: 378)
                         .clipped()
                         .tag(index)
                         .background(Color.g[100])
@@ -87,7 +87,7 @@ struct FeedCellImage: View {
                     .padding(8)
                     .background(Color.black.opacity(0.4))
                     .cornerRadius(8)
-                    .padding(.bottom, 12)
+                    .padding(.bottom, 20)
             }
         }
     }

@@ -58,6 +58,7 @@ struct PLEPTextField: View {
                             .textStyle.body.default
                             .foregroundColor(.txt.quartemary)
                             .padding(.bottom, fieldType == .error ? 20 : 0)
+                            .padding(.top)
                     }
 
                     if fieldType == .error {
