@@ -123,4 +123,10 @@ class Asset{
     struct Arrow {
         static let left = "Arrow-Left"
     }
+    
+    static let edit = "Edit"
+    
+    struct Circle {
+        static let add = "Circle-Add"
+    }
 }

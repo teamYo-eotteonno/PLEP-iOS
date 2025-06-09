@@ -8,6 +8,6 @@
 import SwiftUI
 
 func contentLineCount(_ content: String) -> Int {
-    let approxCharsPerLine = 40 // 글자 크기와 너비에 따라 조절
+    let approxCharsPerLine = 40
     return (content.count / approxCharsPerLine) + 1
 }

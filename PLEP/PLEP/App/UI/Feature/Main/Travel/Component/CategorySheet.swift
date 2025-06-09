@@ -51,7 +51,7 @@ struct CategorySheet: View {
             )
         }
         .frame(maxWidth: .infinity)
-        .padding(.vertical, 45)
+        .padding(.bottom, 45)
         .padding(.horizontal, 25)
         .background(Color.g[0])
     }

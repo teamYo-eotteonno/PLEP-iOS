@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct FeedSearch: View {
-    @State private var search = ""
+    @Binding var search: String
     
     var body: some View {
         VStack(spacing: 5) {
@@ -48,8 +48,4 @@ struct FeedSearch: View {
         .padding(.vertical, 20)
         .background(Color.g[0])
     }
-}
-
-#Preview {
-    FeedSearch()
 }

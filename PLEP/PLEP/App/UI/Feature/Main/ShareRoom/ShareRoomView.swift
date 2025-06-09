@@ -10,7 +10,7 @@ import SwiftUI
 struct ShareRoomView: View {
     @State private var showDeletePopup = false
     @State private var showMoreSheet = false
-    @State private var showPDFSheet = false
+    @State private var showInvite = false
     
     var body: some View {
         ZStack {
@@ -19,7 +19,7 @@ struct ShareRoomView: View {
                     ShareRoomTitle(
                         my: true,
                         title: "아포방포",
-                        invite: {},
+                        invite: { showInvite.toggle() },
                         delete: { showDeletePopup = true },
                         more: { showMoreSheet = true }
                     )
@@ -40,14 +40,14 @@ struct ShareRoomView: View {
                             .frame(width: 64, height: 1)
                             .padding(.vertical, 20)
                         
-                        MoreSheet(onMember: {}, onRoom: {})
+                        ShareRoomMoreSheet(onMember: {}, onRoom: {})
                         
                     }
                 }
                 .presentationDetents([.fraction(0.2)])
                 .presentationDragIndicator(.hidden)
             }
-            .sheet(isPresented: $showPDFSheet) {
+            .sheet(isPresented: $showInvite) {
                 ZStack {
                     Color.g[0]
                         .cornerRadius(20)
@@ -67,7 +67,7 @@ struct ShareRoomView: View {
             }
             
             SubBottomSheet() {
-                NumberingListSheet(num: 5, onPDF: { showPDFSheet.toggle() })
+                NumberingListSheet(num: 5, onPDF: {  })
             }
             
             if showDeletePopup {

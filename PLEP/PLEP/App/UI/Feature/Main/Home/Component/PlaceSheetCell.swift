@@ -53,9 +53,13 @@ struct PlaceSheetCell: View {
                     enabled: true,
                     action: {}
                 )
-                .padding(.top, 20)
+                .padding(.top, 10)
             }
         }
         .padding(.horizontal, 10)
     }
+}
+
+#Preview {
+    LocationPlacesListSheet()
 }

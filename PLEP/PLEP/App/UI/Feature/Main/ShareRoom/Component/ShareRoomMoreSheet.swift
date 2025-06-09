@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-struct MoreSheet: View {
+struct ShareRoomMoreSheet: View {
     let onMember: () -> Void
     let onRoom: () -> Void
     
