@@ -129,4 +129,14 @@ class Asset{
     struct Circle {
         static let add = "Circle-Add"
     }
+    
+    struct Folder {
+        static let no = "Folder-No"
+    }
+    
+    static let clock = "Clock"
+    
+    static let alarm = "Alarm"
+    
+    static let note = "Note"
 }
