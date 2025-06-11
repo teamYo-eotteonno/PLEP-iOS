@@ -139,4 +139,8 @@ class Asset{
     static let alarm = "Alarm"
     
     static let note = "Note"
+    
+    static let check = "Check"
+    
+    static let menu = "Menu"
 }
