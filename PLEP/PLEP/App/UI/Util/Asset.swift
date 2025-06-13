@@ -28,6 +28,7 @@ class Asset{
     struct Calendar {
         static let `default` = "Calendar"
         static let tap = "Calendar-Tap"
+        static let add = "Calendar-Add"
     }
     
     struct Home {
