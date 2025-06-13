@@ -43,10 +43,7 @@ struct PLEPDropdown: View {
                                 .frame(maxWidth: .infinity, alignment: .leading)
                                 .background(Color.g[0])
                         }
-                        Rectangle()
-                            .foregroundColor(Color.g[50])
-                            .frame(height: 1)
-                            .frame(maxWidth: .infinity)
+                        PLEPDivider(type: .g50)
                     }
                 }
                 .cornerRadius(10)

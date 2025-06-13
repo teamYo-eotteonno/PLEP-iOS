@@ -56,10 +56,7 @@ struct EditListCell: View {
                         .padding(.vertical, 12)
                         
                         if title != itemsForType().last {
-                            Rectangle()
-                                .frame(maxWidth: .infinity)
-                                .frame(height: 1)
-                                .foregroundColor(.g[300])
+                            PLEPDivider(type: .g300)
                         }
                     }
                 }

@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-struct ScheduleCellBody: View {
+struct TimetableCellBody: View {
     @State var isChecked = false
     let place: String
     let address: String
@@ -43,9 +43,4 @@ struct ScheduleCellBody: View {
         .cornerRadius(touch ? 20 : 0)
         .background(Color.g[0])
     }
-}
-
-#Preview {
-    ScheduleCellBody(place: "방탄소년단", address: "빅히트 본사", touch: false)
-    ScheduleCellBody(place: "방탄소년단", address: "빅히트 본사", touch: true)
 }

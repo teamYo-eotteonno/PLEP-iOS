@@ -7,11 +7,11 @@
 
 import SwiftUI
 
-enum ScheduleCellHeaderSize {
+enum TimetableCellHeaderSize {
     case `default`, small
 }
-struct ScheduleCellHeader: View {
-    let size: ScheduleCellHeaderSize
+struct TimetableCellHeader: View {
+    let size: TimetableCellHeaderSize
     let num: Int
     @Binding var isExpanded: Bool
     
@@ -59,10 +59,7 @@ struct ScheduleCellHeader: View {
                     .padding(.vertical, 7)
                     .padding(.horizontal, 20)
                     .background(Color.g[0])
-                    Rectangle()
-                        .frame(maxWidth: .infinity)
-                        .frame(height: 1)
-                        .foregroundColor(.g[200])
+                    PLEPDivider(type: .g200)
                 }
             }
         }

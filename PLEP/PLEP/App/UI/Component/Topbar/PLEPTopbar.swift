@@ -55,9 +55,7 @@ struct PLEPTopbar: View {
             .padding(.horizontal, 35)
             .background(Color.g[0])
             .overlay(
-                Rectangle()
-                    .frame(height: 1)
-                    .foregroundColor(.g[100]),
+                PLEPDivider(type: .g100),
                 alignment: .bottom
             )
 //            Spacer()

@@ -41,10 +41,7 @@ struct ScheduleMoreSheet: View {
                     }
                     .frame(width: 146)
                 }
-                Rectangle()
-                    .frame(maxWidth: .infinity)
-                    .frame(height: 1)
-                    .foregroundColor(.g[200])
+                PLEPDivider(type: .g200)
                 
                 VStack(alignment: .leading, spacing: 10) {
                     HStack(spacing: 13) {

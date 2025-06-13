@@ -18,10 +18,7 @@ struct SharingSheet: View {
                     Text("공유")
                         .textStyle.body.bold
                         .foregroundColor(.txt.primary)
-                    Rectangle()
-                        .frame(maxWidth: .infinity)
-                        .frame(height: 1)
-                        .foregroundColor(.g[200])
+                    PLEPDivider(type: .g200)
                 }
                 PLEPTextField(
                     text: $url,

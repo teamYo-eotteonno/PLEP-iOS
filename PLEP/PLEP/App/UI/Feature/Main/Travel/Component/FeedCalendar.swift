@@ -64,10 +64,7 @@ struct FeedCalendar: View {
                 Text("날짜 선택")
                     .textStyle.body.bold
                     .foregroundColor(.txt.primary)
-                Rectangle()
-                    .frame(maxWidth: .infinity)
-                    .frame(height: 1)
-                    .foregroundColor(.g[200])
+                PLEPDivider(type: .g200)
             }
             HStack {
                 Button {

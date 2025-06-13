@@ -24,10 +24,7 @@ struct GroupSettingSheet: View {
             Text("그룹 설정")
                 .textStyle.body.bold
                 .foregroundColor(.txt.primary)
-            Rectangle()
-                .frame(maxWidth: .infinity)
-                .frame(height: 1)
-                .foregroundColor(.g[200])
+            PLEPDivider(type: .g200)
             switch type {
             case.can:
                 VStack(spacing: 55) {

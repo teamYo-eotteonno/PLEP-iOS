@@ -17,10 +17,7 @@ struct ScheduleAddSheet: View {
                 Text("스케줄 추가")
                     .textStyle.body.bold
                     .foregroundColor(.txt.primary)
-                Rectangle()
-                    .frame(maxWidth: .infinity)
-                    .frame(height: 1)
-                    .foregroundColor(.g[200])
+                PLEPDivider(type: .g200)
             }
             
             VStack(spacing: 15) {
