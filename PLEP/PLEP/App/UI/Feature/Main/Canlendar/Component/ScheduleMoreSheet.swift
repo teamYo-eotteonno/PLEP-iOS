@@ -99,7 +99,3 @@ struct ScheduleMoreSheet: View {
         .padding(.horizontal, 25)
     }
 }
-
-#Preview {
-    ScheduleMoreSheet(alarm: true, onDelete: {}, onEdit: {}, color: .file.purple, title: "방탄 페스타")
-}

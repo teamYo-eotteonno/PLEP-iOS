@@ -10,7 +10,8 @@ import SwiftUI
 struct TimetableList: View {
     @State var isExpanded: Bool = true
     let null: Bool
-    let action: () -> Void
+    let onInformation: () -> Void
+    let onAdd: () -> Void
     
     var body: some View {
         VStack(spacing: 0) {
@@ -29,7 +30,8 @@ struct TimetableList: View {
                                     TimetableCellBody(
                                         place: "방탄소년단",
                                         address: "빅히트본사",
-                                        touch: false
+                                        touch: false,
+                                        action: onInformation
                                     )
                                     PLEPDivider(type: .g200)
                                 }
@@ -37,13 +39,14 @@ struct TimetableList: View {
                             TimetableCellBody(
                                 place: "방탄소년단",
                                 address: "빅히트본사",
-                                touch: false
+                                touch: false,
+                                action: onInformation
                             )
                         }
                         .padding(.top, 10)
                         .transition(.move(edge: .top).combined(with: .opacity))
                         .background(Color.g[0])
-                        Button(action: action) {
+                        Button(action: onAdd) {
                             Image(Asset.Add.rectangle)
                                 .resizable()
                                 .frame(width: 24, height: 24)

@@ -19,9 +19,15 @@ struct TimetableView: View {
             ScrollView {
                 VStack(spacing: 23) {
                     ForEach(0..<3) { _ in
-                        TimetableList(null: false) {
-                            showAddSheet.toggle()
-                        }
+                        TimetableList(
+                            null: false,
+                            onInformation: {
+                                showTimetable.toggle()
+                            },
+                            onAdd: {
+                                showAddSheet.toggle()
+                            }
+                        )
                     }
                 }
                 .padding(.horizontal, 25)
@@ -48,27 +54,22 @@ struct TimetableView: View {
                         )
                     }
                 }
-                .presentationDetents([.fraction(0.35)])
+                .presentationDetents([.fraction(0.483)])
                 .presentationDragIndicator(.hidden)
             }
-            .ignoresSafeArea()
             .sheet(isPresented: $showAddSheet) {
-                ZStack {
-                    Color.g[0]
-                        .cornerRadius(20)
-                        .shadow(radius: 5)
-                    
-                    VStack(spacing: 0) {
+                VStack(spacing: 0) {
                         Capsule()
                             .foregroundColor(.g[500])
                             .frame(width: 64, height: 1)
                             .padding(.vertical, 20)
-                        
+
                         TimetableAddSheet()
                     }
-                }
-                .presentationDetents([.fraction(0.9)])
-                .presentationDragIndicator(.hidden)
+                    .background(Color.g[0])
+                    .cornerRadius(20)
+                    .presentationDetents([.fraction(0.9)])
+                    .presentationDragIndicator(.hidden)
             }
         }
         .ignoresSafeArea()

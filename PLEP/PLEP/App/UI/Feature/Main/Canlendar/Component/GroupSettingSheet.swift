@@ -142,7 +142,3 @@ struct GroupColorCell: View {
         }
     }
 }
-
-#Preview {
-    GroupSettingSheet(type: .more, color: .file.purple, title: "방탄 페스타", onDelete: {}, onEdit: {})
-}

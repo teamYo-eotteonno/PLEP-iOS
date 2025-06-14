@@ -12,6 +12,7 @@ struct TimetableCellBody: View {
     let place: String
     let address: String
     let touch: Bool
+    let action: () -> Void
     
     var body: some View {
         HStack {
@@ -20,10 +21,12 @@ struct TimetableCellBody: View {
                     .padding(.top, 3.5)
                 VStack(alignment: .leading, spacing: 0) {
                     HStack(spacing: 5) {
-                        Text(place)
-                            .textStyle.body.bold
-                            .foregroundColor(.txt.primary)
-                            .strikethrough(isChecked ? true : false)
+                        Button(action: action) {
+                            Text(place)
+                                .textStyle.body.bold
+                                .foregroundColor(.txt.primary)
+                                .strikethrough(isChecked ? true : false)
+                        }
                         Text(address)
                             .textStyle.title.pre
                             .foregroundColor(.txt.quartemary)
