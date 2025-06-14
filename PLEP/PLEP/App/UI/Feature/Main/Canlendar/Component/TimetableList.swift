@@ -8,11 +8,13 @@
 import SwiftUI
 
 struct TimetableList: View {
-    @State var isExpanded: Bool = false
+    @State var isExpanded: Bool = true
     let null: Bool
+    let action: () -> Void
+    
     var body: some View {
         VStack(spacing: 0) {
-            TimetableCellHeader(size: .small, num: 1, isExpanded: $isExpanded)
+            TimetableCellHeader(size: isExpanded ? .default : .small, num: 1, isExpanded: $isExpanded)
                 .onTapGesture {
                     withAnimation(.easeInOut(duration: 0.3)) {
                         isExpanded.toggle()
@@ -20,25 +22,33 @@ struct TimetableList: View {
                 }
             if !isExpanded {
                 if !null {
-                    VStack(spacing: 10) {
-                        ForEach(0..<4) { _ in
-                            VStack(spacing: 0) {
-                                TimetableCellBody(
-                                    place: "방탄소년단",
-                                    address: "빅히트본사",
-                                    touch: false
-                                )
-                                PLEPDivider(type: .g200)
+                    VStack(spacing: 23) {
+                        VStack(spacing: 10) {
+                            ForEach(0..<4) { _ in
+                                VStack(spacing: 0) {
+                                    TimetableCellBody(
+                                        place: "방탄소년단",
+                                        address: "빅히트본사",
+                                        touch: false
+                                    )
+                                    PLEPDivider(type: .g200)
+                                }
                             }
+                            TimetableCellBody(
+                                place: "방탄소년단",
+                                address: "빅히트본사",
+                                touch: false
+                            )
                         }
-                        TimetableCellBody(
-                            place: "방탄소년단",
-                            address: "빅히트본사",
-                            touch: false
-                        )
+                        .padding(.top, 10)
+                        .transition(.move(edge: .top).combined(with: .opacity))
+                        .background(Color.g[0])
+                        Button(action: action) {
+                            Image(Asset.Add.rectangle)
+                                .resizable()
+                                .frame(width: 24, height: 24)
+                        }
                     }
-                    .padding(.top, 10)
-                    .transition(.move(edge: .top).combined(with: .opacity))
                 } else {
                     VStack(spacing: 10) {
                         Image(Asset.Calendar.add)
@@ -57,5 +67,6 @@ struct TimetableList: View {
         }
         .cornerRadius(10)
         .animation(.easeInOut(duration: 0.3), value: isExpanded)
+        
     }
 }

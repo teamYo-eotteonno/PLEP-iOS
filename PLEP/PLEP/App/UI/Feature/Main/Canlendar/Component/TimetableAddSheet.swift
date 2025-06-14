@@ -7,14 +7,14 @@
 
 import SwiftUI
 
-struct ScheduleAddSheet: View {
+struct TimetableAddSheet: View {
     @State private var title = ""
     @State private var note = ""
     
     var body: some View {
         VStack(spacing: 40) {
             VStack(spacing: 17) {
-                Text("스케줄 추가")
+                Text("시간표 추가")
                     .textStyle.body.bold
                     .foregroundColor(.txt.primary)
                 PLEPDivider(type: .g200)
@@ -76,11 +76,8 @@ struct ScheduleAddSheet: View {
                 action: {}
             )
         }
-        .padding(.bottom, 45)
+        .frame(maxWidth: .infinity)
+        .padding(.bottom, 45+20)
         .padding(.horizontal, 25)
     }
-}
-
-#Preview {
-    ScheduleAddSheet()
 }

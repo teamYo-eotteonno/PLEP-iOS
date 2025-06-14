@@ -10,6 +10,7 @@ import SwiftUI
 enum TimetableCellHeaderSize {
     case `default`, small
 }
+
 struct TimetableCellHeader: View {
     let size: TimetableCellHeaderSize
     let num: Int

@@ -15,7 +15,7 @@ struct CategoryAdd: View {
         HStack(spacing: 20) {
             Button(action: onCategory) {
                 HStack(spacing: 3) {
-                    Image(Asset.Circle.add)
+                    Image(Asset.Add.circle)
                         .resizable()
                         .frame(width: 24, height: 24)
                     Text("카테고리 추가")

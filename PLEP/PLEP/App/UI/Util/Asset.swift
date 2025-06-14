@@ -127,8 +127,9 @@ class Asset{
     
     static let edit = "Edit"
     
-    struct Circle {
-        static let add = "Circle-Add"
+    struct Add {
+        static let circle = "Add-Circle"
+        static let rectangle = "Add-Rectangle"
     }
     
     struct Folder {
