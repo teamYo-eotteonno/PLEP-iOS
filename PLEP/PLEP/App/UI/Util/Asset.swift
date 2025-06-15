@@ -123,6 +123,7 @@ class Asset{
     
     struct Arrow {
         static let left = "Arrow-Left"
+        static let right = "Arrow-Right"
     }
     
     static let edit = "Edit"
