@@ -8,11 +8,14 @@
 import SwiftUI
 
 struct CharPicker: View {
-    @State private var selectedTime = "오전"
-    let range = ["오전", "오후"]
+    @Binding var isPM: Bool
+    private let range = ["오전", "오후"]
 
     var body: some View {
-        Picker("", selection: $selectedTime) {
+        Picker("", selection: Binding<String>(
+            get: { isPM ? "오후" : "오전" },
+            set: { isPM = ($0 == "오후") }
+        )) {
             ForEach(range, id: \.self) { char in
                 Text(char)
                     .textStyle.body.bold

@@ -15,12 +15,22 @@ struct ScheduleDateAndTime: View {
     @State private var isSelectingStartDate = false
     @State private var isSelectingEndDate = false
     
-    @State private var startTime: String?
-    @State private var endTime: String?
+    @State private var startTime: String? = nil
+    @State private var endTime: String? = nil
     
-    @State private var showTime = false
+    @State private var showTimeWheel = false
     @State private var isSelectingStartTime = false
     @State private var isSelectingEndTime = false
+    
+    // 시작 시간용 상태
+    @State private var startIsPM = false
+    @State private var startHour = 1
+    @State private var startMinute = 0
+    
+    // 종료 시간용 상태
+    @State private var endIsPM = false
+    @State private var endHour = 1
+    @State private var endMinute = 0
     
     var body: some View {
         VStack(spacing: 11) {
@@ -34,18 +44,25 @@ struct ScheduleDateAndTime: View {
                         action: {
                             isSelectingStartDate = true
                             isSelectingEndDate = false
-                            showCalendar.toggle()
+                            showCalendar = true
+                            showTimeWheel = false
                         }
                     )
                     PLEPButton(
-                        title: "오후 5:00",
+                        title: startTime ?? "시작 시간 선택",
                         type: .neutral,
                         size: .small,
                         enabled: true,
                         action: {
-                            isSelectingStartTime = true
-                            isSelectingEndTime = false
-                            showTime.toggle()
+                            if showTimeWheel && isSelectingStartTime {
+                                showTimeWheel = false
+                                isSelectingStartTime = false
+                            } else {
+                                isSelectingStartTime = true
+                                isSelectingEndTime = false
+                                showTimeWheel = true
+                                showCalendar = false
+                            }
                         }
                     )
                 }
@@ -63,18 +80,25 @@ struct ScheduleDateAndTime: View {
                         action: {
                             isSelectingStartDate = false
                             isSelectingEndDate = true
-                            showCalendar.toggle()
+                            showCalendar = true
+                            showTimeWheel = false
                         }
                     )
                     PLEPButton(
-                        title: "오후 6:00",
+                        title: endTime ?? "종료 시간 선택",
                         type: .neutral,
                         size: .small,
                         enabled: true,
                         action: {
-                            isSelectingStartTime = false
-                            isSelectingEndTime = true
-                            showTime.toggle()
+                            if showTimeWheel && isSelectingEndTime {
+                                showTimeWheel = false
+                                isSelectingEndTime = false
+                            } else {
+                                isSelectingStartTime = false
+                                isSelectingEndTime = true
+                                showTimeWheel = true
+                                showCalendar = false
+                            }
                         }
                     )
                 }
@@ -95,19 +119,27 @@ struct ScheduleDateAndTime: View {
                     }
                 )
             }
-            if showTime {
-                HStack(spacing: 20) {
-                    CharPicker()
-                    HStack(spacing: 5) {
-                        NumberPicker(range: 1...12)
-                        Text(":")
-                            .textStyle.title.header3
-                            .foregroundColor(.txt.primary)
-                        NumberPicker(range: 0...5)
-                        NumberPicker(range: 0...9)
-                    }
+            
+            if showTimeWheel {
+                if isSelectingStartTime {
+                    TimeWheel(
+                        isPM: $startIsPM,
+                        hour: $startHour,
+                        minute: $startMinute,
+                        onTimeChange: { newTime in
+                            startTime = newTime
+                        }
+                    )
+                } else if isSelectingEndTime {
+                    TimeWheel(
+                        isPM: $endIsPM,
+                        hour: $endHour,
+                        minute: $endMinute,
+                        onTimeChange: { newTime in
+                            endTime = newTime
+                        }
+                    )
                 }
-                .padding(.vertical, 20)
             }
         }
     }
@@ -120,7 +152,6 @@ struct ScheduleDateAndTime: View {
         return formatter.string(from: date)
     }
 }
-
 
 #Preview {
     ScheduleDateAndTime()

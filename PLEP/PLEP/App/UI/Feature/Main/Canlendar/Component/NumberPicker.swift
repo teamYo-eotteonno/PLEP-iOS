@@ -9,26 +9,17 @@ import SwiftUI
 
 struct NumberPicker: View {
     let range: ClosedRange<Int>
-    @State private var selectedNumber: Int
-    
-    init(range: ClosedRange<Int>) {
-        self.range = range
-        _selectedNumber = State(initialValue: range.lowerBound)
-    }
-    
+    @Binding var selectedNumber: Int
+
     var body: some View {
-        VStack {
-            HStack(spacing: 0) {
-                Picker("", selection: $selectedNumber) {
-                    ForEach(range, id: \.self) { number in
-                        Text("\(number)")
-                            .textStyle.title.header3
-                            .foregroundColor(.txt.primary)
-                    }
-                }
-                .frame(width: 70, height: 120)
-                .pickerStyle(.wheel)
+        Picker("", selection: $selectedNumber) {
+            ForEach(range, id: \.self) { number in
+                Text(number < 10 ? "\(number)" : String(number))
+                    .textStyle.title.header3
+                    .foregroundColor(.txt.primary)
             }
         }
+        .frame(width: 70, height: 120)
+        .pickerStyle(.wheel)
     }
 }

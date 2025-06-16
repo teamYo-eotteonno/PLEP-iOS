@@ -11,6 +11,12 @@ struct TimetableAddSheet: View {
     @State private var title = ""
     @State private var note = ""
     
+    @State private var isPM = false
+    @State private var hour = 1
+    @State private var minute = 0
+    @State private var showTimeWheel = false
+
+    
     var body: some View {
         ZStack {
             Color.g[0].ignoresSafeArea()
@@ -38,18 +44,11 @@ struct TimetableAddSheet: View {
                         action: {}
                     )
                     
-                    HStack(spacing: 20) {
-                        CharPicker()
-                        HStack(spacing: 5) {
-                            NumberPicker(range: 1...12)
-                            Text(":")
-                                .textStyle.title.header3
-                                .foregroundColor(.txt.primary)
-                            NumberPicker(range: 0...5)
-                            NumberPicker(range: 0...9)
-                        }
-                    }
-                    .padding(.vertical, 20)
+                    TimeWheel(
+                        isPM: $isPM,
+                        hour: $hour,
+                        minute: $minute
+                    )
                     
                     VStack(alignment: .leading, spacing: 0) {
                         HStack {
