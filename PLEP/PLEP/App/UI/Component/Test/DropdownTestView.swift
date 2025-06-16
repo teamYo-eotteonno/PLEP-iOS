@@ -8,20 +8,27 @@
 import SwiftUI
 
 struct DropdownTestView: View {
-    @State private var selected = ""
+    @State private var selection1 = ""
+    @State private var selection2 = ""
     
     var body: some View {
-        PLEPDropdown(
-            title: "E-mail",
-            options: ["naver.com", "gmail.com", "kakao.com", "기타"],
-            selection: $selected
-        )
-        
-        PLEPDropdown(
-            title: "E-mail",
-            options: ["naver.com", "gmail.com", "kakao.com", "기타"],
-            selection: $selected
-        )
+        VStack {
+            PLEPDropdown(
+                title: "옵션 선택",
+                options: [
+                    .red: "빨강",
+                    .green: "초록",
+                    .yellow: "선택 안 함",
+                    .blue: "파랑"
+                ],
+                selection: $selection1
+            )
+            PLEPDropdown(
+                title: "E-mail",
+                options: ["naver.com", "gmail.com", "kakao.com", "기타"],
+                selection: $selection2
+            )
+        }
     }
 }
 

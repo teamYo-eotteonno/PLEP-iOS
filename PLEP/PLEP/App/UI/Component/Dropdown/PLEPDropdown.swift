@@ -9,9 +9,21 @@ import SwiftUI
 
 struct PLEPDropdown: View {
     let title: String
-    let options: [String]
+    let options: [(Color?, String)]
     @Binding var selection: String
     @State private var isExpanded = false
+
+    init(title: String, options: [String], selection: Binding<String>) {
+        self.title = title
+        self.options = options.map { (nil, $0) }
+        self._selection = selection
+    }
+
+    init(title: String, options: [Color?: String], selection: Binding<String>) {
+        self.title = title
+        self.options = options.map { ($0.key, $0.value) }
+        self._selection = selection
+    }
 
     var body: some View {
         VStack(spacing: isExpanded ? -20 : 0) {
@@ -20,30 +32,46 @@ struct PLEPDropdown: View {
                 isExpanded: $isExpanded
             )
             .zIndex(1)
+            
             if isExpanded {
                 VStack(spacing: 0) {
                     Rectangle()
                         .frame(maxWidth: .infinity)
                         .frame(height: 20)
                         .foregroundColor(.g[0])
+                    
                     ForEach(options.indices, id: \.self) { index in
+                        let (color, text) = options[index]
                         let isLast = index == options.count - 1
                         
                         Button(action: {
                             withAnimation {
-                                selection = options[index]
+                                selection = text
                                 isExpanded = false
                             }
                         }) {
-                            Text(options[index])
-                                .textStyle.body.small
-                                .foregroundColor(.txt.primary)
-                                .padding(.vertical, 12)
-                                .padding(.horizontal, 18)
-                                .frame(maxWidth: .infinity, alignment: .leading)
-                                .background(Color.g[0])
+                            HStack(spacing: 10) {
+                                if let color = color {
+                                    Rectangle()
+                                        .fill(color)
+                                        .frame(width: 12, height: 12)
+                                        .cornerRadius(2)
+                                }
+                                
+                                Text(text)
+                                    .textStyle.body.small
+                                    .foregroundColor(.txt.primary)
+                                
+                                Spacer()
+                            }
+                            .padding(.vertical, 12)
+                            .padding(.horizontal, 18)
+                            .background(Color.g[0])
                         }
-                        PLEPDivider(type: .g50)
+                        
+                        if !isLast {
+                            PLEPDivider(type: .g50)
+                        }
                     }
                 }
                 .cornerRadius(10)
@@ -55,8 +83,4 @@ struct PLEPDropdown: View {
             }
         }
     }
-}
-
-#Preview {
-    DropdownTestView()
 }
