@@ -9,6 +9,7 @@ import SwiftUI
 
 struct GroupList: View {
     let groups: [Color: String]
+    @Binding var selectedIndex: Int?
 
     var body: some View {
         ScrollView(.horizontal, showsIndicators: false) {
@@ -29,30 +30,32 @@ struct GroupList: View {
                 ForEach(Array(groups.enumerated()), id: \.offset) { index, element in
                     let color = element.key
                     let name = element.value
-                    
-                    VStack(spacing: 5) {
-                        Rectangle()
-                            .fill(color)
-                            .frame(width: 20, height: 20)
-                            .cornerRadius(5)
 
-                        Text(name)
-                            .textStyle.title.pre
-                            .foregroundColor(.txt.primary)
-                            .lineLimit(1)
+                    Button(action: {
+                        selectedIndex = index
+                    }) {
+                        VStack(spacing: 5) {
+                            ZStack {
+                                RoundedRectangle(cornerRadius: 6)
+                                    .foregroundColor(selectedIndex == index ? .p[500] : color)
+                                    .frame(width: 20, height: 20)
+                                
+                                Rectangle()
+                                    .fill(color)
+                                    .frame(width: 16, height: 16)
+                                    .cornerRadius(4)
+                            }
+
+                            Text(name)
+                                .textStyle.title.pre
+                                .foregroundColor(.txt.primary)
+                                .lineLimit(1)
+                        }
+                        .frame(width: 43)
                     }
-                    .frame(width: 43)
                 }
             }
             .padding(.horizontal, 16)
         }
     }
-}
-
-#Preview {
-    GroupList(groups: [
-        .red: "팀 Aafdafdfadfa",
-        .blue: "가족여행",
-        .green: "팀 C"
-    ])
 }
