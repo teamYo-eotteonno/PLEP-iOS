@@ -17,7 +17,7 @@ struct TravelMoreSheet: View {
             VStack(alignment: .leading, spacing: 20) {
                 Button(action: { onEdit() }) {
                     HStack(spacing: 5) {
-                        Image(Asset.edit)
+                        Image(Asset.Edit.default)
                             .resizable()
                             .frame(width: 20, height: 20)
                         Text("수정")

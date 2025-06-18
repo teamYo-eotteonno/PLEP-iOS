@@ -80,8 +80,6 @@ class Asset{
             static let color = "Users-Color"
         }
         
-        static let edit = "User-Edit"
-        
         struct Add {
             static let `default` = "User-Add"
             
@@ -126,11 +124,18 @@ class Asset{
         static let right = "Arrow-Right"
     }
     
-    static let edit = "Edit"
+    struct Edit {
+        static let `default` = "Edit"
+        static let user = "User-Edit"
+        static let schedule = "Schedule-Edit"
+    }
     
     struct Add {
         static let circle = "Add-Circle"
-        static let rectangle = "Add-Rectangle"
+        struct Rectangle {
+            static let fill = "Add-Rectangle-Fill"
+            static let empty = "Add-Rectangle-Empty"
+        }
     }
     
     struct Folder {
@@ -146,4 +151,9 @@ class Asset{
     static let check = "Check"
     
     static let menu = "Menu"
+    
+    struct Close {
+        static let circle = "Close-Circle"
+    }
+
 }

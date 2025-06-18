@@ -47,7 +47,7 @@ struct TimetableList: View {
                         .transition(.move(edge: .top).combined(with: .opacity))
                         .background(Color.g[0])
                         Button(action: onAdd) {
-                            Image(Asset.Add.rectangle)
+                            Image(Asset.Add.Rectangle.fill)
                                 .resizable()
                                 .frame(width: 24, height: 24)
                         }

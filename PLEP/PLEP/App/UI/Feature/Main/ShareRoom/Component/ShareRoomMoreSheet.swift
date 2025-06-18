@@ -17,7 +17,7 @@ struct ShareRoomMoreSheet: View {
             VStack(alignment: .leading, spacing: 20) {
                 Button(action: { onMember() }) {
                     HStack(spacing: 5) {
-                        Image(Asset.User.edit)
+                        Image(Asset.Edit.user)
                             .resizable()
                             .frame(width: 20, height: 20)
                         Text("멤버 목록 수정")

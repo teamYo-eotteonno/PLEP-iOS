@@ -18,7 +18,7 @@ struct GroupList: View {
                     print("그룹 추가")
                 }) {
                     VStack(spacing: 5) {
-                        Image(Asset.Add.rectangle)
+                        Image(Asset.Add.Rectangle.fill)
                             .resizable()
                             .frame(width: 20, height: 20)
                         Text("추가")
