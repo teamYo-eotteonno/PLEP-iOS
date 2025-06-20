@@ -24,6 +24,7 @@ struct MainCalendarGrid: View {
                         MainCalendarDayCell(
                             date: date,
                             calendar: calendar,
+                            displayedMonth: displayedMonth,
                             schedules: schedules,
                             selectedDate: selectedDate,
                             tappedDate: tappedDate,
@@ -34,4 +35,8 @@ struct MainCalendarGrid: View {
             }
         }
     }
+}
+
+#Preview {
+    MainCalendar()
 }

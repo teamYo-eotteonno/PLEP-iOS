@@ -21,7 +21,30 @@ struct MainCalendar: View {
     }
 
     @State private var schedules: [Schedule] = [
-        Schedule(name: "긴 일정", startDate: makeDate("2025-06-10"), endDate: makeDate("2025-06-30"), color: .blue)
+        // 하루짜리 일정 1개 (텍스트+사각형)
+        Schedule(name: "하루 일정 A", startDate: makeDate("2025-06-03"), endDate: makeDate("2025-06-03"), color: .red),
+
+        // 하루짜리 일정 여러 개 (동그라미로 표시)
+        Schedule(name: "하루 일정 B", startDate: makeDate("2025-06-04"), endDate: makeDate("2025-06-04"), color: .green),
+        Schedule(name: "하루 일정 C", startDate: makeDate("2025-06-04"), endDate: makeDate("2025-06-04"), color: .blue),
+        Schedule(name: "하루 일정 D", startDate: makeDate("2025-06-04"), endDate: makeDate("2025-06-04"), color: .purple),
+        
+        // 장기 일정 1개 (바+텍스트)
+        Schedule(name: "긴 일정 A", startDate: makeDate("2025-06-05"), endDate: makeDate("2025-06-10"), color: .orange),
+        
+        // 장기 + 하루 일정 같이 있음 (동그라미 2개 표시)
+        Schedule(name: "긴 일정 B", startDate: makeDate("2025-06-11"), endDate: makeDate("2025-06-13"), color: .cyan),
+        Schedule(name: "하루 일정 E", startDate: makeDate("2025-06-12"), endDate: makeDate("2025-06-12"), color: .mint),
+        
+        // 하루 일정 4개 (동그라미 3개까지만 표시됨)
+        Schedule(name: "하루 일정 F", startDate: makeDate("2025-06-14"), endDate: makeDate("2025-06-14"), color: .pink),
+        Schedule(name: "하루 일정 G", startDate: makeDate("2025-06-14"), endDate: makeDate("2025-06-14"), color: .brown),
+        Schedule(name: "하루 일정 H", startDate: makeDate("2025-06-14"), endDate: makeDate("2025-06-14"), color: .indigo),
+        Schedule(name: "하루 일정 I", startDate: makeDate("2025-06-14"), endDate: makeDate("2025-06-14"), color: .gray),
+        
+        // 장기 일정 2개 겹침 (동그라미 2개 표시)
+        Schedule(name: "긴 일정 C", startDate: makeDate("2025-06-16"), endDate: makeDate("2025-06-18"), color: .yellow),
+        Schedule(name: "긴 일정 D", startDate: makeDate("2025-06-17"), endDate: makeDate("2025-06-19"), color: .teal),
     ]
 
     @State private var selectedDate: Date?
@@ -42,7 +65,6 @@ struct MainCalendar: View {
         let firstWeekday = calendar.component(.weekday, from: firstOfMonth)
         var days: [Date] = []
 
-        // 이전 달
         if let previousMonth = calendar.date(byAdding: .month, value: -1, to: displayedMonth) {
             let leading = firstWeekday - 1
             for i in (0..<leading).reversed() {
@@ -52,14 +74,12 @@ struct MainCalendar: View {
             }
         }
 
-        // 현재 달
         for day in range {
             if let date = calendar.date(byAdding: .day, value: day - 1, to: firstOfMonth) {
                 days.append(date)
             }
         }
-
-        // 다음 달
+        
         while days.count < 42 {
             if let last = days.last, let next = calendar.date(byAdding: .day, value: 1, to: last) {
                 days.append(next)
