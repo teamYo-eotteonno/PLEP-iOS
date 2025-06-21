@@ -14,7 +14,7 @@ struct MainCalendarGrid: View {
     let schedules: [Schedule]
     let selectedDate: Date?
     let tappedDate: Date?
-    let onSelect: (Date) -> Void
+    let onSelect: (_ date: Date) -> Void
 
     var body: some View {
         VStack(spacing: 0) {
@@ -35,8 +35,4 @@ struct MainCalendarGrid: View {
             }
         }
     }
-}
-
-#Preview {
-    MainCalendar()
 }

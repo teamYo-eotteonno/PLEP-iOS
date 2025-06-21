@@ -12,6 +12,8 @@ struct MainCalendar: View {
     @State private var currentDate = Date()
     @State private var previousMonth: Date = Date()
     @State private var transitionDirection: AnyTransition = .identity
+    
+    let onSelect: (Date) -> Void
 
     private static func makeDate(_ dateString: String) -> Date {
         let formatter = DateFormatter()
@@ -22,25 +24,25 @@ struct MainCalendar: View {
 
     @State private var schedules: [Schedule] = [
         // 하루짜리 일정 1개 (텍스트+사각형)
-        Schedule(name: "하루 일정 A", startDate: makeDate("2025-06-03"), endDate: makeDate("2025-06-03"), color: .red),
+        Schedule(name: "A", startDate: makeDate("2025-06-03"), color: .red),
 
         // 하루짜리 일정 여러 개 (동그라미로 표시)
-        Schedule(name: "하루 일정 B", startDate: makeDate("2025-06-04"), endDate: makeDate("2025-06-04"), color: .green),
-        Schedule(name: "하루 일정 C", startDate: makeDate("2025-06-04"), endDate: makeDate("2025-06-04"), color: .blue),
-        Schedule(name: "하루 일정 D", startDate: makeDate("2025-06-04"), endDate: makeDate("2025-06-04"), color: .purple),
+        Schedule(name: "B", startDate: makeDate("2025-06-04"), color: .green),
+        Schedule(name: "C", startDate: makeDate("2025-06-04"), color: .blue),
+        Schedule(name: "D", startDate: makeDate("2025-06-04"), color: .purple),
         
         // 장기 일정 1개 (바+텍스트)
         Schedule(name: "긴 일정 A", startDate: makeDate("2025-06-05"), endDate: makeDate("2025-06-10"), color: .orange),
         
         // 장기 + 하루 일정 같이 있음 (동그라미 2개 표시)
         Schedule(name: "긴 일정 B", startDate: makeDate("2025-06-11"), endDate: makeDate("2025-06-13"), color: .cyan),
-        Schedule(name: "하루 일정 E", startDate: makeDate("2025-06-12"), endDate: makeDate("2025-06-12"), color: .mint),
+        Schedule(name: "하루 일정 E", startDate: makeDate("2025-06-12"), color: .mint),
         
         // 하루 일정 4개 (동그라미 3개까지만 표시됨)
-        Schedule(name: "하루 일정 F", startDate: makeDate("2025-06-14"), endDate: makeDate("2025-06-14"), color: .pink),
-        Schedule(name: "하루 일정 G", startDate: makeDate("2025-06-14"), endDate: makeDate("2025-06-14"), color: .brown),
-        Schedule(name: "하루 일정 H", startDate: makeDate("2025-06-14"), endDate: makeDate("2025-06-14"), color: .indigo),
-        Schedule(name: "하루 일정 I", startDate: makeDate("2025-06-14"), endDate: makeDate("2025-06-14"), color: .gray),
+        Schedule(name: "하루 일정 F", startDate: makeDate("2025-06-14"), color: .pink),
+        Schedule(name: "하루 일정 G", startDate: makeDate("2025-06-14"), color: .brown),
+        Schedule(name: "하루 일정 H", startDate: makeDate("2025-06-14"), color: .indigo),
+        Schedule(name: "하루 일정 I", startDate: makeDate("2025-06-14"), color: .gray),
         
         // 장기 일정 2개 겹침 (동그라미 2개 표시)
         Schedule(name: "긴 일정 C", startDate: makeDate("2025-06-16"), endDate: makeDate("2025-06-18"), color: .yellow),
@@ -90,7 +92,7 @@ struct MainCalendar: View {
     }
 
     var body: some View {
-        VStack(spacing: 12) {
+        VStack(spacing: 16) {
             HStack(spacing: 32) {
                 Spacer()
                 Button {
@@ -103,15 +105,11 @@ struct MainCalendar: View {
                         .frame(width: 10, height: 20)
                         .foregroundColor(.icon.secondary)
                 }
-
-//                Spacer()
-
+                
                 Text(displayedMonthFormatted)
                     .textStyle.body.default
                     .foregroundColor(.txt.primary)
-
-//                Spacer()
-
+                
                 Button {
                     withAnimation(.easeInOut) {
                         previousMonth = currentDate
@@ -126,11 +124,9 @@ struct MainCalendar: View {
                 }
                 Spacer()
             }
-            
-//            .padding(.horizontal, 10)
 
             VStack(spacing: 5) {
-                HStack {
+                HStack(spacing: 0) {
                     ForEach(daysOfWeek, id: \.self) { day in
                         Text(day)
                             .textStyle.title.pre
@@ -147,20 +143,14 @@ struct MainCalendar: View {
                     selectedDate: selectedDate,
                     tappedDate: tappedDate,
                     onSelect: { date in
-                        if tappedDate == date {
-                            selectedDate = date
-                        } else {
-                            tappedDate = date
-                        }
+                        tappedDate = date
+                        selectedDate = date
+                        onSelect(date)
                     }
                 )
-                .textStyle.body.default
                 .transition(transitionDirection)
             }
-//            .padding(.all, 10)
         }
-//        .padding(.all, 20)
-//        .background(Color.g[0])
     }
 
     private var displayedMonthFormatted: String {
@@ -182,8 +172,4 @@ extension View {
     func cornerRadius(_ radius: CGFloat, corners: [UIRectCorner]) -> some View {
         clipShape(RoundedCorner(radius: radius, corners: corners.reduce([]) { $0.union($1) }))
     }
-}
-
-#Preview {
-    MainCalendar()
 }

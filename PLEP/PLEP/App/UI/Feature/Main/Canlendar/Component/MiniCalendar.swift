@@ -36,7 +36,6 @@ struct MiniCalendar: View {
         let firstWeekday = calendar.component(.weekday, from: firstOfMonth)
         var days: [Date] = []
         
-        // 이전 달
         if let previousMonth = calendar.date(byAdding: .month, value: -1, to: displayedMonth) {
             let leading = firstWeekday - 1
             for i in (0..<leading).reversed() {
@@ -46,14 +45,12 @@ struct MiniCalendar: View {
             }
         }
         
-        // 현재 달
         for day in range {
             if let date = calendar.date(byAdding: .day, value: day - 1, to: firstOfMonth) {
                 days.append(date)
             }
         }
         
-        // 다음 달
         while days.count < 42 {
             if let last = days.last, let next = calendar.date(byAdding: .day, value: 1, to: last) {
                 days.append(next)

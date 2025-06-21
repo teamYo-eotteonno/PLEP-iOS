@@ -5,8 +5,6 @@
 //  Created by 이다경 on 5/29/25.
 //
 
-// HomeView.swift
-
 import SwiftUI
 
 struct HomeView: View {

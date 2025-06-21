@@ -36,7 +36,3 @@ struct PLEPDropdownHeader: View {
         }
     }
 }
-
-#Preview {
-    DropdownTestView()
-}

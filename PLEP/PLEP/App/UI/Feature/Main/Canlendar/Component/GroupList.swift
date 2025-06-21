@@ -10,13 +10,13 @@ import SwiftUI
 struct GroupList: View {
     let groups: [Color: String]
     @Binding var selectedIndex: Int?
+    let onAdd: () -> Void
+    let onSetting: (Int) -> Void
 
     var body: some View {
         ScrollView(.horizontal, showsIndicators: false) {
             HStack(spacing: 10) {
-                Button(action: {
-                    print("그룹 추가")
-                }) {
+                Button(action: onAdd) {
                     VStack(spacing: 5) {
                         Image(Asset.Add.Rectangle.fill)
                             .resizable()
@@ -25,33 +25,38 @@ struct GroupList: View {
                             .textStyle.title.pre
                             .foregroundColor(.txt.primary)
                     }
+                    .frame(width: 43)
                 }
 
                 ForEach(Array(groups.enumerated()), id: \.offset) { index, element in
                     let color = element.key
                     let name = element.value
 
-                    Button(action: {
-                        selectedIndex = index
-                    }) {
-                        VStack(spacing: 5) {
-                            ZStack {
-                                RoundedRectangle(cornerRadius: 6)
-                                    .foregroundColor(selectedIndex == index ? .p[500] : color)
-                                    .frame(width: 20, height: 20)
-                                
-                                Rectangle()
-                                    .fill(color)
-                                    .frame(width: 16, height: 16)
-                                    .cornerRadius(4)
-                            }
+                    VStack(spacing: 5) {
+                        ZStack {
+                            RoundedRectangle(cornerRadius: 6)
+                                .foregroundColor(selectedIndex == index ? .p[500] : color)
+                                .frame(width: 20, height: 20)
 
-                            Text(name)
-                                .textStyle.title.pre
-                                .foregroundColor(.txt.primary)
-                                .lineLimit(1)
+                            Rectangle()
+                                .fill(color)
+                                .frame(width: 16, height: 16)
+                                .cornerRadius(4)
                         }
-                        .frame(width: 43)
+
+                        Text(name)
+                            .textStyle.title.pre
+                            .foregroundColor(.txt.primary)
+                            .lineLimit(1)
+                    }
+                    .frame(width: 43)
+                    .contentShape(Rectangle())
+                    .onTapGesture {
+                        selectedIndex = index
+                    }
+                    .onLongPressGesture {
+                        selectedIndex = index
+                        onSetting(index)
                     }
                 }
             }

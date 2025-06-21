@@ -62,7 +62,7 @@ struct ScheduleListPopup: View {
                         showPopup = false
                     }
                 )
-                .position(x: popupPosition.x + 20, y: popupPosition.y - 160)
+                .position(x: popupPosition.x - 15, y: popupPosition.y - 170)
             }
         }
         .padding(.top, 15)
@@ -73,8 +73,4 @@ struct ScheduleListPopup: View {
         .background(Color.g[0])
         .cornerRadius(15)
     }
-}
-
-#Preview {
-    ScheduleListPopup(day: 15, date: "목", onCreate: {})
 }

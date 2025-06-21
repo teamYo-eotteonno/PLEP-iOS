@@ -22,12 +22,10 @@ struct ScheduleDateAndTime: View {
     @State private var isSelectingStartTime = false
     @State private var isSelectingEndTime = false
     
-    // 시작 시간용 상태
     @State private var startIsPM = false
     @State private var startHour = 1
     @State private var startMinute = 0
     
-    // 종료 시간용 상태
     @State private var endIsPM = false
     @State private var endHour = 1
     @State private var endMinute = 0

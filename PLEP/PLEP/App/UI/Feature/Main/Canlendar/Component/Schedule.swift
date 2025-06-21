@@ -11,6 +11,6 @@ struct Schedule: Identifiable {
     let id = UUID()
     let name: String
     let startDate: Date
-    let endDate: Date
+    var endDate: Date? = nil
     var color: Color = .blue
 }

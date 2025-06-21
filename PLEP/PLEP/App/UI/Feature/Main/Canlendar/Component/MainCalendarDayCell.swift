@@ -14,7 +14,7 @@ struct MainCalendarDayCell: View {
     let schedules: [Schedule]
     let selectedDate: Date?
     let tappedDate: Date?
-    let onSelect: (Date) -> Void
+    let onSelect: (_ date: Date) -> Void
 
     var body: some View {
         let isCurrentMonth = calendar.isDate(date, equalTo: displayedMonth, toGranularity: .month)
@@ -23,16 +23,15 @@ struct MainCalendarDayCell: View {
         let cellDate = calendar.startOfDay(for: date)
         let isToday = (cellDate == today)
 
-        // 해당 날짜에 걸친 모든 일정
         let daySchedules = schedules.filter {
-            $0.startDate <= date && $0.endDate >= date
+            let end = $0.endDate ?? $0.startDate
+            return $0.startDate <= date && end >= date
         }
 
         return Button {
             onSelect(date)
         } label: {
             VStack(spacing: 0) {
-                // 날짜 숫자
                 Text("\(calendar.component(.day, from: date))")
                     .textStyle.body.default
                     .foregroundColor(
@@ -46,52 +45,66 @@ struct MainCalendarDayCell: View {
                             .frame(height: 31)
                     )
 
-                // 일정 표시
                 if daySchedules.count == 1, let schedule = daySchedules.first {
-                    let isMultiDay = !calendar.isDate(schedule.startDate, inSameDayAs: schedule.endDate)
+                    let endDate = schedule.endDate ?? schedule.startDate
                     let isStart = calendar.isDate(date, inSameDayAs: schedule.startDate)
-                    let isEnd = calendar.isDate(date, inSameDayAs: schedule.endDate)
+                    let isEnd = calendar.isDate(date, inSameDayAs: endDate)
+                    let isSingleDay = schedule.endDate == nil
 
-                    let cornerStyle: [UIRectCorner] = {
-                        if isStart && isEnd {
-                            return [.allCorners]
-                        } else if isStart {
-                            return [.topLeft, .bottomLeft]
-                        } else if isEnd {
-                            return [.topRight, .bottomRight]
-                        } else {
-                            return []
-                        }
-                    }()
-
-                    ZStack {
-                        Rectangle()
-                            .fill(schedule.color)
-                            .cornerRadius(5, corners: cornerStyle)
-                            .frame(height: 18)
-                            .padding(.leading, isStart ? 2 : 0)
-                            .padding(.trailing, isEnd ? 2 : 0)
-
-                        if isStart || (!isMultiDay && calendar.isDate(date, inSameDayAs: schedule.startDate)) {
+                    if isSingleDay {
+                        HStack(spacing: 3) {
+                            RoundedRectangle(cornerRadius: 2)
+                                .fill(schedule.color)
+                                .frame(width: 2, height: 20)
                             Text(schedule.name)
-                                .font(.caption2)
-                                .foregroundColor(.white)
+                                .textStyle.title.pre
+                                .foregroundColor(.txt.secondary)
                                 .lineLimit(1)
-                                .padding(.leading, 6)
-                                .frame(maxWidth: .infinity, alignment: .leading)
+                            Spacer()
                         }
-                    }
-                    .padding(.top, 10)
+                        .padding(.top, 8)
+                        .padding(.leading, 5)
+                    } else {
+                        let cornerStyle: [UIRectCorner] = {
+                            if isStart && isEnd {
+                                return [.allCorners]
+                            } else if isStart {
+                                return [.topLeft, .bottomLeft]
+                            } else if isEnd {
+                                return [.topRight, .bottomRight]
+                            } else {
+                                return []
+                            }
+                        }()
 
+                        ZStack {
+                            Rectangle()
+                                .fill(schedule.color)
+                                .cornerRadius(5, corners: cornerStyle)
+                                .frame(height: 18)
+                                .padding(.leading, isStart ? 2 : 0)
+                                .padding(.trailing, isEnd ? 2 : 0)
+
+                            if isStart {
+                                Text(schedule.name)
+                                    .textStyle.title.pre
+                                    .foregroundColor(.txt.secondary)
+                                    .lineLimit(1)
+                                    .padding(.leading, 6)
+                                    .frame(maxWidth: .infinity, alignment: .leading)
+                            }
+                        }
+                        .padding(.top, 10)
+                    }
                 } else if daySchedules.count > 1 {
-                    HStack(spacing: 3) {
+                    HStack(spacing: 5.5) {
                         ForEach(Array(daySchedules.prefix(3).enumerated()), id: \.offset) { _, schedule in
                             Circle()
                                 .fill(schedule.color)
-                                .frame(width: 6, height: 6)
+                                .frame(width: 8, height: 8)
                         }
                     }
-                    .padding(.top, 12)
+                    .padding(.top, 16)
                     .frame(maxWidth: .infinity)
                 } else {
                     Spacer().frame(height: 18)
@@ -104,6 +117,3 @@ struct MainCalendarDayCell: View {
     }
 }
 
-#Preview {
-    MainCalendar()
-}

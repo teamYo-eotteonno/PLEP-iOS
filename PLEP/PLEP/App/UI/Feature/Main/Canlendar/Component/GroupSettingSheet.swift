@@ -12,6 +12,7 @@ enum GroupSettingSheetType {
 }
 
 struct GroupSettingSheet: View {
+    var groupIndex: Int?
     let type: GroupSettingSheetType
     @State private var groupName = ""
     var color: Color?

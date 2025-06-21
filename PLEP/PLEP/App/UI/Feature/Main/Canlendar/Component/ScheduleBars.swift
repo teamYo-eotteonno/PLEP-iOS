@@ -18,17 +18,21 @@ struct ScheduleBars: View {
                 let week = weeklyDates[index]
                 let weekStart = week.first!
                 let weekEnd = week.last!
-                
+
                 let weekSchedules = schedules.filter { schedule in
-                    (weekStart <= schedule.startDate && schedule.startDate <= weekEnd) ||
-                    (weekStart <= schedule.endDate && schedule.endDate <= weekEnd) ||
-                    (schedule.startDate <= weekStart && schedule.endDate >= weekEnd)
+                    let endDate = schedule.endDate ?? schedule.startDate
+                    return (weekStart <= schedule.startDate && schedule.startDate <= weekEnd) ||
+                           (weekStart <= endDate && endDate <= weekEnd) ||
+                           (schedule.startDate <= weekStart && endDate >= weekEnd)
                 }
 
                 HStack(spacing: 0) {
                     ForEach(weekSchedules) { schedule in
-                        let leftOffset = max(0, calendar.dateComponents([.day], from: weekStart, to: max(schedule.startDate, weekStart)).day ?? 0)
-                        let duration = min(7 - leftOffset, calendar.dateComponents([.day], from: max(schedule.startDate, weekStart), to: min(schedule.endDate, weekEnd)).day! + 1)
+                        let start = max(schedule.startDate, weekStart)
+                        let end = min(schedule.endDate ?? schedule.startDate, weekEnd)
+
+                        let leftOffset = max(0, calendar.dateComponents([.day], from: weekStart, to: start).day ?? 0)
+                        let duration = max(1, calendar.dateComponents([.day], from: start, to: end).day! + 1)
 
                         Spacer()
                             .frame(width: CGFloat(leftOffset) * UIScreen.main.bounds.width / 7)
