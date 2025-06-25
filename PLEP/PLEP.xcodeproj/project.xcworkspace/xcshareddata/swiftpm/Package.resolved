@@ -1,0 +1,24 @@
+{
+  "originHash" : "c9dc18468594e222f29c2f4801783f8f118e77433336f4bc103cbc8a3ddc1c09",
+  "pins" : [
+    {
+      "identity" : "flowkit",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/mercen-lee/FlowKit",
+      "state" : {
+        "branch" : "main",
+        "revision" : "02db5ea87c1fd46b57bbf87e6594d433d0768aac"
+      }
+    },
+    {
+      "identity" : "rxswift",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/ReactiveX/RxSwift.git",
+      "state" : {
+        "revision" : "5dd1907d64f0d36f158f61a466bab75067224893",
+        "version" : "6.9.0"
+      }
+    }
+  ],
+  "version" : 3
+}
