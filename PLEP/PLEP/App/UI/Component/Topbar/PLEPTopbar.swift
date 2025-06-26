@@ -17,17 +17,18 @@ enum PLEPTopbarType {
 struct PLEPTopbar: View {
     let type: PLEPTopbarType
     let action: () -> Void
+    var showLine: Bool? = true
 
     var body: some View {
         VStack(spacing: 0) {
             HStack {
-                    Button(action: action) {
-                        Image(systemName: "chevron.left")
-                            .resizable()
-                            .frame(width: 10, height: 16)
-                            .foregroundColor(.icon.tertiary)
-                    }
-//                    Spacer()
+                Button(action: action) {
+                    Image(systemName: "chevron.left")
+                        .resizable()
+                        .frame(width: 10, height: 16)
+                        .foregroundColor(.icon.tertiary)
+                }
+                //                    Spacer()
                 switch type {
                 case .default:
                     Spacer()
@@ -38,8 +39,8 @@ struct PLEPTopbar: View {
                             .resizable()
                             .frame(width: 24, height: 24)
                     }
-
-//                case .icon(let text):
+                    
+                    //                case .icon(let text):
                     
                 case .text(let text):
                     Text(text)
@@ -51,16 +52,20 @@ struct PLEPTopbar: View {
             }
             .frame(maxWidth: .infinity)
             .padding(.vertical, 18)
-            .padding(.top, 60)
+//            .padding(.top, 60)
             .padding(.horizontal, 35)
             .background(Color.g[0])
             .overlay(
-                PLEPDivider(type: .g100),
+                Group {
+                    if showLine! {
+                        PLEPDivider(type: .g100)
+                    }
+                },
                 alignment: .bottom
             )
-//            Spacer()
+            //            Spacer()
         }
-        .ignoresSafeArea()
+//        .ignoresSafeArea()
     }
 }
 

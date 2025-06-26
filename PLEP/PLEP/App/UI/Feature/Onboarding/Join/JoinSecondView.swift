@@ -6,17 +6,18 @@
 //
 
 import SwiftUI
+import FlowKit
 
 struct JoinSecondView: View {
+    @Flow var flow
     @State private var pass = ""
     @State private var passcheck = ""
-    @Environment(\.dismiss) private var dismiss
-    @State private var next: Bool = false
     
     var body: some View {
-        NavigationStack {
-            ZStack {
-                Color.g[0].ignoresSafeArea()
+        ZStack {
+            Color.g[0].ignoresSafeArea()
+            VStack(spacing: 0) {
+                PLEPTopbar(type: .default, action: { flow.pop() }, showLine: false)
                 VStack {
                     VStack(alignment: .leading, spacing: 25) {
                         Text("비밀번호를 입력해주세요.")
@@ -46,22 +47,15 @@ struct JoinSecondView: View {
                         size: .medium,
                         enabled: passcheck.isEmpty ? false : true
                     ) {
-                        next = true
+                        flow.push(JoinThirdView())
                     }
                     .padding(.bottom, 65)
-                    
-                    NavigationLink(destination: JoinThirdView(), isActive: $next) {
-                        EmptyView()
-                    }
                 }
                 .padding(.horizontal, 25)
                 .padding(.top)
             }
         }
-        .toolbar {
-            PLEPToolbar { dismiss() }
-        }
-        .navigationBarBackButtonHidden()
+        .navigationBarHidden(true)
     }
 }
 

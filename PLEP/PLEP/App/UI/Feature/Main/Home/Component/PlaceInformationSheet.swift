@@ -6,9 +6,10 @@
 //
 
 import SwiftUI
+import FlowKit
 
 struct PlaceInformationSheet: View {
-    @Environment(\.dismiss) private var dismiss
+    @Flow var flow
     let title: String
     
     let name: String
@@ -119,7 +120,7 @@ struct PlaceInformationSheet: View {
                 .padding(.horizontal, 41)
                 .toolbar {
                     PLEPToolbar(
-                        action: { dismiss() },
+                        action: { flow.pop() },
                         title: String(title)+" 정보"
                     )
                 }

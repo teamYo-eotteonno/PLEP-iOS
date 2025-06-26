@@ -6,16 +6,17 @@
 //
 
 import SwiftUI
+import FlowKit
 
 struct JoinFourthView: View {
-    @State private var next: Bool = false
-    @Environment(\.dismiss) private var dismiss
+    @Flow var flow
     @State private var randomType: ProfileCellType = .way
     
     var body: some View {
-        NavigationStack {
-            ZStack {
-                Color.g[0].ignoresSafeArea()
+        ZStack {
+            Color.g[0].ignoresSafeArea()
+            VStack(spacing: 0) {
+                PLEPTopbar(type: .default, action: { flow.pop() }, showLine: false)
                 VStack(alignment: .leading) {
                     Text("프로필을 설정해주세요.")
                         .textStyle.title.header3
@@ -40,22 +41,15 @@ struct JoinFourthView: View {
                         size: .medium,
                         enabled: true
                     ) {
-                        next = true
+                        flow.push(JoinFifthView())
                     }
                     .padding(.bottom, 65)
-                    
-                    NavigationLink(destination: JoinFifthView(), isActive: $next) {
-                        EmptyView()
-                    }
                 }
                 .padding(.horizontal, 25)
                 .padding(.top)
             }
         }
-        .toolbar {
-            PLEPToolbar { dismiss() }
-        }
-        .navigationBarBackButtonHidden()
+        .navigationBarHidden(true)
     }
 }
 

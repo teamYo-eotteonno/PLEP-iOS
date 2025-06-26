@@ -6,16 +6,17 @@
 //
 
 import SwiftUI
+import FlowKit
 
 struct JoinFifthView: View {
-    @State private var next: Bool = false
+    @Flow var flow
     @State private var introduce = ""
-    @Environment(\.dismiss) private var dismiss
     
     var body: some View {
-        NavigationStack {
-            ZStack {
-                Color.g[0].ignoresSafeArea()
+        ZStack {
+            Color.g[0].ignoresSafeArea()
+            VStack(spacing: 0) {
+                PLEPTopbar(type: .default, action: { flow.pop() }, showLine: false)
                 VStack {
                     VStack(alignment: .leading) {
                         Text("자기소개를 작성해주세요.")
@@ -40,22 +41,15 @@ struct JoinFifthView: View {
                         size: .medium,
                         enabled: true
                     ) {
-                        next = true
+                        flow.push(JoinSixthView())
                     }
                     .padding(.bottom, 65)
-                    
-                    NavigationLink(destination: JoinSixthView(), isActive: $next) {
-                        EmptyView()
-                    }
                 }
                 .padding(.horizontal, 25)
                 .padding(.top)
             }
         }
-        .toolbar {
-            PLEPToolbar { dismiss() }
-        }
-        .navigationBarBackButtonHidden()
+        .navigationBarHidden(true)
     }
 }
 

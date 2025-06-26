@@ -6,14 +6,16 @@
 //
 
 import SwiftUI
+import FlowKit
 
 struct OnboardingFirstView: View {
-    @Environment(\.dismiss) private var dismiss
+    @Flow var flow
+    
     @State private var join: Bool = false
     @State private var login: Bool = false
 
     var body: some View {
-        NavigationStack {
+//        NavigationStack {
             ZStack {
                 Color.g[0].ignoresSafeArea()
                 
@@ -58,7 +60,8 @@ struct OnboardingFirstView: View {
                             size: .medium,
                             enabled: true
                         ) {
-                            login = true
+//                            login = true
+                            flow.push(LoginFirstView())
                         }
                         .frame(maxWidth: .infinity)
                         
@@ -68,7 +71,8 @@ struct OnboardingFirstView: View {
                             size: .medium,
                             enabled: true
                         ) {
-                            join = true
+//                            join = true
+                            flow.push(JoinFirstView())
                         }
                         .frame(maxWidth: .infinity)
                     }
@@ -76,17 +80,17 @@ struct OnboardingFirstView: View {
                     .frame(maxWidth: 400)
                     .padding(.bottom, 20)
                     
-                    NavigationLink(destination: JoinFirstView(), isActive: $join) {
-                        EmptyView()
-                    }
-                    NavigationLink(destination: LoginFirstView(), isActive: $login) {
-                        EmptyView()
-                    }
+//                    NavigationLink(destination: JoinFirstView(), isActive: $join) {
+//                        EmptyView()
+//                    }
+//                    NavigationLink(destination: LoginFirstView(), isActive: $login) {
+//                        EmptyView()
+//                    }
                 }
                 .padding(.top, 20)
             }
-        }
-        .navigationBarBackButtonHidden()
+//        }
+            .navigationBarHidden(true)
     }
 }
 

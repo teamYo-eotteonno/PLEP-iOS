@@ -6,16 +6,17 @@
 //
 
 import SwiftUI
+import FlowKit
 
 struct JoinFirstView: View {
-    @State private var next: Bool = false
+    @Flow var flow
     @State private var name = ""
-    @Environment(\.dismiss) private var dismiss
     
     var body: some View {
-        NavigationStack {
-            ZStack {
-                Color.g[0].ignoresSafeArea()
+        ZStack {
+            Color.g[0].ignoresSafeArea()
+            VStack(spacing: 0) {
+                PLEPTopbar(type: .default, action: { flow.pop() }, showLine: false)
                 VStack {
                     VStack(alignment: .leading, spacing: 25) {
                         Text("닉네임을 입력해주세요.")
@@ -36,25 +37,18 @@ struct JoinFirstView: View {
                         size: .medium,
                         enabled: name.isEmpty ? false : true
                     ) {
-                        next = true
+                        flow.push(JoinSecondView())
                     }
                     .padding(.bottom, 65)
-                    
-                    NavigationLink(destination: JoinSecondView(), isActive: $next) {
-                        EmptyView()
-                    }
                 }
                 .padding(.horizontal, 25)
                 .padding(.top)
+//                Spacer()
             }
         }
-        .toolbar {
-            PLEPToolbar { dismiss() }
-        }
-        .navigationBarBackButtonHidden()
+        .navigationBarHidden(true)
     }
 }
-
 
 #Preview {
     JoinFirstView()

@@ -6,15 +6,17 @@
 //
 
 import SwiftUI
+import FlowKit
 
 @main
 struct PLEPApp: App {
     var body: some Scene {
         WindowGroup {
-            OnboardingFirstView()
+            FlowPresenter(rootView: OnboardingFirstView())
                 .onAppear {
                     _ = UINavigationController()
                 }
+                .edgesIgnoringSafeArea(.all)
         }
     }
 }

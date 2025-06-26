@@ -6,12 +6,13 @@
 //
 
 import SwiftUI
+import FlowKit
 
 struct LoginFirstView: View {
+    @Flow var flow
     @State private var next: Bool = false
     @State private var name = ""
     @State private var pass = ""
-    @Environment(\.dismiss) private var dismiss
     
     @State private var isSelected = false
     
@@ -69,7 +70,7 @@ struct LoginFirstView: View {
             }
         }
         .toolbar {
-            PLEPToolbar { dismiss() }
+            PLEPToolbar { flow.pop() }
         }
         .navigationBarBackButtonHidden()
     }
