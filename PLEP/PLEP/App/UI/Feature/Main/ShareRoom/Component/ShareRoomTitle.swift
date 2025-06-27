@@ -6,8 +6,10 @@
 //
 
 import SwiftUI
+import FlowKit
 
 struct ShareRoomTitle: View {
+    @Flow var flow
     let my: Bool
     let title: String
     var invite: (() -> Void)?
@@ -16,7 +18,7 @@ struct ShareRoomTitle: View {
     
     var body: some View {
         VStack(spacing: 0) {
-            PLEPTopbar(type: .default, action: {})
+            PLEPTopbar(type: .default, action: { flow.pop() })
             
             VStack(alignment: .leading, spacing: 15) {
                 HStack {

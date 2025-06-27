@@ -6,8 +6,10 @@
 //
 
 import SwiftUI
+import FlowKit
 
 struct TimetableView: View {
+    @Flow var flow
     let title: String
     
     @State private var showTimetable = false
@@ -15,7 +17,7 @@ struct TimetableView: View {
     
     var body: some View {
         VStack(spacing: 0) {
-            PLEPTopbar(type: .text(title), action: {})
+            PLEPTopbar(type: .text(title), action: { flow.pop() })
             ScrollView {
                 VStack(spacing: 23) {
                     ForEach(0..<3) { _ in
@@ -72,7 +74,7 @@ struct TimetableView: View {
                     .presentationDragIndicator(.hidden)
             }
         }
-        .ignoresSafeArea()
+        .navigationBarHidden(true)
     }
 }
 

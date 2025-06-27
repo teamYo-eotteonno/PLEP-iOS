@@ -6,18 +6,20 @@
 //
 
 import SwiftUI
+import FlowKit
 
 struct ProfileEditMainView: View {
+    @Flow var flow
     let name: String
     let intro: String
     let email: String
     
     var body: some View {
         ZStack {
-            Color.g[500].ignoresSafeArea()
+            Color.g[50].ignoresSafeArea()
             
             VStack(spacing: 0) {
-                PLEPTopbar(type: .default, action: {})
+                PLEPTopbar(type: .default, action: { flow.pop() })
                 
                 VStack(spacing: 19) {
                     ProfileCell(type: .etc, size: .medium, btn: true)
@@ -43,8 +45,8 @@ struct ProfileEditMainView: View {
                 .padding(.horizontal, 25)
                 .padding(.top, 23)
             }
-            .ignoresSafeArea()
         }
+        .navigationBarHidden(true)
     }
 }
 

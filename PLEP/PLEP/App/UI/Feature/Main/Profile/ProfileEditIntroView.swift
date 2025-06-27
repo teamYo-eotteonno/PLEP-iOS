@@ -6,16 +6,18 @@
 //
 
 import SwiftUI
+import FlowKit
 
 struct ProfileEditIntroView: View {
+    @Flow var flow
     @State private var newIntro = ""
     var nowIntro: String
     
     var body: some View {
-        VStack(spacing: 0) {
-            PLEPTopbar(type: .text("자기소개글 변경"), action: {})
-            ZStack {
-                Color.g[50]
+        ZStack {
+            Color.g[50].ignoresSafeArea()
+            VStack(spacing: 0) {
+                PLEPTopbar(type: .text("자기소개글 변경"), action: { flow.pop() })
                 
                 VStack {
                     VStack(alignment: .leading, spacing: 10) {
@@ -48,7 +50,7 @@ struct ProfileEditIntroView: View {
             }
             Spacer()
         }
-        .ignoresSafeArea()
+        .navigationBarHidden(true)
     }
 }
 

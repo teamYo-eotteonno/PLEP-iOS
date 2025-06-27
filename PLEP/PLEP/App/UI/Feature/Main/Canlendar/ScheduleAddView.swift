@@ -6,17 +6,19 @@
 //
 
 import SwiftUI
+import FlowKit
 
 struct ScheduleAddView: View {
+    @Flow var flow
     @State private var title: String = ""
     @State private var alarm: Bool = false
     @State private var selection = ""
     
     var body: some View {
-        VStack(spacing: 0) {
-            PLEPTopbar(type: .text("일정 추가"), action: {})
-            ZStack {
-                Color.g[50].ignoresSafeArea()
+        ZStack {
+            Color.g[50].ignoresSafeArea()
+            VStack(spacing: 0) {
+                PLEPTopbar(type: .text("일정 추가"), action: { flow.pop() })
                 ScrollView(showsIndicators: false) {
                     VStack(spacing: 23) {
                         PLEPTextField(
@@ -56,11 +58,9 @@ struct ScheduleAddView: View {
                     .padding(.top, 100)
                 }
                 .padding(.horizontal, 25)
-//                .padding(.top, 30)
-//                .padding(.bottom, 50)
             }
         }
-        .ignoresSafeArea()
+        .navigationBarHidden(true)
     }
 }
 

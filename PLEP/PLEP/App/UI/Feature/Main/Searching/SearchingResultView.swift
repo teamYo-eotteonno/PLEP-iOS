@@ -6,18 +6,20 @@
 //
 
 import SwiftUI
+import FlowKit
 
 struct SearchingResultView: View {
-    
+    @Flow var flow
     var body: some View {
         ZStack {
             VStack {
-                PLEPTopbar(type: .default, action: {})
+                PLEPTopbar(type: .default, action: { flow.pop() })
                 Spacer()
             }
             
             MainBottomSheet { AiSearchingSheet() }
         }
+        .navigationBarHidden(true)
     }
 }
 

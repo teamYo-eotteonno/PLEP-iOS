@@ -6,18 +6,19 @@
 //
 
 import SwiftUI
+import FlowKit
 
 struct ProfileEditPWView: View {
+    @Flow var flow
     @State private var nowPass = ""
     @State private var newPass = ""
     @State private var newPassCheck = ""
     
     var body: some View {
-        VStack(spacing: 0) {
-            PLEPTopbar(type: .text("비밀번호 변경"), action: {})
-            ZStack {
-                Color.g[50]
-                
+        ZStack {
+            Color.g[50].ignoresSafeArea()
+            VStack(spacing: 0) {
+                PLEPTopbar(type: .text("비밀번호 변경"), action: { flow.pop() })
                 VStack {
                     VStack(spacing: 25) {
                         VStack(alignment: .leading, spacing: 10) {
@@ -70,7 +71,7 @@ struct ProfileEditPWView: View {
             }
             Spacer()
         }
-        .ignoresSafeArea()
+        .navigationBarHidden(true)
     }
 }
 

@@ -12,44 +12,46 @@ struct ShareRoomEditMemberView: View {
     @State private var newTitle = ""
     
     var body: some View {
-        VStack {
-            PLEPTopbar(type: .text("멤버 목록 수정"), action: {})
-            ScrollView {
-                VStack(alignment: .leading, spacing: 60) {
-                    VStack(alignment: .leading, spacing: 20) {
-                        HStack(spacing: 10) {
-                            Text("멤버 목록")
-                                .textStyle.title.header3
-                            
-                            Capsule()
-                                .frame(width: 1, height: 22)
-                                .foregroundColor(.g[800])
-                            HStack(spacing: 2) {
-                                Text("총 인원")
-                                    .textStyle.body.default
-                                Text(String(num)+"명")
-                                    .textStyle.body.bold
-                                    .foregroundColor(.p[500])
+        ZStack {
+            Color.g[0].ignoresSafeArea()
+            VStack(spacing: 0) {
+                PLEPTopbar(type: .text("멤버 목록 수정"), action: {})
+                ScrollView {
+                    VStack(alignment: .leading, spacing: 60) {
+                        VStack(alignment: .leading, spacing: 20) {
+                            HStack(spacing: 10) {
+                                Text("멤버 목록")
+                                    .textStyle.title.header3
+                                
+                                Capsule()
+                                    .frame(width: 1, height: 22)
+                                    .foregroundColor(.g[800])
+                                HStack(spacing: 2) {
+                                    Text("총 인원")
+                                        .textStyle.body.default
+                                    Text(String(num)+"명")
+                                        .textStyle.body.bold
+                                        .foregroundColor(.p[500])
+                                }
                             }
+                            .foregroundColor(.txt.primary)
+                            MemberList(num: num)
                         }
-                        .foregroundColor(.txt.primary)
-                        MemberList(num: num)
+                        PLEPButton(
+                            title: "수정 완료",
+                            type: .neutral,
+                            size: .small,
+                            enabled: true,
+                            action: {}
+                        )
+                        Spacer()
                     }
-                    PLEPButton(
-                        title: "수정 완료",
-                        type: .neutral,
-                        size: .small,
-                        enabled: true,
-                        action: {}
-                    )
-                    Spacer()
+                    .padding(.horizontal, 25)
+                    .padding(.top, 40)
                 }
-                .padding(.horizontal, 25)
-                .padding(.top, 40)
-                .background(Color.g[0])
             }
         }
-        .ignoresSafeArea()
+        .navigationBarHidden(true)
     }
 }
 

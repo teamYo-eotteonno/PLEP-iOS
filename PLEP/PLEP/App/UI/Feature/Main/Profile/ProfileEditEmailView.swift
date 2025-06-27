@@ -6,16 +6,18 @@
 //
 
 import SwiftUI
+import FlowKit
 
 struct ProfileEditEmailView: View {
+    @Flow var flow
     @State private var newEmail = ""
     @State private var inputs = Array(repeating: "", count: 6)
     
     var body: some View {
-        VStack(spacing: 0) {
-            PLEPTopbar(type: .text("이메일 변경"), action: {})
-            ZStack {
-                Color.g[50]
+        ZStack {
+            Color.g[50].ignoresSafeArea()
+            VStack(spacing: 0) {
+                PLEPTopbar(type: .text("이메일 변경"), action: { flow.pop() })
                 
                 VStack {
                     VStack(spacing: 70) {
@@ -47,7 +49,7 @@ struct ProfileEditEmailView: View {
                                 .foregroundColor(.txt.primary)
                             
                             PLEPSingleTextFieldGroup(inputs: $inputs, limit: 300)
-
+                            
                             PLEPButton(
                                 title: "이메일 다시 전송 받기",
                                 type: .neutral,
@@ -75,7 +77,7 @@ struct ProfileEditEmailView: View {
             }
             Spacer()
         }
-        .ignoresSafeArea()
+        .navigationBarHidden(true)
     }
 }
 
