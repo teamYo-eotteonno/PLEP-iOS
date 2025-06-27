@@ -27,6 +27,7 @@ struct PlaceInformationSheet: View {
             Color.g[50].ignoresSafeArea()
             
             ScrollView {
+                PLEPTopbar(type: .text(String(title)+" 정보"), action: { flow.pop() }, showLine: false)
                 VStack(alignment: .leading, spacing: 28) {
                     VStack(alignment: .leading, spacing: 15) {
                         HStack(spacing: 11) {
@@ -118,12 +119,6 @@ struct PlaceInformationSheet: View {
                 }
                 .padding(.vertical, 28)
                 .padding(.horizontal, 41)
-                .toolbar {
-                    PLEPToolbar(
-                        action: { flow.pop() },
-                        title: String(title)+" 정보"
-                    )
-                }
             }
         }
     }

@@ -10,47 +10,46 @@ import FlowKit
 
 struct LoginFirstView: View {
     @Flow var flow
-    @State private var next: Bool = false
     @State private var name = ""
     @State private var pass = ""
     
     @State private var isSelected = false
     
     var body: some View {
-        NavigationStack {
-            ZStack {
-                Color.g[0].ignoresSafeArea()
+        ZStack {
+            Color.g[0].ignoresSafeArea()
+            VStack {
+                PLEPTopbar(type: .default, action: { flow.pop() }, showLine: false)
                 VStack {
                     Spacer()
-                    VStack(spacing: 50) {
-                        Text("PLEP")
-                            .textStyle.logo
-                            .foregroundColor(.txt.primary)
-                        VStack(alignment: .leading, spacing: 10) {
-                            PLEPTextField(
-                                text: $name,
-                                placeholder: "이메일을 입력해주세요.",
-                                isSecure: false,
-                                validate: { !$0.isEmpty },
-                                errorMessage: "이메일을 입력해주세요"
-                            )
-                            PLEPTextField(
-                                text: $pass,
-                                placeholder: "비밀번호를 입력해주세요.",
-                                isSecure: true,
-                                validate: { !$0.isEmpty },
-                                errorMessage: "비밀번호를 입력해주세요"
-                            )
-                            PLEPOption(
-                                title: "로그인 상태 유지",
-                                type: .neutral,
-                                state: isSelected,
-                                action: {
-                                    isSelected.toggle()
-                                }
-                            )
-                        }
+                    Text("PLEP")
+                        .textStyle.logo
+                        .foregroundColor(.txt.primary)
+                    VStack(alignment: .leading, spacing: 10) {
+                        PLEPTextField(
+                            text: $name,
+                            placeholder: "이메일을 입력해주세요.",
+                            isSecure: false,
+                            validate: { !$0.isEmpty },
+                            errorMessage: "이메일을 입력해주세요"
+                        )
+                        PLEPTextField(
+                            text: $pass,
+                            placeholder: "비밀번호를 입력해주세요.",
+                            isSecure: true,
+                            validate: { !$0.isEmpty },
+                            errorMessage: "비밀번호를 입력해주세요"
+                        )
+                        PLEPOption(
+                            title: "로그인 상태 유지",
+                            type: .neutral,
+                            state: isSelected,
+                            action: {
+                                isSelected.toggle()
+                            }
+                        )
                     }
+                    .padding(.bottom, 100)
                     Spacer()
                     PLEPButton(
                         title: "로그인",
@@ -58,21 +57,15 @@ struct LoginFirstView: View {
                         size: .medium,
                         enabled: name.isEmpty || pass.isEmpty ? false : true
                     ) {
-                        next = true
+                        flow.push(HomeView())
                     }
                     .padding(.bottom, 65)
-                    
-                    NavigationLink(destination: JoinSecondView(), isActive: $next) {
-                        EmptyView()
-                    }
                 }
                 .padding(.horizontal, 25)
+                .padding(.top)
             }
         }
-        .toolbar {
-            PLEPToolbar { flow.pop() }
-        }
-        .navigationBarBackButtonHidden()
+        .navigationBarHidden(true)
     }
 }
 
