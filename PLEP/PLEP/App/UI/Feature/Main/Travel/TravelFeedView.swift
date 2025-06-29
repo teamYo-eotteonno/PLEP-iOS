@@ -64,6 +64,8 @@ struct TravelFeedView: View {
                 .presentationDragIndicator(.hidden)
             }
         }
+        .padding(.top, 72)
+        .ignoresSafeArea()
     }
 }
 

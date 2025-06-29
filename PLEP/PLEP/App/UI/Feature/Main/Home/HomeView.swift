@@ -20,23 +20,7 @@ struct HomeView: View {
     
     var body: some View {
         ZStack {
-            Group {
-                switch selectedTab {
-                case .home:
-                    ZStack {
-                        
-                        MainBottomSheet(showButton: true) { PlacesListSheet() }
-                    }
-                case .calendar:
-                    Text("Calendar View")
-                case .aiSearch:
-                    Text("AI Search View")
-                case .travel:
-                    Text("Travel View")
-                case .profile:
-                    Text("Profile View")
-                }
-            }
+            contentView
             
             VStack(spacing: 0) {
                 Spacer()
@@ -89,6 +73,24 @@ struct HomeView: View {
             }
         }
         .ignoresSafeArea()
+    }
+    
+    @ViewBuilder
+    private var contentView: some View {
+        switch selectedTab {
+        case .home:
+            ZStack {
+                MainBottomSheet(showButton: true) { PlacesListSheet() }
+            }
+        case .calendar:
+            MainCalendarView()
+        case .aiSearch:
+            SearchingView()
+        case .travel:
+            TravelFeedView()
+        case .profile:
+            ProfileFeedView(name: "dd", intro: "dd", followers: 19, following: 29, null: false)
+        }
     }
     
     private func tabBarItem(tab: Tab, imageName: String, selectedImageName: String, title: String) -> some View {

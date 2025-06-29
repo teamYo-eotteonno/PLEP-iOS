@@ -131,9 +131,12 @@ struct MainCalendarView: View {
                 .padding(.horizontal, 49)
             }
         }
+        .padding(.top, 78)
+        .ignoresSafeArea()
     }
 }
 
 #Preview {
-    MainCalendarView()
+    HomeView()
 }
+
