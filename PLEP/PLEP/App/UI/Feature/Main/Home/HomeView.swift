@@ -20,11 +20,13 @@ struct HomeView: View {
     
     var body: some View {
         ZStack {
-            // 현재 선택된 탭 뷰
             Group {
                 switch selectedTab {
                 case .home:
-                    Text("Home View")
+                    ZStack {
+                        
+                        MainBottomSheet(showButton: true) { PlacesListSheet() }
+                    }
                 case .calendar:
                     Text("Calendar View")
                 case .aiSearch:
@@ -35,84 +37,74 @@ struct HomeView: View {
                     Text("Profile View")
                 }
             }
-            .frame(maxWidth: .infinity, maxHeight: .infinity)
-            .background(Color.black.edgesIgnoringSafeArea(.all))
             
-            VStack {
+            VStack(spacing: 0) {
                 Spacer()
+                Divider()
+                    .frame(height: 1)
+                    .background(Color.black.opacity(0.25))
                 HStack {
                     Spacer()
                     
-                    // 홈
-                    tabBarItem(tab: .home, imageName: "house", title: "홈")
+                    tabBarItem(tab: .home, imageName: Asset.Home.default, selectedImageName: Asset.Home.tap, title: "홈")
                     
                     Spacer()
                     
-                    // 일정
-                    tabBarItem(tab: .calendar, imageName: "calendar", title: "일정")
+                    tabBarItem(tab: .calendar, imageName: Asset.Calendar.default, selectedImageName: Asset.Calendar.tap, title: "일정")
                     
-                    Spacer()
-                    
-                    // 중앙 AI 서칭 버튼
-                    ZStack {
-                        Circle()
-                            .fill(Color.purple)
-                            .frame(width: 70, height: 70)
-                            .shadow(radius: 5)
-                        Button(action: {
-                            selectedTab = .aiSearch
-                        }) {
-                            VStack {
-                                Image(systemName: "magnifyingglass")
+                    VStack(spacing: 5) {
+                        ZStack {
+                            Circle()
+                                .foregroundColor(selectedTab == .aiSearch ? .p[500] : .g[100])
+                                .frame(width: 65, height: 65)
+                            Button(action: {
+                                selectedTab = .aiSearch
+                            }) {
+                                Image(selectedTab == .aiSearch ? Asset.Search.tap : Asset.Search.default)
                                     .resizable()
                                     .scaledToFit()
                                     .frame(width: 30, height: 30)
-                                    .foregroundColor(.white)
-                                if selectedTab == .aiSearch {
-                                    Text("AI 서칭")
-                                        .font(.caption)
-                                        .foregroundColor(.white)
-                                }
                             }
                         }
+                        
+                        Text("AI 서칭")
+                            .textStyle.title.pre
+                            .foregroundColor(.p[500])
+                            .opacity(selectedTab == .aiSearch ? 1 : 0)
                     }
-                    .offset(y: -20)
+                    .padding(.top, -55)
+                    .padding(.horizontal)
+                    
+                    tabBarItem(tab: .travel, imageName: Asset.Sun.default, selectedImageName: Asset.Sun.tap, title: "여행")
                     
                     Spacer()
                     
-                    // 여행
-                    tabBarItem(tab: .travel, imageName: "sun.max", title: "여행")
-                    
-                    Spacer()
-                    
-                    // 프로필
-                    tabBarItem(tab: .profile, imageName: "person", title: "프로필")
+                    tabBarItem(tab: .profile, imageName: Asset.Profile.default, selectedImageName: Asset.Profile.tap, title: "프로필")
                     
                     Spacer()
                 }
-                .frame(height: 60)
-                .background(Color.black)
+                .padding(.top, 11)
+                .padding(.bottom, 44)
+                .background(Color.g[0])
             }
         }
+        .ignoresSafeArea()
     }
     
-    // MARK: - TabBarItem View
-    private func tabBarItem(tab: Tab, imageName: String, title: String) -> some View {
+    private func tabBarItem(tab: Tab, imageName: String, selectedImageName: String, title: String) -> some View {
         Button(action: {
             selectedTab = tab
         }) {
-            VStack {
-                Image(systemName: imageName)
+            VStack(spacing: 3) {
+                Image(selectedTab == tab ? selectedImageName : imageName)
                     .resizable()
                     .scaledToFit()
                     .frame(width: 24, height: 24)
-                    .foregroundColor(selectedTab == tab ? .white : .gray)
                 
-                if selectedTab == tab {
-                    Text(title)
-                        .font(.caption)
-                        .foregroundColor(.white)
-                }
+                Text(title)
+                    .textStyle.title.pre
+                    .foregroundColor(.p[500])
+                    .opacity(selectedTab == tab ? 1 : 0)
             }
         }
     }
