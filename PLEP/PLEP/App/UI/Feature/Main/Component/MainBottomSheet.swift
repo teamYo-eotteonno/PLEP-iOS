@@ -42,8 +42,6 @@ struct MainBottomSheet<Content: View>: View {
                                 .padding(.vertical, 20)
                             
                             sheetContent
-                            
-//                            Spacer(minLength: 200)
                     }
                 }
                 .frame(height: totalHeight)

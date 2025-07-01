@@ -123,3 +123,8 @@ struct PlaceInformationSheet: View {
         }
     }
 }
+
+
+#Preview {
+    HomeView()
+}

@@ -6,8 +6,10 @@
 //
 
 import SwiftUI
+import FlowKit
 
 struct PlacesListSheet: View {
+    @Flow var flow
     @State private var search = ""
     
     var body: some View {
@@ -51,13 +53,17 @@ struct PlacesListSheet: View {
                             .textStyle.body.default
                             
                             ForEach(0..<7) { _ in
-                                SearchingCell(
-                                    name: "방탄소년단",
-                                    category: "아이돌",
-                                    information: "세계적인 아티스트",
-                                    address: "빅히트본사",
-                                    feednum: 999
-                                )
+                                Button {
+                                    flow.push(PlaceInformationSheet(title: "방탄소년단", name: "전정국", category: "아이돌", feednum: 999, address: "빅히트본사", phonenum: "010-1234-1234", url: "bighit.com", feed: true))
+                                } label: {
+                                    SearchingCell(
+                                        name: "방탄소년단",
+                                        category: "아이돌",
+                                        information: "세계적인 아티스트",
+                                        address: "빅히트본사",
+                                        feednum: 999
+                                    )
+                                }
                             }
                         } else {
                             VStack(spacing: 13) {
