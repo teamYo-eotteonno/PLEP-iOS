@@ -6,8 +6,10 @@
 //
 
 import SwiftUI
+import FlowKit
 
 struct SearchingView: View {
+    @Flow var flow
     @State private var search = ""
     
     var body: some View {
@@ -21,7 +23,7 @@ struct SearchingView: View {
                     size: .small,
                     enabled: !search.isEmpty,
                     icon: Asset.magic,
-                    action: {}
+                    action: { flow.push(SearchingLoadingView()) }
                 )
             }
             .padding(.horizontal, 25)

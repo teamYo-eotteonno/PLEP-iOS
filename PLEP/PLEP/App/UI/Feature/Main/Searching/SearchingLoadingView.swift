@@ -6,8 +6,11 @@
 //
 
 import SwiftUI
+import FlowKit
 
 struct SearchingLoadingView: View {
+    @Flow var flow
+
     var body: some View {
         ZStack {
             Color.g[0].ignoresSafeArea()
@@ -32,6 +35,11 @@ struct SearchingLoadingView: View {
                     .textStyle.body.bold
                     .foregroundColor(.txt.secondary)
                 }
+            }
+        }
+        .onAppear {
+            DispatchQueue.main.asyncAfter(deadline: .now() + 10) {
+                flow.push(SearchingResultView())
             }
         }
     }
