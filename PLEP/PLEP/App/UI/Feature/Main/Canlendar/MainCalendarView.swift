@@ -6,8 +6,10 @@
 //
 
 import SwiftUI
+import FlowKit
 
 struct MainCalendarView: View {
+    @Flow var flow
     @State private var search = ""
     @State private var selectedIndex: Int?
     @State private var showSettingSheet = false
