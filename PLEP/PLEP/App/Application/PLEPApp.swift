@@ -12,7 +12,8 @@ import FlowKit
 struct PLEPApp: App {
     var body: some Scene {
         WindowGroup {
-            FlowPresenter(rootView: OnboardingFirstView())
+//            FlowPresenter(rootView: OnboardingFirstView())
+            FlowPresenter(rootView: HomeView())
                 .onAppear {
                     _ = UINavigationController()
                 }

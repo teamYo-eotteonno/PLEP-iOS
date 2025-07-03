@@ -76,7 +76,7 @@ struct MainCalendarView: View {
                         type: .neutral,
                         size: .small,
                         enabled: true,
-                        action: {}
+                        action: { flow.push(ScheduleAddView()) }
                     )
                     .padding(.horizontal, 25)
                 }
@@ -128,6 +128,7 @@ struct MainCalendarView: View {
                     date: info.weekdayString,
                     onCreate: {
                         print("일정 생성")
+                        flow.push(ScheduleAddView())
                     }
                 )
                 .padding(.horizontal, 49)
@@ -139,6 +140,7 @@ struct MainCalendarView: View {
 }
 
 #Preview {
-    HomeView()
+    FlowPresenter(rootView: HomeView())
+        .ignoresSafeArea()
 }
 

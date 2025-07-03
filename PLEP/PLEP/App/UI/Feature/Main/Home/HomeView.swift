@@ -6,6 +6,7 @@
 //
 
 import SwiftUI
+import FlowKit
 
 struct HomeView: View {
     @State private var selectedTab: Tab = .home
@@ -113,5 +114,6 @@ struct HomeView: View {
 }
 
 #Preview {
-    HomeView()
+    FlowPresenter(rootView: HomeView())
+        .ignoresSafeArea()
 }
