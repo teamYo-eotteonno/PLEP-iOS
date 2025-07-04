@@ -87,6 +87,7 @@ struct ProfileFeedView: View {
         }
         .background(Color.g[50])
         .ignoresSafeArea()
+        .navigationBarHidden(true)
     }
 }
 

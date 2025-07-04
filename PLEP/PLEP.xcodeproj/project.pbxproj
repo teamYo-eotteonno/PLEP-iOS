@@ -7,9 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		AF131AD92E0C285C00BAD653 /* RxCocoa in Frameworks */ = {isa = PBXBuildFile; productRef = AF131AD82E0C285C00BAD653 /* RxCocoa */; };
-		AF131ADB2E0C285C00BAD653 /* RxRelay in Frameworks */ = {isa = PBXBuildFile; productRef = AF131ADA2E0C285C00BAD653 /* RxRelay */; };
-		AF8F403B2E17827F00337A52 /* FlowKit in Frameworks */ = {isa = PBXBuildFile; productRef = AF8F403A2E17827F00337A52 /* FlowKit */; };
+		AF8F403E2E1818AA00337A52 /* RxCocoa in Frameworks */ = {isa = PBXBuildFile; productRef = AF8F403D2E1818AA00337A52 /* RxCocoa */; };
+		AF8F40412E1818BA00337A52 /* FlowKit in Frameworks */ = {isa = PBXBuildFile; productRef = AF8F40402E1818BA00337A52 /* FlowKit */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -42,9 +41,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				AF8F403B2E17827F00337A52 /* FlowKit in Frameworks */,
-				AF131ADB2E0C285C00BAD653 /* RxRelay in Frameworks */,
-				AF131AD92E0C285C00BAD653 /* RxCocoa in Frameworks */,
+				AF8F403E2E1818AA00337A52 /* RxCocoa in Frameworks */,
+				AF8F40412E1818BA00337A52 /* FlowKit in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -87,9 +85,8 @@
 			);
 			name = PLEP;
 			packageProductDependencies = (
-				AF131AD82E0C285C00BAD653 /* RxCocoa */,
-				AF131ADA2E0C285C00BAD653 /* RxRelay */,
-				AF8F403A2E17827F00337A52 /* FlowKit */,
+				AF8F403D2E1818AA00337A52 /* RxCocoa */,
+				AF8F40402E1818BA00337A52 /* FlowKit */,
 			);
 			productName = PLEP;
 			productReference = AFBD1E122D9E4AE8008E7ABB /* PLEP.app */;
@@ -120,8 +117,8 @@
 			mainGroup = AFBD1E092D9E4AE8008E7ABB;
 			minimizedProjectReferenceProxies = 1;
 			packageReferences = (
-				AF131AD72E0C285C00BAD653 /* XCRemoteSwiftPackageReference "RxSwift" */,
-				AF8F40392E17827F00337A52 /* XCRemoteSwiftPackageReference "FlowKit" */,
+				AF8F403C2E1818AA00337A52 /* XCRemoteSwiftPackageReference "RxSwift" */,
+				AF8F403F2E1818BA00337A52 /* XCRemoteSwiftPackageReference "FlowKit" */,
 			);
 			preferredProjectObjectVersion = 77;
 			productRefGroup = AFBD1E132D9E4AE8008E7ABB /* Products */;
@@ -357,7 +354,7 @@
 /* End XCConfigurationList section */
 
 /* Begin XCRemoteSwiftPackageReference section */
-		AF131AD72E0C285C00BAD653 /* XCRemoteSwiftPackageReference "RxSwift" */ = {
+		AF8F403C2E1818AA00337A52 /* XCRemoteSwiftPackageReference "RxSwift" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/ReactiveX/RxSwift.git";
 			requirement = {
@@ -365,7 +362,7 @@
 				minimumVersion = 6.9.0;
 			};
 		};
-		AF8F40392E17827F00337A52 /* XCRemoteSwiftPackageReference "FlowKit" */ = {
+		AF8F403F2E1818BA00337A52 /* XCRemoteSwiftPackageReference "FlowKit" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/Mercen-Lee/FlowKit.git";
 			requirement = {
@@ -376,19 +373,14 @@
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
-		AF131AD82E0C285C00BAD653 /* RxCocoa */ = {
+		AF8F403D2E1818AA00337A52 /* RxCocoa */ = {
 			isa = XCSwiftPackageProductDependency;
-			package = AF131AD72E0C285C00BAD653 /* XCRemoteSwiftPackageReference "RxSwift" */;
+			package = AF8F403C2E1818AA00337A52 /* XCRemoteSwiftPackageReference "RxSwift" */;
 			productName = RxCocoa;
 		};
-		AF131ADA2E0C285C00BAD653 /* RxRelay */ = {
+		AF8F40402E1818BA00337A52 /* FlowKit */ = {
 			isa = XCSwiftPackageProductDependency;
-			package = AF131AD72E0C285C00BAD653 /* XCRemoteSwiftPackageReference "RxSwift" */;
-			productName = RxRelay;
-		};
-		AF8F403A2E17827F00337A52 /* FlowKit */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = AF8F40392E17827F00337A52 /* XCRemoteSwiftPackageReference "FlowKit" */;
+			package = AF8F403F2E1818BA00337A52 /* XCRemoteSwiftPackageReference "FlowKit" */;
 			productName = FlowKit;
 		};
 /* End XCSwiftPackageProductDependency section */

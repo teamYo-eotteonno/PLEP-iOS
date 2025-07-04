@@ -6,8 +6,10 @@
 //
 
 import SwiftUI
+import FlowKit
 
 struct TravelFeedView: View {
+    @Flow var flow
     @State private var showMoreSheet = false
     @State private var search = ""
     
@@ -66,9 +68,12 @@ struct TravelFeedView: View {
         }
         .padding(.top, 72)
         .ignoresSafeArea()
+        .navigationBarHidden(true)
     }
 }
 
 #Preview {
-    TravelFeedView()
+    FlowPresenter(rootView: HomeView())
+        .ignoresSafeArea()
 }
+

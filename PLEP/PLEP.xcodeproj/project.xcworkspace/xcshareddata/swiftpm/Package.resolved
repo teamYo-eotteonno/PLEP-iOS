@@ -4,7 +4,7 @@
     {
       "identity" : "flowkit",
       "kind" : "remoteSourceControl",
-      "location" : "https://github.com/mercen-lee/FlowKit",
+      "location" : "https://github.com/Mercen-Lee/FlowKit.git",
       "state" : {
         "branch" : "main",
         "revision" : "02db5ea87c1fd46b57bbf87e6594d433d0768aac"
