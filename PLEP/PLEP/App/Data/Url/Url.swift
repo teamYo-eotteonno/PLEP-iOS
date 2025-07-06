@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct PLEPURL {
-    static let url = "http://13.124.159.137:3000/api/v1"
+    static let url = "http://plep.shop:3000/api/v1"
     
     static let admin = "\(url)/admin/users"
     
