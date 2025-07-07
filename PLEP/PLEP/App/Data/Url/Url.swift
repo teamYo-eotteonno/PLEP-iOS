@@ -47,7 +47,7 @@ struct PLEPURL {
     
     enum Auth {
         static let login = "\(auth)/email/login"
-        static let addRegister = "\(auth)/email/register"
+        static let join = "\(auth)/email/register"
         static let getPassword = "\(auth)/forgot/password"
         static let resetPassword = "\(auth)/reset/password"
         static let getMe = "\(auth)/me"
@@ -58,7 +58,7 @@ struct PLEPURL {
     }
     
     enum Email {
-        static let addcode = "\(url)/code"
+        static let code = "\(url)/code"
     }
     
     static let follow = "\(users)/follow"
