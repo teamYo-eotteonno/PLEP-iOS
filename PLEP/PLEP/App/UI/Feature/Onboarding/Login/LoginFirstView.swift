@@ -7,13 +7,16 @@
 
 import SwiftUI
 import FlowKit
+import RxSwift
 
 struct LoginFirstView: View {
     @Flow var flow
-    @State private var name = ""
+    @State private var email = ""
     @State private var pass = ""
     
     @State private var isSelected = false
+    
+    @StateObject var viewModel: LoginViewModel
     
     var body: some View {
         ZStack {
@@ -27,7 +30,7 @@ struct LoginFirstView: View {
                         .foregroundColor(.txt.primary)
                     VStack(alignment: .leading, spacing: 10) {
                         PLEPTextField(
-                            text: $name,
+                            text: $email,
                             placeholder: "이메일을 입력해주세요.",
                             isSecure: false,
                             validate: { !$0.isEmpty },
@@ -55,9 +58,9 @@ struct LoginFirstView: View {
                         title: "로그인",
                         type: .outlined,
                         size: .medium,
-                        enabled: name.isEmpty || pass.isEmpty ? false : true
+                        enabled: email.isEmpty || pass.isEmpty ? false : true
                     ) {
-                        flow.push(HomeView())
+                        viewModel.login(email: email, password: pass)
                     }
                     .padding(.bottom, 65)
                 }
@@ -65,10 +68,9 @@ struct LoginFirstView: View {
                 .padding(.top)
             }
         }
+        .onReceive(viewModel.$loginResult.compactMap { $0 }) { _ in
+            flow.push(HomeView())
+        }
         .navigationBarHidden(true)
     }
-}
-
-#Preview {
-    LoginFirstView()
 }
