@@ -53,7 +53,7 @@ struct PLEPURL {
         static let getMe = "\(auth)/me"
         static let editMe = "\(auth)/me"
         static let deleteMe = "\(auth)/me"
-        static let addRefreshToken = "\(auth)/refresh"
+        static let refresh = "\(auth)/refresh"
         static let logout = "\(auth)/logout"
     }
     
