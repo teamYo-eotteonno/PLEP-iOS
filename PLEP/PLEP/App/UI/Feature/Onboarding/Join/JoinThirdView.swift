@@ -15,6 +15,9 @@ struct JoinThirdView: View {
     @State private var lastmail = ""
     @State private var inputs = Array(repeating: "", count: 6)
     @State private var emailSubmitted = false
+    
+    @FocusState private var emailFieldFocused: Bool
+
 
     var body: some View {
         ZStack {
@@ -31,10 +34,16 @@ struct JoinThirdView: View {
                             text: $email,
                             placeholder: "이메일을 입력해주세요.",
                             isSecure: false,
-                            validate: { !$0.isEmpty },
+                            validate: { input in
+                                guard !input.isEmpty else { return false }
+                                let emailRegex = #"^[A-Z0-9a-z._%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,}$"#
+                                return NSPredicate(format: "SELF MATCHES %@", emailRegex).evaluate(with: input)
+                            },
                             errorMessage: "잘못된 이메일 형식입니다."
                         )
                         .textInputAutocapitalization(.never)
+                        .allowsHitTesting(emailSubmitted ? false : true)
+                        .focused($emailFieldFocused)
                     }
                     
                     if emailSubmitted {
@@ -68,7 +77,17 @@ struct JoinThirdView: View {
                         if emailSubmitted {
                             flow.push(JoinFourthView())
                         } else {
-                            emailSubmitted = true
+                            let emailRegex = #"^[A-Z0-9a-z._%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,}$"#
+                            let isValid = NSPredicate(format: "SELF MATCHES %@", emailRegex).evaluate(with: email)
+                            
+                            if isValid {
+                                emailSubmitted = true
+                            } else {
+                                emailFieldFocused = true
+                                DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) {
+                                    emailFieldFocused = false
+                                }
+                            }
                         }
                     }
                     .padding(.bottom, 65)
@@ -88,7 +107,6 @@ struct JoinThirdView: View {
         }
     }
 }
-
 
 #Preview {
     JoinThirdView()
