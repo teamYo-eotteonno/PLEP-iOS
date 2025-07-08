@@ -59,7 +59,7 @@ struct OnboardingFirstView: View {
                         size: .medium,
                         enabled: true
                     ) {
-                        flow.push(LoginFirstView())
+                        flow.push(LoginViewDi().loginView)
                     }
                     .frame(maxWidth: .infinity)
                     

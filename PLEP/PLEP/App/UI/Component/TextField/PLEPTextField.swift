@@ -52,21 +52,23 @@ struct PLEPTextField: View {
                     }
                     .padding(.horizontal, 4)
                 } else {
-                    if text.isEmpty {
-                        Text(placeholder)
-                            .padding(.leading, 18)
-                            .textStyle.body.default
-                            .foregroundColor(.txt.quartemary)
-                            .padding(.bottom, fieldType == .error ? 20 : 0)
-                            .padding(.top)
-                    }
-
-                    if fieldType == .error {
-                        Text("*" + errorMessage)
-                            .textStyle.body.small
-                            .foregroundColor(.s.error)
-                            .padding(.leading, 18)
-                            .padding(.top, 25)
+                    VStack(spacing: 2) {
+                        if text.isEmpty {
+                            Text(placeholder)
+                                .padding(.leading, 18)
+                                .textStyle.body.default
+                                .foregroundColor(.txt.quartemary)
+//                                .padding(.bottom, fieldType == .error ? 20 : 0)
+                                .padding(.top)
+                        }
+                        
+                        if fieldType == .error {
+                            Text("*" + errorMessage)
+                                .textStyle.body.small
+                                .foregroundColor(.s.error)
+                                .padding(.leading, 5)
+//                                .padding(.top, 40)
+                        }
                     }
 
                     HStack {

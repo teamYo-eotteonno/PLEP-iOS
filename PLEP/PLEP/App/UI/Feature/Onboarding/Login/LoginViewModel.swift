@@ -33,10 +33,10 @@ class LoginViewModel: ObservableObject {
 
         api.login(body: body)
             .observe(on: MainScheduler.instance)
-            .subscribe { [weak self] response in
+            .subscribe { [weak self] model in
                 self?.isLoading = false
-                self?.loginResult = response.value
-                print("로그인 성공: \(String(describing: response.value))")
+                self?.loginResult = model
+                print("로그인 성공: \(model)")
             } onFailure: { [weak self] error in
                 self?.isLoading = false
                 self?.errorMessage = error.localizedDescription

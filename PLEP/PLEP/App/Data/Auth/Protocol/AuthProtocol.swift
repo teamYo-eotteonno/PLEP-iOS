@@ -10,8 +10,8 @@ import RxSwift
 import Alamofire
 
 protocol AuthProtocol {
-    func join(body: JoinRequest) -> Single<DataResponse<EmptyResponse, AFError>>
-    func codeemail(body: CodeRequest) -> Single<DataResponse<EmptyResponse, AFError>>
-    func login(body: LoginRequest) -> Single<DataResponse<LoginModel, AFError>>
-    func refreshToken() -> Single<DataResponse<RefreshTokenResponse, AFError>>
+    func join(body: JoinRequest) -> Single<EmptyResponse>
+    func codeemail(body: CodeRequest) -> Single<EmptyResponse>
+    func login(body: LoginRequest) -> Single<LoginModel>
+    func refreshToken() -> Single<RefreshTokenResponse>
 }

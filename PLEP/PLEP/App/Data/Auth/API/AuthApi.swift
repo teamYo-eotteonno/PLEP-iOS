@@ -11,7 +11,7 @@ import RxSwift
 
 struct AuthApi: AuthProtocol {
     
-    func join(body: JoinRequest) -> Single<DataResponse<EmptyResponse, AFError>> {
+    func join(body: JoinRequest) -> Single<EmptyResponse> {
         let url = URL(string: PLEPURL.Auth.join)!
         let headers: HTTPHeaders = ["Content-Type": "application/json"]
         
@@ -25,14 +25,19 @@ struct AuthApi: AuthProtocol {
             )
             .validate()
             .responseDecodable(of: EmptyResponse.self) { response in
-                single(.success(response))
+                switch response.result {
+                case .success(let model):
+                    single(.success(model))
+                case .failure(let error):
+                    single(.failure(error))
+                }
             }
             
             return Disposables.create { request.cancel() }
         }
     }
     
-    func codeemail(body: CodeRequest) -> Single<DataResponse<EmptyResponse, AFError>> {
+    func codeemail(body: CodeRequest) -> Single<EmptyResponse> {
         let url = URL(string: PLEPURL.Email.code)!
         let headers: HTTPHeaders = ["Content-Type": "application/json"]
         
@@ -46,7 +51,12 @@ struct AuthApi: AuthProtocol {
             )
             .validate()
             .responseDecodable(of: EmptyResponse.self) { response in
-                single(.success(response))
+                switch response.result {
+                case .success(let model):
+                    single(.success(model))
+                case .failure(let error):
+                    single(.failure(error))
+                }
             }
             
             return Disposables.create { request.cancel() }
@@ -65,37 +75,34 @@ struct AuthApi: AuthProtocol {
                 encoder: JSONParameterEncoder.default,
                 headers: headers
             )
-            .validate()
-            .responseDecodable(of: LoginModel.self) { response in
+            .validate(statusCode: 200..<500)
+            .responseData { response in
                 switch response.result {
-                case .success(let model):
-                    single(.success(model))
-                case .failure(let error):
-                    if let data = response.data,
-                       let decoded = try? JSONDecoder().decode(ErrorResponse.self, from: data) {
-                        let messages = decoded.errors.map { "\($0.key): \($0.value)" }.joined(separator: "\n")
-                        single(.failure(NSError(domain: "", code: decoded.status, userInfo: [NSLocalizedDescriptionKey: messages])))
-                    } else {
+                case .success(let data):
+                    if let model = try? JSONDecoder().decode(LoginModel.self, from: data) {
+                        AuthCache.live.saveTokens(Token: model.token, refreshToken: model.refreshToken)
+                        single(.success(model))
+                    }
+                    else if let decoded = try? JSONDecoder().decode(ErrorResponse.self, from: data) {
+                        let messages = decoded.errors.map { $0.value }.joined(separator: "\n")
+                        let error = NSError(domain: "", code: decoded.status, userInfo: [NSLocalizedDescriptionKey: messages])
                         single(.failure(error))
                     }
+                    else {
+                        let error = NSError(domain: "", code: -1, userInfo: [NSLocalizedDescriptionKey: "알 수 없는 오류가 발생했습니다."])
+                        single(.failure(error))
+                    }
+                case .failure(let error):
+                    single(.failure(error))
                 }
             }
-            
             return Disposables.create { request.cancel() }
         }
     }
     
-    func refreshToken() -> Single<DataResponse<RefreshTokenResponse, AFError>> {
+    func refreshToken() -> Single<RefreshTokenResponse> {
         guard let refreshToken = AuthCache.live.getToken(of: .refreshToken) else {
-            return Single.just(
-                DataResponse<RefreshTokenResponse, AFError>(
-                    request: nil,
-                    response: nil,
-                    data: nil,
-                    metrics: nil,
-                    serializationDuration: 0,
-                    result: .failure(AFError.explicitlyCancelled))
-            )
+            return Single.error(AFError.explicitlyCancelled)
         }
         
         let url = URL(string: PLEPURL.Auth.refresh)!
@@ -112,14 +119,16 @@ struct AuthApi: AuthProtocol {
             )
             .validate()
             .responseDecodable(of: RefreshTokenResponse.self) { response in
-                if let newToken = response.value?.token,
-                   let refreshToken = response.value?.refreshToken {
+                switch response.result {
+                case .success(let model):
                     AuthCache.live.saveTokens(
-                        Token: newToken,
-                        refreshToken: refreshToken
+                        Token: model.token,
+                        refreshToken: model.refreshToken
                     )
+                    single(.success(model))
+                case .failure(let error):
+                    single(.failure(error))
                 }
-                single(.success(response))
             }
             
             return Disposables.create { request.cancel() }

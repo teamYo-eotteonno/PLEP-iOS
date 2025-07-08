@@ -21,6 +21,7 @@ struct HomeView: View {
     
     var body: some View {
         ZStack {
+            DisablePopGesture()
             contentView
             
             VStack(spacing: 0) {

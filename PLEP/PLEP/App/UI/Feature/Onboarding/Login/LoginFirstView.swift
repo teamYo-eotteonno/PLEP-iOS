@@ -18,6 +18,10 @@ struct LoginFirstView: View {
     
     @StateObject var viewModel: LoginViewModel
     
+    @State private var showAlert = false
+    @State private var alertMessage = ""
+    
+    
     var body: some View {
         ZStack {
             Color.g[0].ignoresSafeArea()
@@ -69,7 +73,19 @@ struct LoginFirstView: View {
             }
         }
         .onReceive(viewModel.$loginResult.compactMap { $0 }) { _ in
+            AuthManager.shared.loginSucceeded()
             flow.push(HomeView())
+        }
+        .onReceive(viewModel.$errorMessage.compactMap { $0 }) { msg in
+            self.alertMessage = msg
+            self.showAlert = true
+        }
+        .alert(isPresented: $showAlert) {
+            Alert(
+                title: Text("로그인 실패"),
+                message: Text(alertMessage),
+                dismissButton: .default(Text("확인"))
+            )
         }
         .navigationBarHidden(true)
     }
