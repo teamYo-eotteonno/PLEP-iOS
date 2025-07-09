@@ -13,6 +13,9 @@ struct JoinSecondView: View {
     @State private var pass = ""
     @State private var passcheck = ""
     
+    @ObservedObject var viewModel: JoinViewModel
+    var joinViewDi: JoinViewDi
+    
     var body: some View {
         ZStack {
             Color.g[0].ignoresSafeArea()
@@ -47,7 +50,8 @@ struct JoinSecondView: View {
                         size: .medium,
                         enabled: passcheck.isEmpty ? false : true
                     ) {
-                        flow.push(JoinThirdView())
+                        viewModel.updatePass(pass)
+                        flow.push(joinViewDi.thirdView(joinViewDi: joinViewDi))
                     }
                     .padding(.bottom, 65)
                 }
@@ -59,8 +63,4 @@ struct JoinSecondView: View {
     }
 }
 
-
-#Preview {
-    JoinSecondView()
-}
 

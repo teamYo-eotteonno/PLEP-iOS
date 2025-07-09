@@ -12,6 +12,9 @@ struct JoinFifthView: View {
     @Flow var flow
     @State private var introduce = ""
     
+    @ObservedObject var viewModel: JoinViewModel
+    var joinViewDi: JoinViewDi
+    
     var body: some View {
         ZStack {
             Color.g[0].ignoresSafeArea()
@@ -41,6 +44,8 @@ struct JoinFifthView: View {
                         size: .medium,
                         enabled: true
                     ) {
+                        viewModel.updateIntro(introduce)
+                        print(viewModel.joinData.value)
                         flow.push(JoinSixthView())
                     }
                     .padding(.bottom, 65)
@@ -51,8 +56,4 @@ struct JoinFifthView: View {
         }
         .navigationBarHidden(true)
     }
-}
-
-#Preview {
-    JoinFifthView()
 }

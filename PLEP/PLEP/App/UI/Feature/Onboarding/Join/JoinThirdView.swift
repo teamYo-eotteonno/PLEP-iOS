@@ -13,11 +13,13 @@ struct JoinThirdView: View {
     @State private var email = ""
     @State private var selected = ""
     @State private var lastmail = ""
-    @State private var inputs = Array(repeating: "", count: 6)
+    @State private var inputs = Array(repeating: 0, count: 6)
     @State private var emailSubmitted = false
     
     @FocusState private var emailFieldFocused: Bool
 
+    @ObservedObject var viewModel: JoinViewModel
+    var joinViewDi: JoinViewDi
 
     var body: some View {
         ZStack {
@@ -75,7 +77,10 @@ struct JoinThirdView: View {
                         enabled: isNextButtonEnabled
                     ) {
                         if emailSubmitted {
-                            flow.push(JoinFourthView())
+                            viewModel.updateEmail(email)
+                            let codeInt = Int(inputs.map(String.init).joined()) ?? 0
+                            viewModel.updateCode(codeInt)
+                            flow.push(JoinFourthView(joinViewDi: joinViewDi))
                         } else {
                             let emailRegex = #"^[A-Z0-9a-z._%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,}$"#
                             let isValid = NSPredicate(format: "SELF MATCHES %@", emailRegex).evaluate(with: email)
@@ -101,13 +106,9 @@ struct JoinThirdView: View {
 
     var isNextButtonEnabled: Bool {
         if emailSubmitted {
-            return inputs.allSatisfy { $0.count == 1 }
+            return inputs.allSatisfy { $0 >= 0 && $0 <= 9 }
         } else {
             return !email.isEmpty
         }
     }
-}
-
-#Preview {
-    JoinThirdView()
 }

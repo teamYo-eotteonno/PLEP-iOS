@@ -7,10 +7,14 @@
 
 import SwiftUI
 import FlowKit
+import RxSwift
 
 struct JoinFirstView: View {
     @Flow var flow
     @State private var name = ""
+    
+    @ObservedObject var viewModel: JoinViewModel
+    var joinViewDi: JoinViewDi
     
     var body: some View {
         ZStack {
@@ -37,19 +41,15 @@ struct JoinFirstView: View {
                         size: .medium,
                         enabled: name.isEmpty ? false : true
                     ) {
-                        flow.push(JoinSecondView())
+                        viewModel.updateName(name)
+                        flow.push(joinViewDi.secondView(joinViewDi: joinViewDi))
                     }
                     .padding(.bottom, 65)
                 }
                 .padding(.horizontal, 25)
                 .padding(.top)
-//                Spacer()
             }
         }
         .navigationBarHidden(true)
     }
-}
-
-#Preview {
-    JoinFirstView()
 }

@@ -11,7 +11,7 @@ import FlowKit
 struct ProfileEditEmailView: View {
     @Flow var flow
     @State private var newEmail = ""
-    @State private var inputs = Array(repeating: "", count: 6)
+    @State private var inputs = Array(repeating: 0, count: 6)
     
     var body: some View {
         ZStack {

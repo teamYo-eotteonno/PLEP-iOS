@@ -14,6 +14,8 @@ struct OnboardingFirstView: View {
     @State private var join: Bool = false
     @State private var login: Bool = false
     
+    @State private var joinViewDi = JoinViewDi()
+    
     var body: some View {
         ZStack {
             Color.g[0].ignoresSafeArea()
@@ -69,7 +71,7 @@ struct OnboardingFirstView: View {
                         size: .medium,
                         enabled: true
                     ) {
-                        flow.push(JoinFirstView())
+                        flow.push(joinViewDi.firstView(joinViewDi: joinViewDi))
                     }
                     .frame(maxWidth: .infinity)
                 }

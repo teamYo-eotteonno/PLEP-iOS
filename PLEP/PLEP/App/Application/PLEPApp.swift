@@ -15,11 +15,12 @@ struct PLEPApp: App {
     var body: some Scene {
         WindowGroup {
             Group {
-                if (try? authManager.isLoggedIn.value()) == true {
-                    FlowPresenter(rootView: HomeView())
-                } else {
-                    FlowPresenter(rootView: LoginViewDi().loginView)
-                }
+//                if (try? authManager.isLoggedIn.value()) == true {
+//                    FlowPresenter(rootView: HomeView())
+//                } else {
+//                    FlowPresenter(rootView: LoginViewDi().loginView)
+                    FlowPresenter(rootView: OnboardingFirstView())
+//                }
             }
             .edgesIgnoringSafeArea(.all)
             .environmentObject(authManager)

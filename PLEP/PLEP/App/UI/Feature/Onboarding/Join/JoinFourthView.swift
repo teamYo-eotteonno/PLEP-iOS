@@ -12,6 +12,9 @@ struct JoinFourthView: View {
     @Flow var flow
     @State private var randomType: ProfileCellType = .way
     
+//    @StateObject var viewModel: JoinViewModel
+    var joinViewDi: JoinViewDi
+    
     var body: some View {
         ZStack {
             Color.g[0].ignoresSafeArea()
@@ -41,7 +44,7 @@ struct JoinFourthView: View {
                         size: .medium,
                         enabled: true
                     ) {
-                        flow.push(JoinFifthView())
+                        flow.push(joinViewDi.fifthView(joinViewDi: joinViewDi))
                     }
                     .padding(.bottom, 65)
                 }
@@ -51,8 +54,4 @@ struct JoinFourthView: View {
         }
         .navigationBarHidden(true)
     }
-}
-
-#Preview {
-    JoinFourthView()
 }

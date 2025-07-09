@@ -19,7 +19,9 @@ struct PLEPSingleTextField: View {
             .multilineTextAlignment(.center)
             .focused(focusedIndex, equals: index)
             .onChange(of: input) { newValue in
-                if let firstChar = newValue.first, firstChar.isNumber {
+                let filtered = newValue.filter { $0.isNumber }
+                
+                if let firstChar = filtered.first {
                     input = String(firstChar)
                     if index + 1 < totalCount {
                         focusedIndex.wrappedValue = index + 1
@@ -28,6 +30,9 @@ struct PLEPSingleTextField: View {
                     }
                 } else {
                     input = ""
+                    if index > 0 {
+                        focusedIndex.wrappedValue = index - 1
+                    }
                 }
             }
             .frame(width: 37.5, height: 46)
