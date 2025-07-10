@@ -50,10 +50,10 @@ struct AuthApi: AuthProtocol {
                 headers: headers
             )
             .validate()
-            .responseDecodable(of: EmptyResponse.self) { response in
+            .response { response in
                 switch response.result {
-                case .success(let model):
-                    single(.success(model))
+                case .success:
+                    single(.success(EmptyResponse()))
                 case .failure(let error):
                     single(.failure(error))
                 }

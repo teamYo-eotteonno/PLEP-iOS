@@ -21,6 +21,9 @@ struct JoinThirdView: View {
     @ObservedObject var viewModel: JoinViewModel
     var joinViewDi: JoinViewDi
 
+    @State private var showAlert = false
+    @State private var alertMessage = ""
+
     var body: some View {
         ZStack {
             Color.g[0].ignoresSafeArea()
@@ -61,7 +64,9 @@ struct JoinThirdView: View {
                                 type: .neutral,
                                 size: .small,
                                 enabled: true,
-                                action: {}
+                                action: {
+                                    sendEmailCode()
+                                }
                             )
                             .frame(width: 176)
                         }
@@ -86,7 +91,7 @@ struct JoinThirdView: View {
                             let isValid = NSPredicate(format: "SELF MATCHES %@", emailRegex).evaluate(with: email)
                             
                             if isValid {
-                                emailSubmitted = true
+                                sendEmailCode()
                             } else {
                                 emailFieldFocused = true
                                 DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) {
@@ -101,7 +106,26 @@ struct JoinThirdView: View {
                 .padding(.top)
             }
         }
+        .onReceive(viewModel.$emailCodeResult.compactMap { $0 }) { _ in
+            emailSubmitted = true
+        }
+        .onReceive(viewModel.$errorMessage.compactMap { $0 }) { msg in
+            self.alertMessage = msg
+            self.showAlert = true
+        }
+        .alert(isPresented: $showAlert) {
+            Alert(
+                title: Text("이메일 인증 실패"),
+                message: Text(alertMessage),
+                dismissButton: .default(Text("확인"))
+            )
+        }
         .navigationBarHidden(true)
+    }
+
+    private func sendEmailCode() {
+        viewModel.updateEmail(email)
+        viewModel.requestEmailCode()
     }
 
     var isNextButtonEnabled: Bool {
