@@ -24,7 +24,7 @@ struct FeedCell: View {
         VStack(spacing: 11) {
             HStack {
                 HStack(spacing: 13) {
-                    ProfileCell(type: .etc, size: .small, btn: false)
+//                    ProfileCell(type: .etc, size: .small, btn: false)
                     
                     VStack(alignment: .leading, spacing: 5) {
                         Text(name)

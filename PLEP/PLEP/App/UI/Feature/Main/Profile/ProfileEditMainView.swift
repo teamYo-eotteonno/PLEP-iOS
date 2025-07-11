@@ -22,7 +22,7 @@ struct ProfileEditMainView: View {
                 PLEPTopbar(type: .default, action: { flow.pop() })
                 
                 VStack(spacing: 19) {
-                    ProfileCell(type: .etc, size: .medium, btn: true)
+//                    ProfileCell(type: .etc, size: .medium, btn: true)
                     
                     VStack(spacing: 5) {
                         Text(name)

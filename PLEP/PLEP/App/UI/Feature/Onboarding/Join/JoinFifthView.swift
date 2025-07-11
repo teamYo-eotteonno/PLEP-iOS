@@ -15,6 +15,9 @@ struct JoinFifthView: View {
     @ObservedObject var viewModel: JoinViewModel
     var joinViewDi: JoinViewDi
     
+    @State private var showAlert = false
+    @State private var alertMessage = ""
+    
     var body: some View {
         ZStack {
             Color.g[0].ignoresSafeArea()
@@ -37,7 +40,6 @@ struct JoinFifthView: View {
                         )
                     }
                     Spacer()
-                    Spacer()
                     PLEPButton(
                         title: "넘어가기",
                         type: .neutral,
@@ -46,7 +48,17 @@ struct JoinFifthView: View {
                     ) {
                         viewModel.updateIntro(introduce)
                         print(viewModel.joinData.value)
-                        flow.push(JoinSixthView())
+                        
+                        let data = viewModel.joinData.value
+                        
+                        viewModel.join(
+                                email: data.email,
+                                password: data.pass,
+                                name: data.name,
+                                bio: data.intro,
+                                code: data.code,
+                                photo: data.photo
+                        )
                     }
                     .padding(.bottom, 65)
                 }
@@ -55,5 +67,20 @@ struct JoinFifthView: View {
             }
         }
         .navigationBarHidden(true)
+        .onReceive(viewModel.$joinResult.compactMap { $0 }) { result in
+            if result {
+                flow.push(JoinSixthView())
+            } else {
+                self.alertMessage = viewModel.errorMessage ?? "회원가입에 실패했습니다."
+                self.showAlert = true
+            }
+        }
+        .alert(isPresented: $showAlert) {
+            Alert(
+                title: Text("회원가입 실패"),
+                message: Text(alertMessage),
+                dismissButton: .default(Text("확인"))
+            )
+        }
     }
 }

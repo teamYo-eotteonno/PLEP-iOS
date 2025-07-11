@@ -19,11 +19,14 @@ struct FollowUserCell: View {
         VStack(spacing: 5) {
             switch type {
             case.way:
-                ProfileCell(type: .way, size: .small, btn: false)
+//                ProfileCell(type: .way, size: .small, btn: false)
+                Rectangle()
             case.loke:
-                ProfileCell(type: .loke, size: .small, btn: false)
+//                ProfileCell(type: .loke, size: .small, btn: false)
+                Rectangle()
             case.etc:
-                ProfileCell(type: .etc, size: .small, btn: false)
+//                ProfileCell(type: .etc, size: .small, btn: false)
+                Rectangle()
             }
             Text(name)
                 .textStyle.title.pre

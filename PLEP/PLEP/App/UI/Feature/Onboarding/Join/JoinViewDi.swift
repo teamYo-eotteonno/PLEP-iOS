@@ -9,7 +9,7 @@ import Foundation
 import SwiftUI
 
 final class JoinViewDi {
-    private let joinViewModel = JoinViewModel(api: AuthApi())
+    private let joinViewModel = JoinViewModel(api: AuthApi(), fileApi: FileApi())
     
     func firstView(joinViewDi: JoinViewDi) -> some View {
         JoinFirstView(viewModel: joinViewModel, joinViewDi: joinViewDi)

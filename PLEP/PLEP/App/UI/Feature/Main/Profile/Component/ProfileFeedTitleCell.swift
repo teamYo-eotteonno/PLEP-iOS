@@ -18,7 +18,7 @@ struct ProfileFeedTitleCell: View {
     var body: some View {
         VStack(spacing: 29) {
             HStack(spacing: 10) {
-                ProfileCell(type: .etc, size: .medium, btn: false)
+//                ProfileCell(type: .loke, size: .medium, btn: false)
                 VStack(alignment: .leading, spacing: 14) {
                     VStack(alignment: .leading, spacing: 5) {
                         HStack {

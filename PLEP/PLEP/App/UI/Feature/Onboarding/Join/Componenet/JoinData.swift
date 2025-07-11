@@ -12,5 +12,6 @@ struct JoinData {
     var pass: String = ""
     var email: String = ""
     var code: Int = 0
+    var photo: String = ""
     var intro: String = ""
 }

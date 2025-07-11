@@ -40,7 +40,7 @@ struct PLEPURL {
     static let files = "\(url)/files"
     
     enum Files {
-        static let addFiles = "\(files)/upload"
+        static let uploadFiles = "\(files)/upload"
     }
     
     static let auth = "\(url)/auth"

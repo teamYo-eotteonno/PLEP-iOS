@@ -13,4 +13,9 @@ struct JoinRequest: Encodable {
     let name: String
     let bio: String
     let code: String
+    let photo: JoinPhotoId?
+}
+
+struct JoinPhotoId: Encodable {
+    let id: String
 }

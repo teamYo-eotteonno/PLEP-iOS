@@ -8,7 +8,7 @@
 import SwiftUI
 
 enum ProfileCellType {
-    case way, loke, etc
+    case way, loke, custom
 }
 
 enum ProfileCellSize {
@@ -19,6 +19,9 @@ struct ProfileCell: View {
     let type: ProfileCellType
     var size: ProfileCellSize
     let btn: Bool
+    let onButtonTap: () -> Void
+    
+    @Binding var image: UIImage?
     
     var bgSize: CGSize {
         switch size {
@@ -47,15 +50,21 @@ struct ProfileCell: View {
                         .frame(width: bgSize.width, height: bgSize.height)
                         .background(Color.p[600])
                         .cornerRadius(100)
-                case.etc:
-                    Image("Dummy1")
-                        .resizable()
-                        .frame(width: bgSize.width, height: bgSize.height)
-                        .clipShape(Circle())
+                case.custom:
+                    if let img = image {
+                        Image(uiImage: img)
+                            .resizable()
+                            .frame(width: bgSize.width, height: bgSize.height)
+                            .clipShape(Circle())
+                    } else {
+                        Circle()
+                            .fill(Color.gray)
+                            .frame(width: bgSize.width, height: bgSize.height)
+                    }
                 }
             }
             if btn {
-                Button(action: {}) {
+                Button(action: { onButtonTap() }) {
                     Image(Asset.camera)
                         .resizable()
                         .frame(width: size == .medium ? 15 : 24, height: size == .medium ? 15 : 24)
