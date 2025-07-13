@@ -14,4 +14,5 @@ protocol AuthProtocol {
     func codeemail(body: CodeRequest) -> Single<EmptyResponse>
     func login(body: LoginRequest) -> Single<LoginModel>
     func refreshToken() -> Single<RefreshTokenResponse>
+    func getMe() -> Single<UserModel>
 }

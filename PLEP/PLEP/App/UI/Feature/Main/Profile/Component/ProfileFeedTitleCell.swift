@@ -13,6 +13,7 @@ struct ProfileFeedTitleCell: View {
     let intro: String
     let followers: Int
     let following: Int
+    let onEdit: () -> Void
     @State private var isLiked = false
     
     var body: some View {
@@ -27,7 +28,7 @@ struct ProfileFeedTitleCell: View {
                                 .foregroundColor(.txt.primary)
                             Spacer()
                             if my {
-                                Button(action: {}) {
+                                Button(action: onEdit) {
                                     Image(Asset.setting)
                                         .resizable()
                                         .frame(width: 24, height: 24)

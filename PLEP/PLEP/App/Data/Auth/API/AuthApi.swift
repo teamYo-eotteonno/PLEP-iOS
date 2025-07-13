@@ -110,7 +110,7 @@ struct AuthApi: AuthProtocol {
         let body = RefreshTokenRequest(token: refreshToken)
         
         return Single.create { single in
-            let request = AF.request(
+            let request = API.session.request(
                 url,
                 method: .post,
                 parameters: body,
@@ -126,6 +126,27 @@ struct AuthApi: AuthProtocol {
                         refreshToken: model.refreshToken
                     )
                     single(.success(model))
+                case .failure(let error):
+                    single(.failure(error))
+                }
+            }
+            
+            return Disposables.create { request.cancel() }
+        }
+        .observe(on: MainScheduler.instance)
+    }
+    
+    func getMe() -> Single<UserModel> {
+        return Single.create { single in
+            let request = API.session.request(
+                PLEPURL.Auth.getMe,
+                method: .get
+            )
+            .validate()
+            .responseDecodable(of: UserModel.self) { response in
+                switch response.result {
+                case .success(let user):
+                    single(.success(user))
                 case .failure(let error):
                     single(.failure(error))
                 }

@@ -6,8 +6,10 @@
 //
 
 import SwiftUI
+import FlowKit
 
 struct ProfileFeedView: View {
+    @Flow var flow
     let name: String
     let intro: String
     let followers: Int
@@ -29,7 +31,8 @@ struct ProfileFeedView: View {
                         name: name,
                         intro: intro,
                         followers: followers,
-                        following: following
+                        following: following,
+                        onEdit: { flow.push(ProfileEditMainView(name: name, intro: intro, email: "ab@gmail.com")) }
                     )
                     FollowUsersList(follow: 10)
                 }
@@ -91,6 +94,6 @@ struct ProfileFeedView: View {
     }
 }
 
-#Preview {
-    ProfileFeedView(name: "전정국", intro: "안녕하세요 저는 방탄소년단 황금막내 전정국입니다", followers: 10, following: 10, null: false)
-}
+//#Preview {
+//    ProfileFeedView(name: "전정국", intro: "안녕하세요 저는 방탄소년단 황금막내 전정국입니다", followers: 10, following: 10, null: false)
+//}

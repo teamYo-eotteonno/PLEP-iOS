@@ -12,6 +12,7 @@ class API {
     static let session: Session = {
         let configuration = URLSessionConfiguration.af.default
         let apiLogger = PLEPApiEventLogger()
-        return Session(configuration: configuration, eventMonitors: [apiLogger])
+        let interceptor = AuthInterceptor()
+        return Session(configuration: configuration, interceptor: interceptor, eventMonitors: [apiLogger])
     }()
 }

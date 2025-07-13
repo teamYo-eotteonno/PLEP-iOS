@@ -14,6 +14,8 @@ struct ProfileEditMainView: View {
     let intro: String
     let email: String
     
+    @StateObject private var viewModel = ProfileEditViewModel()
+    
     var body: some View {
         ZStack {
             Color.g[50].ignoresSafeArea()
@@ -47,6 +49,9 @@ struct ProfileEditMainView: View {
             }
         }
         .navigationBarHidden(true)
+        .onAppear {
+            viewModel.getUser()
+        }
     }
 }
 

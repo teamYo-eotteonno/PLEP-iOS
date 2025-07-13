@@ -13,13 +13,3 @@ struct LoginModel: Decodable {
     let tokenExpires: Int
     let user: UserModel
 }
-
-struct UserModel: Decodable {
-    let id: Int
-    let email: String
-    let name: String
-    let bio: String
-    let createdAt: String
-    let updatedAt: String
-    let deletedAt: String?
-}
