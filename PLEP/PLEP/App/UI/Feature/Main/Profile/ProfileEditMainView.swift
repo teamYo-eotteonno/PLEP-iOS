@@ -13,6 +13,9 @@ struct ProfileEditMainView: View {
     let name: String
     let intro: String
     let email: String
+    var onDismiss: (() -> Void)? = nil
+    
+    @Environment(\.dismiss) private var dismiss
     
     @StateObject private var viewModel = ProfileEditViewModel()
     
@@ -21,11 +24,12 @@ struct ProfileEditMainView: View {
             Color.g[50].ignoresSafeArea()
             
             VStack(spacing: 0) {
-                PLEPTopbar(type: .default, action: { flow.pop() })
+                PLEPTopbar(type: .default, action: {
+                    flow.pop()
+                    onDismiss?()
+                })
                 
                 VStack(spacing: 19) {
-//                    ProfileCell(type: .etc, size: .medium, btn: true)
-                    
                     VStack(spacing: 5) {
                         Text(name)
                             .textStyle.body.bold
@@ -53,8 +57,4 @@ struct ProfileEditMainView: View {
             viewModel.getUser()
         }
     }
-}
-
-#Preview {
-    ProfileEditMainView(name: "황금막내 전정국", intro: "안녕하세요 저는 방탄소년단 황금막내 전정국입니다", email: "bts@bighit.men")
 }

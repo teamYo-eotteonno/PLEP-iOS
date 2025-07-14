@@ -32,7 +32,8 @@ final class AuthInterceptor: RequestInterceptor {
             AuthApi().refreshToken()
                 .subscribe(
                     onSuccess: { response in
-                        AuthCache.live.saveTokens(Token: response.token, refreshToken: response.refreshToken)
+                        let newToken = response.token
+                        AuthCache.live.saveToken(newToken, to: .Token)
                         completion(.retry)
                     },
                     onFailure: { error in

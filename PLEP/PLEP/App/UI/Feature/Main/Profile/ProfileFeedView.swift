@@ -16,11 +16,13 @@ struct ProfileFeedView: View {
     let following: Int
     let null: Bool
     
+    @State private var showEdit = false
+    
     private let gridItems: [GridItem] = [
-            .init(.flexible(), spacing: 1),
-            .init(.flexible(), spacing: 1),
-            .init(.flexible(), spacing: 1)
-        ]
+        .init(.flexible(), spacing: 1),
+        .init(.flexible(), spacing: 1),
+        .init(.flexible(), spacing: 1)
+    ]
     
     var body: some View {
         ScrollView {
@@ -32,7 +34,9 @@ struct ProfileFeedView: View {
                         intro: intro,
                         followers: followers,
                         following: following,
-                        onEdit: { flow.push(ProfileEditMainView(name: name, intro: intro, email: "ab@gmail.com")) }
+                        onEdit: {
+                            showEdit = true
+                        }
                     )
                     FollowUsersList(follow: 10)
                 }
@@ -44,7 +48,6 @@ struct ProfileFeedView: View {
                     if !null {
                         LazyVGrid(columns: gridItems, spacing: 1) {
                             ForEach(0..<20) { feed in
-                                
                                 NavigationLink {
                                     Image("Dummy3")
                                         .resizable()
@@ -59,7 +62,7 @@ struct ProfileFeedView: View {
                             }
                         }
                         .frame(height: UIScreen.main.bounds.height)
-
+                        
                     } else {
                         VStack(spacing: 30) {
                             Image(Asset.Feed.add)
@@ -91,9 +94,13 @@ struct ProfileFeedView: View {
         .background(Color.g[50])
         .ignoresSafeArea()
         .navigationBarHidden(true)
+        .fullScreenCover(isPresented: $showEdit) {
+            ProfileEditMainView(
+                name: name,
+                intro: intro,
+                email: "ab@gmail.com",
+                onDismiss: { showEdit = false }
+            )
+        }
     }
 }
-
-//#Preview {
-//    ProfileFeedView(name: "전정국", intro: "안녕하세요 저는 방탄소년단 황금막내 전정국입니다", followers: 10, following: 10, null: false)
-//}
