@@ -96,9 +96,6 @@ struct ProfileFeedView: View {
         .navigationBarHidden(true)
         .fullScreenCover(isPresented: $showEdit) {
             ProfileEditMainView(
-                name: name,
-                intro: intro,
-                email: "ab@gmail.com",
                 onDismiss: { showEdit = false }
             )
         }

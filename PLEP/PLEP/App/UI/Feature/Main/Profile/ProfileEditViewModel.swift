@@ -13,16 +13,25 @@ class ProfileEditViewModel: ObservableObject {
     private let disposeBag = DisposeBag()
     
     @Published var user: UserModel?
+    @Published var isLoading = false
+    @Published var errorMessage: String?
     
     func getUser() {
         AuthApi().getMe()
-            .subscribe(onSuccess: { [weak self] user in
-                DispatchQueue.main.async {
-                    self?.user = user
+            .subscribe(
+                onSuccess: { [weak self] user in
+                    DispatchQueue.main.async {
+                        self?.user = user
+                        self?.isLoading = false
+                    }
+                },
+                onFailure: { [weak self] error in
+                    DispatchQueue.main.async {
+                        self?.errorMessage = error.localizedDescription
+                        self?.isLoading = false
+                    }
                 }
-            }, onFailure: { error in
-                print("유저 정보 조회 실패: \(error.localizedDescription)")
-            })
+            )
             .disposed(by: disposeBag)
     }
 }
