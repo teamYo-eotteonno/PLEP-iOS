@@ -15,6 +15,7 @@ struct GroupSettingSheet: View {
     var groupIndex: Int?
     let type: GroupSettingSheetType
     @State private var groupName = ""
+    @State private var selectedColor: Color?
     var color: Color?
     var title: String?
     var onDelete: (() -> Void)?
@@ -48,18 +49,38 @@ struct GroupSettingSheet: View {
                             
                             VStack(alignment: .leading, spacing: 5) {
                                 HStack(spacing: 5) {
-                                    GroupColorCell(.file.red)
-                                    GroupColorCell(.file.orange)
-                                    GroupColorCell(.file.yellow)
-                                    GroupColorCell(.file.lame)
-                                    GroupColorCell(.file.green)
-                                    GroupColorCell(.file.sky)
-                                    GroupColorCell(.file.blue)
+                                    GroupColorCell(color: .file.red, isSelected: selectedColor == .file.red) {
+                                        selectedColor = .file.red
+                                    }
+                                    GroupColorCell(color: .file.orange, isSelected: selectedColor == .file.orange) {
+                                        selectedColor = .file.orange
+                                    }
+                                    GroupColorCell(color: .file.yellow, isSelected: selectedColor == .file.yellow) {
+                                        selectedColor = .file.yellow
+                                    }
+                                    GroupColorCell(color: .file.lame, isSelected: selectedColor == .file.lame) {
+                                        selectedColor = .file.lame
+                                    }
+                                    GroupColorCell(color: .file.green, isSelected: selectedColor == .file.green) {
+                                        selectedColor = .file.green
+                                    }
+                                    GroupColorCell(color: .file.sky, isSelected: selectedColor == .file.sky) {
+                                        selectedColor = .file.sky
+                                    }
+                                    GroupColorCell(color: .file.blue, isSelected: selectedColor == .file.blue) {
+                                        selectedColor = .file.blue
+                                    }
                                 }
                                 HStack(spacing: 5) {
-                                    GroupColorCell(.file.purple)
-                                    GroupColorCell(.file.magenta)
-                                    GroupColorCell(.file.pink)
+                                    GroupColorCell(color: .file.purple, isSelected: selectedColor == .file.purple) {
+                                        selectedColor = .file.purple
+                                    }
+                                    GroupColorCell(color: .file.magenta, isSelected: selectedColor == .file.magenta) {
+                                        selectedColor = .file.magenta
+                                    }
+                                    GroupColorCell(color: .file.pink, isSelected: selectedColor == .file.pink) {
+                                        selectedColor = .file.pink
+                                    }
                                     Spacer()
                                 }
                             }
@@ -127,12 +148,8 @@ struct GroupSettingSheet: View {
 
 struct GroupColorCell: View {
     let color: Color
+    let isSelected: Bool
     let action: () -> Void
-    
-    init(_ color: Color) {
-        self.color = color
-        self.action = {}
-    }
 
     var body: some View {
         Button(action: action) {
@@ -140,6 +157,10 @@ struct GroupColorCell: View {
                 .frame(width: 40, height: 40)
                 .foregroundStyle(color)
                 .cornerRadius(5)
+                .overlay(
+                    RoundedRectangle(cornerRadius: 5)
+                        .stroke(isSelected ? Color.black : Color.clear, lineWidth: 3)
+                )
         }
     }
 }

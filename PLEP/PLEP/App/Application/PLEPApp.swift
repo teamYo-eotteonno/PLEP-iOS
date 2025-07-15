@@ -25,7 +25,7 @@ struct PLEPApp: App {
             .edgesIgnoringSafeArea(.all)
             .environmentObject(authManager)
             .onAppear {
-                _ = UINavigationController()
+                authManager.checkLoginStatus()
             }
             .onAppear {
                 let access = AuthCache.live.getToken(of: .Token)

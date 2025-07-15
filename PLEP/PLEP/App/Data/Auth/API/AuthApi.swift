@@ -80,7 +80,11 @@ struct AuthApi: AuthProtocol {
                 switch response.result {
                 case .success(let data):
                     if let model = try? JSONDecoder().decode(LoginModel.self, from: data) {
-                        AuthCache.live.saveTokens(Token: model.token, refreshToken: model.refreshToken)
+                        AuthCache.live.saveTokens(
+                            Token: model.token,
+                            refreshToken: model.refreshToken,
+                            expires: model.tokenExpires
+                        )
                         single(.success(model))
                     }
                     else if let decoded = try? JSONDecoder().decode(ErrorResponse.self, from: data) {
@@ -123,7 +127,8 @@ struct AuthApi: AuthProtocol {
                 case .success(let model):
                     AuthCache.live.saveTokens(
                         Token: model.token,
-                        refreshToken: model.refreshToken
+                        refreshToken: model.refreshToken,
+                        expires: model.tokenExpires
                     )
                     single(.success(model))
                 case .failure(let error):

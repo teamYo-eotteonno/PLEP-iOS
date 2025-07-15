@@ -34,7 +34,18 @@ final class AuthManager: ObservableObject {
     func checkLoginStatus() {
         let access = AuthCache.live.getToken(of: .Token)
         let refresh = AuthCache.live.getToken(of: .refreshToken)
-        let loggedIn = (access != nil && refresh != nil)
-        isLoggedIn.onNext(loggedIn)
+        let expiresMs = AuthCache.live.getTokenExpireTime()
+        let now = Int(Date().timeIntervalSince1970)
+
+        let expires = expiresMs != nil ? expiresMs! / 1000 : nil
+
+        let isTokenValid = (expires != nil) && (expires! > now)
+        let loggedIn = (access != nil && refresh != nil && isTokenValid)
+        
+        if !loggedIn {
+            logout()
+        } else {
+            isLoggedIn.onNext(true)
+        }
     }
 }
