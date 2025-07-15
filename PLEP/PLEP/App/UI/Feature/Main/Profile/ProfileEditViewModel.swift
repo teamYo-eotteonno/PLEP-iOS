@@ -18,20 +18,16 @@ class ProfileEditViewModel: ObservableObject {
     
     func getUser() {
         AuthApi().getMe()
-            .subscribe(
-                onSuccess: { [weak self] user in
-                    DispatchQueue.main.async {
-                        self?.user = user
-                        self?.isLoading = false
-                    }
-                },
-                onFailure: { [weak self] error in
-                    DispatchQueue.main.async {
-                        self?.errorMessage = error.localizedDescription
-                        self?.isLoading = false
-                    }
-                }
-            )
+            .observe(on: MainScheduler.instance)
+            .subscribe { [weak self] user in
+                self?.isLoading = false
+                self?.user = user
+                print("유저 정보 가져오기 성공: \(user)")
+            } onFailure: { [weak self] error in
+                self?.isLoading = false
+                self?.errorMessage = error.localizedDescription
+                print("유저 정보 가져오기 실패: \(error.localizedDescription)")
+            }
             .disposed(by: disposeBag)
     }
 }
