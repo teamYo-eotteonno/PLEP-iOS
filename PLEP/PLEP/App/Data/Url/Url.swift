@@ -135,10 +135,10 @@ struct PLEPURL {
         static func getTimetables(scheduleId: Int) -> String {
             return "\(timetables)/\(scheduleId)"
         }
-        static func editCheckTimetables(timetableId: Int) -> String {
+        static func checkTimetables(timetableId: Int) -> String {
             return "\(timetables)/check/\(timetableId)"
         }
-        static func editUncheckCheckTimetables(timetableId: Int) -> String {
+        static func uncheckTimetables(timetableId: Int) -> String {
             return "\(timetables)/uncheck/\(timetableId)"
         }
         static func editTimetables(timetableId: Int) -> String {
