@@ -14,12 +14,32 @@ enum GroupSettingSheetType {
 struct GroupSettingSheet: View {
     var groupIndex: Int?
     let type: GroupSettingSheetType
-    @State private var groupName = ""
+    @State private var groupName: String
     @State private var selectedColor: Color?
     var color: Color?
     var title: String?
     var onDelete: (() -> Void)?
     var onEdit: (() -> Void)?
+    var onComplete: ((String, Color) -> Void)?
+    
+    var groupNameInitial: String = ""
+    var selectedColorInitial: Color = .file.red
+    
+    init(
+        groupIndex: Int? = nil,
+        type: GroupSettingSheetType,
+        groupNameInitial: String = "",
+        selectedColorInitial: Color = .file.red,
+        onComplete: ((String, Color) -> Void)? = nil,
+        onEdit: (() -> Void)? = nil
+    ) {
+        self.groupIndex = groupIndex
+        self.type = type
+        self._groupName = State(initialValue: groupNameInitial)
+        self._selectedColor = State(initialValue: selectedColorInitial)
+        self.onComplete = onComplete
+        self.onEdit = onEdit
+    }
     
     var body: some View {
         VStack(spacing: 17) {
@@ -91,7 +111,11 @@ struct GroupSettingSheet: View {
                         type: .neutral,
                         size: .small,
                         enabled: true,
-                        action: {}
+                        action: {
+                            if let selectedColor = selectedColor, !groupName.isEmpty {
+                                onComplete?(groupName, selectedColor)
+                            }
+                        }
                     )
                 }
             case.cant:
@@ -113,9 +137,9 @@ struct GroupSettingSheet: View {
                     HStack(spacing: 13) {
                         Rectangle()
                             .frame(width: 20, height: 20)
-                            .foregroundColor(color)
+                            .foregroundColor(selectedColorInitial)
                             .cornerRadius(5)
-                        Text(title!)
+                        Text(groupNameInitial)
                             .textStyle.body.bold
                             .foregroundColor(.txt.primary)
                     }
@@ -126,7 +150,7 @@ struct GroupSettingSheet: View {
                             type: .neutral,
                             size: .small,
                             enabled: true,
-                            action: onDelete!
+                            action: onDelete ?? {}
                         )
                         
                         PLEPButton(
@@ -134,7 +158,7 @@ struct GroupSettingSheet: View {
                             type: .outlined,
                             size: .small,
                             enabled: true,
-                            action: onEdit!
+                            action: onEdit ?? {}
                         )
                     }
                 }

@@ -7,7 +7,7 @@
 
 import Foundation
 
-struct GroupModel: Decodable {
+struct GroupModel: Decodable, Identifiable {
     let id: Int
     let name: String
     let color: String

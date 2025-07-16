@@ -35,14 +35,14 @@ class GroupApi: GroupProtocol {
         .observe(on: MainScheduler.instance)
     }
     
-    func getGroups() -> Single<GroupModel> {
+    func getGroups() -> Single<[GroupModel]> {
         return Single.create { single in
             let request = API.session.request(
                 PLEPURL.Groups.getGroups,
                 method: .get
             )
                 .validate()
-                .responseDecodable(of: GroupModel.self) { response in
+                .responseDecodable(of: [GroupModel].self) { response in
                     switch response.result {
                     case .success(let group):
                         single(.success(group))
@@ -61,21 +61,23 @@ class GroupApi: GroupProtocol {
         return Single.create { single in
             let request = API.session.request(
                 PLEPURL.Groups.editGroups(groupId: id),
-                method: .put
+                method: .put,
+                parameters: body,
+                encoder: JSONParameterEncoder.default
             )
-                .validate()
-                .response { response in
-                    switch response.result {
-                    case .success:
-                        single(.success(EmptyResponse()))
-                    case .failure(let error):
-                        single(.failure(error))
-                    }
+            .validate()
+            .response { response in
+                switch response.result {
+                case .success:
+                    single(.success(EmptyResponse()))
+                case .failure(let error):
+                    single(.failure(error))
                 }
-            
-            return Disposables.create { request.cancel()
             }
+            
+            return Disposables.create { request.cancel() }
         }
+        .observe(on: MainScheduler.instance)
     }
     
     func deleteGroup(id: Int) -> Single<EmptyResponse> {

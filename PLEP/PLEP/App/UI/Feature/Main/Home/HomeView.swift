@@ -85,7 +85,7 @@ struct HomeView: View {
                 MainBottomSheet(showButton: true) { PlacesListSheet() }
             }
         case .calendar:
-            FlowPresenter(rootView: MainCalendarView())
+            FlowPresenter(rootView: MainCalendarViewDi().maincalendarView)
         case .aiSearch:
             FlowPresenter(rootView: SearchingView())
         case .travel:
