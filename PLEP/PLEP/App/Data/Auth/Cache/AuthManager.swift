@@ -32,20 +32,30 @@ final class AuthManager: ObservableObject {
     }
     
     func checkLoginStatus() {
-        let access = AuthCache.live.getToken(of: .Token)
-        let refresh = AuthCache.live.getToken(of: .refreshToken)
-        let expiresMs = AuthCache.live.getTokenExpireTime()
-        let now = Int(Date().timeIntervalSince1970)
-
-        let expires = expiresMs != nil ? expiresMs! / 1000 : nil
-
-        let isTokenValid = (expires != nil) && (expires! > now)
-        let loggedIn = (access != nil && refresh != nil && isTokenValid)
-        
-        if !loggedIn {
-            logout()
-        } else {
-            isLoggedIn.onNext(true)
+        if let expiresMs = AuthCache.live.getTokenExpireTime() {
+            let now = Int(Date().timeIntervalSince1970)
+            let expires = expiresMs / 1000
+            
+            if expires < now {
+                print("[AuthManager] 토큰 만료. 재발급 시도")
+                AuthApi().refreshToken()
+                    .subscribe(
+                        onSuccess: { response in
+                            print("[AuthManager] 재발급 성공. 로그인 유지")
+                            AuthCache.live.saveTokens(
+                                Token: response.token,
+                                refreshToken: response.refreshToken,
+                                expires: response.tokenExpires
+                            )
+                        },
+                        onFailure: { error in
+                            print("[AuthManager] 재발급 실패. 로그아웃")
+                            self.logout()
+                        }
+                    )
+                    .disposed(by: disposeBag)
+                return
+            }
         }
     }
 }

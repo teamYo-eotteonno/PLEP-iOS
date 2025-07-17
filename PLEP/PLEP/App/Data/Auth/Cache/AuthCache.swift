@@ -18,6 +18,8 @@ final class AuthCache {
     private init() {}
     
     func saveTokens(Token: String, refreshToken: String, expires: Int) {
+        print("[AuthCache] 토큰 저장")
+        
         KeychainManager.shared.save(key: TokenKey.Token.rawValue, value: Token)
         KeychainManager.shared.save(key: TokenKey.refreshToken.rawValue, value: refreshToken)
         KeychainManager.shared.save(key: TokenKey.tokenExpires.rawValue, value: String(expires))

@@ -21,7 +21,7 @@ final class KeychainManager {
             kSecValueData as String  : data
         ]
         SecItemDelete(query as CFDictionary)
-        SecItemAdd(query as CFDictionary, nil)
+        let status = SecItemAdd(query as CFDictionary, nil)
     }
 
     func load(key: String) -> String? {
