@@ -14,6 +14,6 @@ struct MainCalendarViewDi {
     }
 
     private var maincalendarViewModel: MainCalendarViewModel {
-        MainCalendarViewModel(api: GroupApi())
+        MainCalendarViewModel(gapi: GroupApi(), sapi: ScheduleApi())
     }
 }

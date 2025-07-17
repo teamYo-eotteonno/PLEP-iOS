@@ -24,6 +24,10 @@ struct MainCalendarView: View {
     @State private var editingGroup: GroupModel?
     @State private var isEditing = false
     
+    @State private var Schedule: ScheduleModel?
+    
+    @State private var showAddScheduleView = false
+    
     var groupsDictionary: [Color: String] {
         guard let groups = viewModel.groups else { return [:] }
         var dict: [Color: String] = [:]
@@ -90,7 +94,10 @@ struct MainCalendarView: View {
                         type: .neutral,
                         size: .small,
                         enabled: true,
-                        action: { flow.push(ScheduleAddView()) }
+                        action: {
+                            showAddScheduleView = true
+                            viewModel.getGroups()
+                        }
                     )
                     .padding(.horizontal, 25)
                 }
@@ -178,7 +185,8 @@ struct MainCalendarView: View {
                     date: info.weekdayString,
                     onCreate: {
                         print("일정 생성")
-                        flow.push(ScheduleAddView())
+                        viewModel.getGroups()
+                        showAddScheduleView = true
                     }
                 )
                 .padding(.horizontal, 49)
@@ -191,6 +199,13 @@ struct MainCalendarView: View {
         }
         .alert(isPresented: $showAlert) {
             Alert(title: Text("오류"), message: Text(alertMessage), dismissButton: .default(Text("확인")))
+        }
+        .fullScreenCover(isPresented: $showAddScheduleView) {
+            ScheduleAddView(
+                onDismiss: { showAddScheduleView = false },
+                groups: viewModel.groups ?? [],
+                viewModel: viewModel
+            )
         }
     }
 }

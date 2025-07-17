@@ -15,13 +15,16 @@ class MainCalendarViewModel: ObservableObject {
     @Published var group: GroupModel?
     @Published var isLoading = false
     @Published var errorMessage: String?
+    @Published var schedule: ScheduleModel?
     
     @Published var groups: [GroupModel]?
     
     private let groupApi: GroupApi
+    private let scheduleApi: ScheduleApi
     
-    init(api: GroupApi) {
-        self.groupApi = api
+    init(gapi: GroupApi, sapi: ScheduleApi) {
+        self.groupApi = gapi
+        self.scheduleApi = sapi
     }
     
     func addGroup(body: GroupRequest, completion: @escaping (Result<GroupModel, Error>) -> Void) {
@@ -85,6 +88,38 @@ class MainCalendarViewModel: ObservableObject {
                 self?.isLoading = false
                 self?.errorMessage = error.localizedDescription
                 print("그룹 삭제 실패: \(error.localizedDescription)")
+            }
+            .disposed(by: disposeBag)
+    }
+    
+    func addSchedule(body: ScheduleRequest, id: Int, completion: @escaping (Result<ScheduleModel, Error>) -> Void) {
+        isLoading = true
+        scheduleApi.addSchedule(body: body, id: id)
+            .subscribe { [weak self] schedule in
+                self?.isLoading = false
+                print("스케줄 추가 성공: \(schedule)")
+                self?.getGroups()
+                completion(.success(schedule))
+            } onFailure: { [weak self] error in
+                self?.isLoading = false
+                self?.errorMessage = error.localizedDescription
+                print("스케줄 추가 실패: \(error.localizedDescription)")
+                completion(.failure(error))
+            }
+            .disposed(by: disposeBag)
+    }
+    
+    func getSchedules(startAt: String, endAt: String, groupIds: [Int]? = nil, title: String? = nil) {
+        isLoading = true
+        scheduleApi.getSchedules(startAt: startAt, endAt: endAt, groupIds: groupIds, title: title)
+            .subscribe { [weak self] schedule in
+                self?.isLoading = false
+                self?.schedule = schedule
+                print("스케줄 목록 가져오기 성공: \(schedule)")
+            } onFailure: { [weak self] error in
+                self?.isLoading = false
+                self?.errorMessage = error.localizedDescription
+                print("스케줄 목록 가져오기 실패: \(error.localizedDescription)")
             }
             .disposed(by: disposeBag)
     }

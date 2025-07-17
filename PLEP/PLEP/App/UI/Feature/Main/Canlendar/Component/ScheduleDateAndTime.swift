@@ -8,15 +8,15 @@
 import SwiftUI
 
 struct ScheduleDateAndTime: View {
-    @State private var startDate: Date?
-    @State private var endDate: Date?
+    @Binding var startDate: Date?
+    @Binding var endDate: Date?
+    
+    @Binding var startTime: String?
+    @Binding var endTime: String?
     
     @State private var showCalendar = false
     @State private var isSelectingStartDate = false
     @State private var isSelectingEndDate = false
-    
-    @State private var startTime: String? = nil
-    @State private var endTime: String? = nil
     
     @State private var showTimeWheel = false
     @State private var isSelectingStartTime = false
@@ -149,8 +149,4 @@ struct ScheduleDateAndTime: View {
         formatter.dateFormat = "M월 d일 (E)"
         return formatter.string(from: date)
     }
-}
-
-#Preview {
-    ScheduleDateAndTime()
 }
