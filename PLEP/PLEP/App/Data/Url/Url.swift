@@ -10,22 +10,6 @@ import SwiftUI
 struct PLEPURL {
     static let url = "http://plep.shop:3000/api/v1"
     
-    static let admin = "\(url)/admin/users"
-    
-    enum Admin {
-        static let addUsers = admin
-        static let getUsers = admin
-        static func getUsers(id: String) -> String {
-            return "\(admin)/\(id)"
-        }
-        static func editUsers(id: String) -> String {
-            return "\(admin)/\(id)"
-        }
-        static func deleteUsers(id: String) -> String {
-            return "\(admin)/\(id)"
-        }
-    }
-    
     static let users = "\(url)/users"
     
     enum Users {
