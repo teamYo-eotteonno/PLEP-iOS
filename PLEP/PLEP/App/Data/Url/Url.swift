@@ -43,6 +43,7 @@ struct PLEPURL {
     
     enum Email {
         static let code = "\(auth)/code"
+        static let passcode = "\(code)/password"
     }
     
     static let follow = "\(users)/follow"

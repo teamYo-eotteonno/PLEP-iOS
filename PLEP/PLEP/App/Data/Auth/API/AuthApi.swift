@@ -63,6 +63,32 @@ struct AuthApi: AuthProtocol {
         }
     }
     
+    func passcodeemail(body: CodeRequest) -> Single<EmptyResponse> {
+        let url = URL(string: PLEPURL.Email.passcode)!
+        let headers: HTTPHeaders = ["Content-Type": "application/json"]
+        
+        return Single.create { single in
+            let request = AF.request(
+                url,
+                method: .post,
+                parameters: body,
+                encoder: JSONParameterEncoder.default,
+                headers: headers
+            )
+            .validate()
+            .response { response in
+                switch response.result {
+                case .success:
+                    single(.success(EmptyResponse()))
+                case .failure(let error):
+                    single(.failure(error))
+                }
+            }
+            
+            return Disposables.create { request.cancel() }
+        }
+    }
+    
     func login(body: LoginRequest) -> Single<LoginModel> {
         let url = URL(string: PLEPURL.Auth.login)!
         let headers: HTTPHeaders = ["Content-Type": "application/json"]
