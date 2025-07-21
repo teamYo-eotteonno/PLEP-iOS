@@ -28,13 +28,13 @@ struct MainCalendarView: View {
     
     @State private var showAddScheduleView = false
     
-    var groupsDictionary: [Color: String] {
+    var groupsDictionary: [Int: (Color, String)] {
         guard let groups = viewModel.groups else { return [:] }
-        var dict: [Color: String] = [:]
+        var dict: [Int: (Color, String)] = [:]
         
         for group in groups {
             if let color = convertStringToColor(group.color) {
-                dict[color] = group.name
+                dict[group.id] = (color, group.name)
             }
         }
         return dict
@@ -68,7 +68,7 @@ struct MainCalendarView: View {
                         icon_t: true
                     )
                     GroupList(
-                        groups: groupsDictionary,
+                        groups: viewModel.groups ?? [],
                         selectedIndex: $selectedIndex,
                         onAdd: { showAddSheet.toggle() },
                         onSetting: { index in
@@ -153,6 +153,8 @@ struct MainCalendarView: View {
                             let colorString = convertColorToString(color)
                             let body = GroupRequest(name: name, color: colorString)
                             
+                            print(body)
+                            
                             viewModel.editGroup(body: body, id: group.id) { result in
                                 switch result {
                                 case .success:
@@ -220,7 +222,7 @@ func convertStringToColor(_ string: String) -> Color? {
     case "red": return .file.red
     case "orange": return .file.orange
     case "yellow": return .file.yellow
-    case "lame": return .file.lame
+    case "lime": return .file.lame
     case "green": return .file.green
     case "sky": return .file.sky
     case "blue": return .file.blue
@@ -236,7 +238,7 @@ func convertColorToString(_ color: Color) -> String {
     case .file.red: return "red"
     case .file.orange: return "orange"
     case .file.yellow: return "yellow"
-    case .file.lame: return "lame"
+    case .file.lame: return "lime"
     case .file.green: return "green"
     case .file.sky: return "sky"
     case .file.blue: return "blue"

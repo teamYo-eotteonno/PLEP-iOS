@@ -9,10 +9,19 @@ import Foundation
 import Alamofire
 
 class API {
-    static let session: Session = {
+    static var session: Session = {
         let configuration = URLSessionConfiguration.af.default
         let apiLogger = PLEPApiEventLogger()
         let interceptor = AuthInterceptor()
         return Session(configuration: configuration, interceptor: interceptor, eventMonitors: [apiLogger])
     }()
+
+    static func recreateSession() {
+        session = {
+            let configuration = URLSessionConfiguration.af.default
+            let apiLogger = PLEPApiEventLogger()
+            let interceptor = AuthInterceptor()
+            return Session(configuration: configuration, interceptor: interceptor, eventMonitors: [apiLogger])
+        }()
+    }
 }

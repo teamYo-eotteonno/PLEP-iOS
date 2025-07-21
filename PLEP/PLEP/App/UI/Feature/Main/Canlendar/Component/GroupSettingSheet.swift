@@ -137,9 +137,9 @@ struct GroupSettingSheet: View {
                     HStack(spacing: 13) {
                         Rectangle()
                             .frame(width: 20, height: 20)
-                            .foregroundColor(selectedColorInitial)
+                            .foregroundColor(selectedColor)
                             .cornerRadius(5)
-                        Text(groupNameInitial)
+                        Text(groupName)
                             .textStyle.body.bold
                             .foregroundColor(.txt.primary)
                     }

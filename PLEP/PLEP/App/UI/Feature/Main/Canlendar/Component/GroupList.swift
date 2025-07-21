@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct GroupList: View {
-    let groups: [Color: String]
+    let groups: [GroupModel]
     @Binding var selectedIndex: Int?
     let onAdd: () -> Void
     let onSetting: (Int) -> Void
@@ -28,9 +28,10 @@ struct GroupList: View {
                     .frame(width: 43)
                 }
 
-                ForEach(Array(groups.enumerated()), id: \.offset) { index, element in
-                    let color = element.key
-                    let name = element.value
+                ForEach(groups.indices, id: \.self) { index in
+                    let group = groups[index]
+                    let color = convertStringToColor(group.color) ?? .gray
+                    let name = group.name
 
                     VStack(spacing: 5) {
                         ZStack {

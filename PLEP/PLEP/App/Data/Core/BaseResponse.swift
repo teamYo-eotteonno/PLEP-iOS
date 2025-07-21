@@ -13,3 +13,8 @@ struct ErrorResponse: Decodable {
     let status: Int
     let errors: [String: String]
 }
+
+struct SecondErrorReason: Decodable {
+    let message: String
+    let statusCode: Int
+}

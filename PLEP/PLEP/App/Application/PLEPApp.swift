@@ -15,11 +15,10 @@ struct PLEPApp: App {
     var body: some Scene {
         WindowGroup {
             Group {
-                if (try? authManager.isLoggedIn.value()) == true {
+                if authManager.isLoggedIn {
                     FlowPresenter(rootView: HomeView())
                 } else {
                     FlowPresenter(rootView: LoginViewDi().loginView)
-//                    FlowPresenter(rootView: OnboardingFirstView())
                 }
             }
             .edgesIgnoringSafeArea(.all)
@@ -32,6 +31,8 @@ struct PLEPApp: App {
                 let refresh = AuthCache.live.getToken(of: .refreshToken)
                 print("accessToken: \(access ?? "없음")")
                 print("refreshToken: \(refresh ?? "없음")")
+            }
+            .onReceive(NotificationCenter.default.publisher(for: .didLogout)) { _ in
             }
         }
     }
