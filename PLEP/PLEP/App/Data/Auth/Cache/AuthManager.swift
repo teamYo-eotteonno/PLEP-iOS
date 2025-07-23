@@ -25,24 +25,12 @@ final class AuthManager: ObservableObject {
     func logout() {
         print("[AuthManager] logout 호출됨")
         AuthCache.live.clearTokens()
-<<<<<<< HEAD
-<<<<<<< HEAD
-=======
->>>>>>> 3df87c0 (2025.07.20/토큰 관리 수정)
         isLoggedIn = false
         
         NotificationCenter.default.post(name: .didLogout, object: nil)
         
         API.session.session.invalidateAndCancel()
         API.recreateSession()
-<<<<<<< HEAD
-=======
-        print("[AuthManager] 토큰 클리어 완료")
-        isLoggedIn.onNext(false)
-        print("[AuthManager] isLoggedIn false emit 완료")
->>>>>>> bf4e9bb (2025.07.19/진짜 최종 이젠 수정 안함 토큰 완료, 그룹 리스트 띄우기)
-=======
->>>>>>> 3df87c0 (2025.07.20/토큰 관리 수정)
     }
 
     func loginSucceeded() {
@@ -50,10 +38,6 @@ final class AuthManager: ObservableObject {
     }
     
     func checkLoginStatus() {
-<<<<<<< HEAD
-<<<<<<< HEAD
-=======
->>>>>>> 3df87c0 (2025.07.20/토큰 관리 수정)
         let token = AuthCache.live.getToken(of: .Token) ?? ""
         let refresh = AuthCache.live.getToken(of: .refreshToken) ?? ""
 
@@ -62,20 +46,6 @@ final class AuthManager: ObservableObject {
         if !token.isEmpty && !isTokenExpired(token) {
             isLoggedIn = true
             return
-<<<<<<< HEAD
-=======
-        if let expiresMs = AuthCache.live.getTokenExpireTime() {
-            let now = Int(Date().timeIntervalSince1970)
-            let expires = expiresMs / 1000
-            
-            if expires < now {
-                print("[AuthManager] 토큰 만료. 로그아웃 시도")
-                self.logout()
-                return
-            }
->>>>>>> bf4e9bb (2025.07.19/진짜 최종 이젠 수정 안함 토큰 완료, 그룹 리스트 띄우기)
-=======
->>>>>>> 3df87c0 (2025.07.20/토큰 관리 수정)
         }
 
         if !refresh.isEmpty && !isTokenExpired(refresh) {

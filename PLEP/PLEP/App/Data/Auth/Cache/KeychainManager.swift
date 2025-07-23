@@ -20,16 +20,7 @@ final class KeychainManager {
             kSecValueData as String   : data
         ]
         SecItemDelete(query as CFDictionary)
-<<<<<<< HEAD
-<<<<<<< HEAD
         SecItemAdd(query as CFDictionary, nil)
-=======
-        let status = SecItemAdd(query as CFDictionary, nil)
-        print("[KeychainManager] save status: \(status)")
->>>>>>> bf4e9bb (2025.07.19/진짜 최종 이젠 수정 안함 토큰 완료, 그룹 리스트 띄우기)
-=======
-        SecItemAdd(query as CFDictionary, nil)
->>>>>>> 3df87c0 (2025.07.20/토큰 관리 수정)
     }
 
     func load(key: String) -> String? {
@@ -41,6 +32,7 @@ final class KeychainManager {
         ]
         var result: AnyObject?
         let status = SecItemCopyMatching(query as CFDictionary, &result)
+        
         guard status == errSecSuccess,
               let data = result as? Data,
               let string = String(data: data, encoding: .utf8) else {

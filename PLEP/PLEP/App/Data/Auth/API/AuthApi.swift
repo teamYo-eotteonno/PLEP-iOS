@@ -9,7 +9,7 @@ import Foundation
 import Alamofire
 import RxSwift
 
-struct AuthApi: AuthProtocol {
+final class AuthApi: AuthProtocol {
     
     func join(body: JoinRequest) -> Single<EmptyResponse> {
         let url = URL(string: PLEPURL.Auth.join)!
@@ -129,162 +129,39 @@ struct AuthApi: AuthProtocol {
             return Disposables.create { request.cancel() }
         }
     }
-    
-    private let noInterceptorSession = Session()
+    static let shared = AuthApi()
+    private let session = Session()
 
     func refreshToken() -> Single<RefreshTokenResponse> {
-        print("[AuthApi.refreshToken] 호출됨")
-        
-        guard let refreshToken = AuthCache.live.getToken(of: .refreshToken) else {
-            return Single.error(AFError.explicitlyCancelled)
-        }
-        
-        let url = URL(string: PLEPURL.Auth.refresh)!
-        let headers: HTTPHeaders = [
-            "Authorization": "Bearer \(refreshToken)"
-        ]
-        
-        return Single.create { single in
-            let request = self.noInterceptorSession.request(
-                url,
-                method: .post,
-                headers: headers
-            )
-<<<<<<< HEAD
-<<<<<<< HEAD
-            .responseData { response in
-                let statusCode = response.response?.statusCode ?? 0
-                print("\n[AuthApi.refreshToken] statusCode: \(statusCode)")
-                
-                switch response.result {
-                case .success(let data):
-                    if let jsonString = String(data: data, encoding: .utf8) {
-                        print("[🟥 AuthApi.refreshToken] 서버 원본 응답(json): \(jsonString)")
-                    }
-                    
-                    let decoder = JSONDecoder()
-                    
-                    if let model = try? decoder.decode(RefreshTokenResponse.self, from: data) {
-                        let oldToken = AuthCache.live.getToken(of: .Token) ?? "nil"
-                        print("[refreshToken API] 기존 token: \(oldToken)")
-                        print("[refreshToken API] 새 token: \(model.token)")
-                        print("[refreshToken API] 새 refreshToken: \(model.refreshToken)")
-                        
-=======
-            .validate(statusCode: 200..<300)
-=======
->>>>>>> 3df87c0 (2025.07.20/토큰 관리 수정)
-            .responseData { response in
-                let statusCode = response.response?.statusCode ?? 0
-                print("\n[AuthApi.refreshToken] statusCode: \(statusCode)")
-                
-                switch response.result {
-                case .success(let data):
-                    if let jsonString = String(data: data, encoding: .utf8) {
-                        print("[🟥 AuthApi.refreshToken] 서버 원본 응답(json): \(jsonString)")
-                    }
-                    
-<<<<<<< HEAD
-                    if let model = try? JSONDecoder().decode(RefreshTokenResponse.self, from: data) {
->>>>>>> bf4e9bb (2025.07.19/진짜 최종 이젠 수정 안함 토큰 완료, 그룹 리스트 띄우기)
-=======
-                    let decoder = JSONDecoder()
-                    
-                    if let model = try? decoder.decode(RefreshTokenResponse.self, from: data) {
-                        let oldToken = AuthCache.live.getToken(of: .Token) ?? "nil"
-                        print("[refreshToken API] 기존 token: \(oldToken)")
-                        print("[refreshToken API] 새 token: \(model.token)")
-                        print("[refreshToken API] 새 refreshToken: \(model.refreshToken)")
-                        
->>>>>>> 3df87c0 (2025.07.20/토큰 관리 수정)
-                        AuthCache.live.saveTokens(
-                            Token: model.token,
-                            refreshToken: model.refreshToken,
-                            expires: model.tokenExpires
-                        )
-<<<<<<< HEAD
-<<<<<<< HEAD
-=======
->>>>>>> 3df87c0 (2025.07.20/토큰 관리 수정)
-                        
-                        let savedToken = AuthCache.live.getToken(of: .Token) ?? "nil"
-                        let savedExpires = AuthCache.live.getTokenExpireTime()
-                        print("[AuthInterceptor] saveTokens 후 getToken: \(savedToken)")
-                        print("🟩 저장 후 expires: \(savedExpires ?? -1)")
-                        
-<<<<<<< HEAD
-                        single(.success(model))
-                        
-                    } else if let decoded = try? decoder.decode(SecondErrorReason.self, from: data) {
-                        let code = decoded.statusCode
-                        let message = decoded.message
-                        let error = NSError(domain: "AuthApi", code: code, userInfo: [NSLocalizedDescriptionKey: message])
-                        
-                        print("[AuthApi.refreshToken] decode SecondErrorReason: \(message), statusCode: \(code)")
-                        single(.failure(error))
-                        
-                    } else {
-                        print("[AuthApi.refreshToken] unknown decode error. data: \(String(data: data, encoding: .utf8) ?? "nil")")
-                        let error = NSError(domain: "AuthApi", code: statusCode, userInfo: [NSLocalizedDescriptionKey: "알 수 없는 오류가 발생했습니다."])
-=======
-=======
->>>>>>> 3df87c0 (2025.07.20/토큰 관리 수정)
-                        single(.success(model))
-                        
-                    } else if let decoded = try? decoder.decode(SecondErrorReason.self, from: data) {
-                        let code = decoded.statusCode
-                        let message = decoded.message
-                        let error = NSError(domain: "AuthApi", code: code, userInfo: [NSLocalizedDescriptionKey: message])
-                        
-                        print("[AuthApi.refreshToken] decode SecondErrorReason: \(message), statusCode: \(code)")
-                        single(.failure(error))
-<<<<<<< HEAD
-                    }
-                    else {
-                        let error = NSError(domain: "", code: statusCode, userInfo: [NSLocalizedDescriptionKey: "알 수 없는 오류가 발생했습니다."])
->>>>>>> bf4e9bb (2025.07.19/진짜 최종 이젠 수정 안함 토큰 완료, 그룹 리스트 띄우기)
-=======
-                        
-                    } else {
-                        print("[AuthApi.refreshToken] unknown decode error. data: \(String(data: data, encoding: .utf8) ?? "nil")")
-                        let error = NSError(domain: "AuthApi", code: statusCode, userInfo: [NSLocalizedDescriptionKey: "알 수 없는 오류가 발생했습니다."])
->>>>>>> 3df87c0 (2025.07.20/토큰 관리 수정)
-                        single(.failure(error))
-                    }
-                    
-                case .failure(let error):
-<<<<<<< HEAD
-<<<<<<< HEAD
-=======
->>>>>>> 3df87c0 (2025.07.20/토큰 관리 수정)
-                    print("🔎 최종 헤더: \(headers)")
-                    print("[AuthApi.refreshToken] failure statusCode: \(statusCode)")
-                    
-                    if let data = response.data,
-                       let jsonString = String(data: data, encoding: .utf8) {
-                        print("[🟥 AuthApi.refreshToken] failure json: \(jsonString)")
-                    }
-                    
-                    if statusCode == 401 {
-                        let authError = NSError(domain: "AuthApi", code: 401, userInfo: [NSLocalizedDescriptionKey: "RefreshToken이 만료되었습니다."])
-                        single(.failure(authError))
-                    } else {
-                        single(.failure(error))
-                    }
-<<<<<<< HEAD
-=======
-                    print("[AuthApi.refreshToken] failure: \(error.localizedDescription)")
-                    single(.failure(error))
->>>>>>> bf4e9bb (2025.07.19/진짜 최종 이젠 수정 안함 토큰 완료, 그룹 리스트 띄우기)
-=======
->>>>>>> 3df87c0 (2025.07.20/토큰 관리 수정)
-                }
+            guard let refreshToken = AuthCache.live.getToken(of: .refreshToken) else {
+                return Single.error(AFError.explicitlyCancelled)
             }
-            
-            return Disposables.create { request.cancel() }
+
+            let url = URL(string: PLEPURL.Auth.refresh)!
+            let headers: HTTPHeaders = [
+                "Content-Type": "application/json",
+                "Authorization": "Bearer \(refreshToken)"
+            ]
+
+            return Single.create { single in
+                let request = self.session.request(
+                    url,
+                    method: .post,
+                    headers: headers
+                )
+                .responseDecodable(of: RefreshTokenResponse.self) { response in
+                    switch response.result {
+                    case .success(let model):
+                        single(.success(model))
+                    case .failure(let error):
+                        single(.failure(error))
+                    }
+                }
+
+                return Disposables.create { request.cancel() }
+            }
+            .observe(on: MainScheduler.instance)
         }
-        .observe(on: MainScheduler.instance)
-    }
     
     func getMe() -> Single<UserModel> {
         return Single.create { single in
