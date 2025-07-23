@@ -50,7 +50,7 @@ final class AuthInterceptor: RequestInterceptor {
         if response.statusCode == 401 {
             print("[AuthInterceptor] 401 에러 감지, refreshToken 호출 시도")
             
-            AuthApi.shared.refreshToken()  // ⚠️ AuthApi가 class singleton이라고 가정
+            AuthApi.shared.refreshToken()
                 .subscribe(
                     onSuccess: { model in
                         print("[AuthInterceptor] refreshToken 성공")

@@ -18,14 +18,6 @@ struct ScheduleModel: Decodable {
     let deletedAt: String?
 }
 
-//struct getSchedulesModel: Decodable{
-//    let id: Int
-//    let group: GroupModel
-//    let title: String
-//    let startAt: String
-//    let endAt: String
-//    let createdAt: String
-//    let updatedAt: String
-//    let deletedAt: String?
-//}
-//
+struct ScheduleListModel: Decodable {
+    let data: [ScheduleModel]
+}

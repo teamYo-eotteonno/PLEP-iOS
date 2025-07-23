@@ -16,6 +16,7 @@ class MainCalendarViewModel: ObservableObject {
     @Published var isLoading = false
     @Published var errorMessage: String?
     @Published var schedule: ScheduleModel?
+    @Published var schedules: [Schedule] = []
     
     @Published var groups: [GroupModel]?
     
@@ -112,13 +113,15 @@ class MainCalendarViewModel: ObservableObject {
     func getSchedules(startAt: String, endAt: String, groupIds: [Int]? = nil, title: String? = nil) {
         isLoading = true
         scheduleApi.getSchedules(startAt: startAt, endAt: endAt, groupIds: groupIds, title: title)
-            .subscribe { [weak self] schedule in
-                self?.isLoading = false
-                self?.schedule = schedule
-                print("스케줄 목록 가져오기 성공: \(schedule)")
+            .subscribe { [weak self] scheduleList in
+                guard let self = self else { return }
+                self.isLoading = false
+                self.schedules = scheduleList.map { $0.toSchedule() }
+                print("스케줄 목록 가져오기 성공: \(self.schedules)")
             } onFailure: { [weak self] error in
-                self?.isLoading = false
-                self?.errorMessage = error.localizedDescription
+                guard let self = self else { return }
+                self.isLoading = false
+                self.errorMessage = error.localizedDescription
                 print("스케줄 목록 가져오기 실패: \(error.localizedDescription)")
             }
             .disposed(by: disposeBag)

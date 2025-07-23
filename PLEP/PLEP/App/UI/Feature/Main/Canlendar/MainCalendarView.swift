@@ -24,7 +24,7 @@ struct MainCalendarView: View {
     @State private var editingGroup: GroupModel?
     @State private var isEditing = false
     
-    @State private var Schedule: ScheduleModel?
+    @State private var selectedSchedule: ScheduleModel?
     
     @State private var showAddScheduleView = false
     
@@ -84,7 +84,7 @@ struct MainCalendarView: View {
                 .padding(.horizontal, 25)
                 
                 VStack(spacing: 16) {
-                    MainCalendar { selected in
+                    MainCalendar(viewModel: viewModel) { selected in
                         print("외부에서 날짜 선택됨: \(selected)")
                         selectedDate = selected
                         showScheduleListPopup.toggle()
@@ -210,11 +210,6 @@ struct MainCalendarView: View {
             )
         }
     }
-}
-
-#Preview {
-    FlowPresenter(rootView: HomeView())
-        .ignoresSafeArea()
 }
 
 func convertStringToColor(_ string: String) -> Color? {

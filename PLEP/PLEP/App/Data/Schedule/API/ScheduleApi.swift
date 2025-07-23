@@ -35,7 +35,7 @@ class ScheduleApi: ScheduleProtocol {
         .observe(on: MainScheduler.instance)
     }
     
-    func getSchedules(startAt: String, endAt: String, groupIds: [Int]? = nil, title: String? = nil) -> Single<ScheduleModel> {
+    func getSchedules(startAt: String, endAt: String, groupIds: [Int]? = nil, title: String? = nil) -> Single<[ScheduleModel]> {
         return Single.create { single in
             var parameters: [String: Any] = [
                 "startAt": startAt,
@@ -62,10 +62,10 @@ class ScheduleApi: ScheduleProtocol {
                 encoding: URLEncoding.default
             )
             .validate()
-            .responseDecodable(of: ScheduleModel.self) { response in
+            .responseDecodable(of: [ScheduleModel].self) { response in
                 switch response.result {
-                case .success(let schedule):
-                    single(.success(schedule))
+                case .success(let scheduleList):
+                    single(.success(scheduleList))
                 case .failure(let error):
                     single(.failure(error))
                 }
