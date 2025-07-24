@@ -17,6 +17,8 @@ class MainCalendarViewModel: ObservableObject {
     @Published var errorMessage: String?
     @Published var schedule: ScheduleModel?
     @Published var schedules: [Schedule] = []
+    @Published var selectedDate: Date = Date()
+    
     
     @Published var groups: [GroupModel]?
     
@@ -26,6 +28,19 @@ class MainCalendarViewModel: ObservableObject {
     init(gapi: GroupApi, sapi: ScheduleApi) {
         self.groupApi = gapi
         self.scheduleApi = sapi
+    }
+    
+    var schedulesForSelectedDate: [Schedule] {
+        var calendar = Calendar.current
+        let cellDate = calendar.startOfDay(for: selectedDate)
+        calendar.timeZone = TimeZone(identifier: "Asia/Seoul")!
+
+        return schedules.filter { schedule in
+                guard let endDate = schedule.endDate else {
+                    return calendar.isDate(schedule.startDate, inSameDayAs: selectedDate)
+                }
+                return (schedule.startDate <= cellDate) && (cellDate <= endDate)
+            }
     }
     
     func addGroup(body: GroupRequest, completion: @escaping (Result<GroupModel, Error>) -> Void) {
@@ -125,5 +140,18 @@ class MainCalendarViewModel: ObservableObject {
                 print("스케줄 목록 가져오기 실패: \(error.localizedDescription)")
             }
             .disposed(by: disposeBag)
+    }
+}
+
+extension MainCalendarViewModel {
+    func schedules(for date: Date) -> [Schedule] {
+        let calendar = Calendar.current
+        return schedules.filter {
+            guard let endDate = $0.endDate else {
+                return calendar.isDate($0.startDate, inSameDayAs: date)
+            }
+            let cellDate = calendar.startOfDay(for: date)
+            return ($0.startDate <= cellDate) && (cellDate <= endDate)
+        }
     }
 }

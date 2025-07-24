@@ -87,6 +87,7 @@ struct MainCalendarView: View {
                     MainCalendar(viewModel: viewModel) { selected in
                         print("외부에서 날짜 선택됨: \(selected)")
                         selectedDate = selected
+                        viewModel.selectedDate = selected
                         showScheduleListPopup.toggle()
                     }
                     PLEPButton(
@@ -185,6 +186,7 @@ struct MainCalendarView: View {
                 ScheduleListPopup(
                     day: info.day,
                     date: info.weekdayString,
+                    schedules: viewModel.schedules(for: selectedDate ?? Date()),
                     onCreate: {
                         print("일정 생성")
                         viewModel.getGroups()

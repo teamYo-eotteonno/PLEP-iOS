@@ -10,6 +10,7 @@ import SwiftUI
 struct ScheduleListPopup: View {
     let day: Int
     let date: String
+    let schedules: [Schedule]
     let onCreate: () -> Void
     
     @State private var showPopup = false
@@ -32,20 +33,28 @@ struct ScheduleListPopup: View {
                 
                 PLEPDivider(type: .g100)
                 
-                ForEach(0..<2) { _ in
-                    ScheduleCell(
-                        time: "08:00",
-                        color: .file.sky,
-                        title: "방탄소년단 페스타",
-                        alarm: 2,
-                        onTap: {
-                            print("짧게 누름")
-                        },
-                        onLongPressWithLocation: { location in
-                            popupPosition = location
-                            showPopup = true
-                        }
-                    )
+                if schedules.isEmpty {
+                    Text("일정이 없습니다.")
+                        .textStyle.body.default
+                        .foregroundColor(.txt.secondary)
+                        .frame(maxWidth: .infinity, alignment: .center)
+                        .padding(.top, 20)
+                } else {
+                    ForEach(schedules, id: \.id) { schedule in
+                        ScheduleCell(
+                            time: formattedTime(from: schedule.startDate),
+                            color: schedule.color,
+                            title: schedule.name,
+                            alarm: 0,
+                            onTap: {
+                                print("짧게 누름: \(schedule.name)")
+                            },
+                            onLongPressWithLocation: { location in
+                                popupPosition = location
+                                showPopup = true
+                            }
+                        )
+                    }
                 }
                 
                 Spacer()
@@ -72,5 +81,11 @@ struct ScheduleListPopup: View {
         .frame(height: 477)
         .background(Color.g[0])
         .cornerRadius(15)
+    }
+    
+    private func formattedTime(from date: Date) -> String {
+        let formatter = DateFormatter()
+        formatter.dateFormat = "HH:mm"
+        return formatter.string(from: date)
     }
 }
