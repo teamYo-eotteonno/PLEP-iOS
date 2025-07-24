@@ -139,7 +139,6 @@ final class AuthApi: AuthProtocol {
 
             let url = URL(string: PLEPURL.Auth.refresh)!
             let headers: HTTPHeaders = [
-                "Content-Type": "application/json",
                 "Authorization": "Bearer \(refreshToken)"
             ]
 
