@@ -165,15 +165,18 @@ extension ScheduleModel {
             name: self.title,
             startDate: Self.parseDate(self.startAt),
             endDate: Self.parseDate(self.endAt),
-            color: .blue
+            color: convertStringToColor(self.group?.color ?? "") ?? .blue
         )
     }
 
     private static func parseDate(_ dateString: String) -> Date {
         let formatter = ISO8601DateFormatter()
         formatter.formatOptions = [.withInternetDateTime, .withFractionalSeconds]
-        formatter.timeZone = TimeZone(secondsFromGMT: 0)
-        return formatter.date(from: dateString) ?? Date()
+        formatter.timeZone = TimeZone(secondsFromGMT: 9 * 60 * 60) // 서버가 KST 저장이라면 여기 KST
+
+        guard let date = formatter.date(from: dateString) else { return Date() }
+
+        return date // 추가 변환 제거
     }
 }
 

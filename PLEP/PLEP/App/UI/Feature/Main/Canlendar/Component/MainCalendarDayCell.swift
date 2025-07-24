@@ -24,8 +24,9 @@ struct MainCalendarDayCell: View {
         let isToday = (cellDate == today)
 
         let daySchedules = schedules.filter {
-            let end = $0.endDate ?? $0.startDate
-            return $0.startDate <= date && end >= date
+            let scheduleStartDay = calendar.startOfDay(for: $0.startDate)
+            let scheduleEndDay = calendar.startOfDay(for: $0.endDate ?? $0.startDate)
+            return (scheduleStartDay ... scheduleEndDay).contains(cellDate)
         }
 
         return Button {
@@ -46,10 +47,13 @@ struct MainCalendarDayCell: View {
                     )
 
                 if daySchedules.count == 1, let schedule = daySchedules.first {
-                    let endDate = schedule.endDate ?? schedule.startDate
-                    let isStart = calendar.isDate(date, inSameDayAs: schedule.startDate)
-                    let isEnd = calendar.isDate(date, inSameDayAs: endDate)
-                    let isSingleDay = schedule.endDate == nil
+                    let scheduleStartDay = calendar.startOfDay(for: schedule.startDate)
+                    let scheduleEndDay = calendar.startOfDay(for: schedule.endDate ?? schedule.startDate)
+
+                    let isStart = calendar.isDate(cellDate, inSameDayAs: scheduleStartDay)
+                    let isEnd = calendar.isDate(cellDate, inSameDayAs: scheduleEndDay)
+
+                    let isSingleDay = isStart && isEnd
 
                     if isSingleDay {
                         HStack(spacing: 3) {
@@ -116,4 +120,3 @@ struct MainCalendarDayCell: View {
         }
     }
 }
-
