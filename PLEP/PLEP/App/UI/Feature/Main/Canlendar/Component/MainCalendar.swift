@@ -8,13 +8,16 @@
 import SwiftUI
 
 struct MainCalendar: View {
-    @State private var calendar = Calendar.current
+    @State private var calendar: Calendar = {
+        var cal = Calendar.current
+        cal.timeZone = TimeZone(identifier: "Asia/Seoul")!
+        return cal
+    }()
     @State private var currentDate = Date()
     @State private var previousMonth: Date = Date()
     @State private var transitionDirection: AnyTransition = .identity
 
     @ObservedObject var viewModel: MainCalendarViewModel
-    
     let onSelect: (Date) -> Void
 
     @State private var selectedDate: Date?
@@ -37,13 +40,13 @@ struct MainCalendar: View {
 
         let leading = firstWeekday - 1
         for i in (0..<leading).reversed() {
-            if let day = calendar.date(byAdding: .day, value: -i - 1, to: firstOfMonth) {
+            if let day = calendar.date(byAdding: .day, value: -i-1, to: firstOfMonth) {
                 days.append(day)
             }
         }
 
         for day in range {
-            if let date = calendar.date(byAdding: .day, value: day - 1, to: firstOfMonth) {
+            if let date = calendar.date(byAdding: .day, value: day-1, to: firstOfMonth) {
                 days.append(date)
             }
         }
@@ -53,7 +56,6 @@ struct MainCalendar: View {
                 days.append(next)
             }
         }
-
         return days
     }
 
@@ -72,11 +74,9 @@ struct MainCalendar: View {
                         .frame(width: 10, height: 20)
                         .foregroundColor(.icon.secondary)
                 }
-                
                 Text(displayedMonthFormatted)
                     .textStyle.body.default
                     .foregroundColor(.txt.primary)
-                
                 Button {
                     withAnimation(.easeInOut) {
                         previousMonth = currentDate
@@ -111,9 +111,14 @@ struct MainCalendar: View {
                     selectedDate: selectedDate,
                     tappedDate: tappedDate,
                     onSelect: { date in
-                        tappedDate = date
-                        selectedDate = date
-                        onSelect(date)
+                        let startOfDay = calendar.startOfDay(for: date)
+                        tappedDate = startOfDay
+                        selectedDate = startOfDay
+                        onSelect(startOfDay)
+                        let formatter = DateFormatter()
+                        formatter.dateFormat = "yyyy-MM-dd HH:mm:ss ZZZZ"
+                        formatter.timeZone = TimeZone(identifier: "Asia/Seoul")
+                        print("외부에서 날짜 선택됨(한국시간): \(formatter.string(from: startOfDay))")
                     }
                 )
                 .transition(transitionDirection)
@@ -127,11 +132,9 @@ struct MainCalendar: View {
     private func fetchSchedulesForCurrentMonth() {
         let formatter = DateFormatter()
         formatter.dateFormat = "yyyy-MM-dd"
-        formatter.timeZone = TimeZone(identifier: "Asia/Seoul")
-        
+        formatter.timeZone = TimeZone(identifier: "UTC")
         let start = formatter.string(from: firstDateOfMonth())
         let end = formatter.string(from: lastDateOfMonth())
-
         viewModel.getSchedules(startAt: start, endAt: end)
     }
 
@@ -147,36 +150,8 @@ struct MainCalendar: View {
     private var displayedMonthFormatted: String {
         let formatter = DateFormatter()
         formatter.dateFormat = "yyyy년 M월"
+        formatter.timeZone = TimeZone(identifier: "Asia/Seoul")
         return formatter.string(from: displayedMonth)
-    }
-}
-
-extension Array {
-    func chunked(into size: Int) -> [[Element]] {
-        stride(from: 0, to: count, by: size).map {
-            Array(self[$0..<Swift.min($0 + size, count)])
-        }
-    }
-}
-
-extension ScheduleModel {
-    func toSchedule() -> Schedule {
-        Schedule(
-            name: self.title,
-            startDate: Self.parseDate(self.startAt),
-            endDate: Self.parseDate(self.endAt),
-            color: convertStringToColor(self.group?.color ?? "") ?? .blue
-        )
-    }
-
-    private static func parseDate(_ dateString: String) -> Date {
-        let formatter = ISO8601DateFormatter()
-        formatter.formatOptions = [.withInternetDateTime, .withFractionalSeconds]
-        formatter.timeZone = TimeZone(secondsFromGMT: 9 * 60 * 60)
-
-        guard let date = formatter.date(from: dateString) else { return Date() }
-
-        return date
     }
 }
 

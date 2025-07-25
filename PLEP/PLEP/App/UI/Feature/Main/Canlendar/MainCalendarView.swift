@@ -43,12 +43,15 @@ struct MainCalendarView: View {
     var selectedDayAndWeekday: (day: Int, weekdayString: String)? {
         guard let selectedDate = selectedDate else { return nil }
 
-        let calendar = Calendar.current
+        var calendar = Calendar.current
+        calendar.timeZone = TimeZone(abbreviation: "UTC")!
+
         let day = calendar.component(.day, from: selectedDate)
         let weekday = calendar.component(.weekday, from: selectedDate)
 
         let formatter = DateFormatter()
         formatter.locale = Locale(identifier: "ko_KR")
+        formatter.timeZone = TimeZone(abbreviation: "UTC")!
         let weekdayString = formatter.shortWeekdaySymbols[weekday - 1]
 
         return (day, weekdayString)

@@ -146,6 +146,7 @@ struct ScheduleDateAndTime: View {
         guard let date = date else { return nil }
         let formatter = DateFormatter()
         formatter.locale = Locale(identifier: "ko_KR")
+        formatter.timeZone = TimeZone(identifier: "Asia/Seoul")
         formatter.dateFormat = "M월 d일 (E)"
         return formatter.string(from: date)
     }

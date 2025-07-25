@@ -2,9 +2,10 @@
 //  Schedule.swift
 //  PLEP
 //
-//  Created by 이다경 on 6/20/25.
+//  Created by 이다경 on 7/25/25.
 //
 
+import Foundation
 import SwiftUI
 
 struct Schedule: Identifiable {

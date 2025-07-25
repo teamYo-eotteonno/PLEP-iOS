@@ -21,3 +21,20 @@ struct ScheduleModel: Decodable {
 struct ScheduleListModel: Decodable {
     let data: [ScheduleModel]
 }
+
+extension ScheduleModel {
+    func toSchedule() -> Schedule {
+        let formatter = ISO8601DateFormatter()
+        formatter.formatOptions = [.withInternetDateTime, .withFractionalSeconds]
+
+        let startDate = formatter.date(from: self.startAt) ?? Date()
+        let endDate = formatter.date(from: self.endAt)
+
+        return Schedule(
+            name: self.title,
+            startDate: startDate,
+            endDate: endDate,
+            color: convertStringToColor(self.group?.color ?? "") ?? .blue
+        )
+    }
+}

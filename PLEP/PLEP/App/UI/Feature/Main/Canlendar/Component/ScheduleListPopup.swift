@@ -85,6 +85,7 @@ struct ScheduleListPopup: View {
     
     private func formattedTime(from date: Date) -> String {
         let formatter = DateFormatter()
+        formatter.timeZone = TimeZone(identifier: "Asia/Seoul")
         formatter.dateFormat = "HH:mm"
         return formatter.string(from: date)
     }

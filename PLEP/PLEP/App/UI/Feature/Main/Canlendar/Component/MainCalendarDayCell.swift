@@ -19,14 +19,15 @@ struct MainCalendarDayCell: View {
     var body: some View {
         let isCurrentMonth = calendar.isDate(date, equalTo: displayedMonth, toGranularity: .month)
         let isOtherMonth = !isCurrentMonth
+
         let today = calendar.startOfDay(for: Date())
         let cellDate = calendar.startOfDay(for: date)
         let isToday = (cellDate == today)
 
         let daySchedules = schedules.filter {
-            let scheduleStartDay = calendar.startOfDay(for: $0.startDate)
-            let scheduleEndDay = calendar.startOfDay(for: $0.endDate ?? $0.startDate)
-            return (scheduleStartDay ... scheduleEndDay).contains(cellDate)
+            let startDay = calendar.startOfDay(for: $0.startDate)
+            let endDay = calendar.startOfDay(for: $0.endDate ?? $0.startDate)
+            return (startDay ... endDay).contains(cellDate)
         }
 
         return Button {
@@ -51,8 +52,7 @@ struct MainCalendarDayCell: View {
                     let scheduleEndDay = calendar.startOfDay(for: schedule.endDate ?? schedule.startDate)
 
                     let isStart = calendar.isDate(cellDate, inSameDayAs: scheduleStartDay)
-                    let isEnd = calendar.isDate(cellDate, inSameDayAs: scheduleEndDay)
-
+                    let isEnd   = calendar.isDate(cellDate, inSameDayAs: scheduleEndDay)
                     let isSingleDay = isStart && isEnd
 
                     if isSingleDay {
@@ -70,15 +70,10 @@ struct MainCalendarDayCell: View {
                         .padding(.leading, 5)
                     } else {
                         let cornerStyle: [UIRectCorner] = {
-                            if isStart && isEnd {
-                                return [.allCorners]
-                            } else if isStart {
-                                return [.topLeft, .bottomLeft]
-                            } else if isEnd {
-                                return [.topRight, .bottomRight]
-                            } else {
-                                return []
-                            }
+                            if isStart && isEnd { return [.allCorners] }
+                            else if isStart     { return [.topLeft, .bottomLeft] }
+                            else if isEnd       { return [.topRight, .bottomRight] }
+                            else                { return [] }
                         }()
 
                         ZStack {
@@ -100,6 +95,7 @@ struct MainCalendarDayCell: View {
                         }
                         .padding(.top, 10)
                     }
+
                 } else if daySchedules.count > 1 {
                     HStack(spacing: 5.5) {
                         ForEach(Array(daySchedules.prefix(3).enumerated()), id: \.offset) { _, schedule in

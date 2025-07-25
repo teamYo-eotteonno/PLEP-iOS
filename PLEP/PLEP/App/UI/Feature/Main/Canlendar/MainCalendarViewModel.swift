@@ -17,8 +17,11 @@ class MainCalendarViewModel: ObservableObject {
     @Published var errorMessage: String?
     @Published var schedule: ScheduleModel?
     @Published var schedules: [Schedule] = []
-    @Published var selectedDate: Date = Date()
-    
+    @Published var selectedDate: Date = {
+        var calendar = Calendar.current
+        calendar.timeZone = TimeZone(identifier: "Asia/Seoul")!
+        return calendar.startOfDay(for: Date())
+    }()
     
     @Published var groups: [GroupModel]?
     
@@ -32,15 +35,15 @@ class MainCalendarViewModel: ObservableObject {
     
     var schedulesForSelectedDate: [Schedule] {
         var calendar = Calendar.current
-        let cellDate = calendar.startOfDay(for: selectedDate)
         calendar.timeZone = TimeZone(identifier: "Asia/Seoul")!
+        let cellDate = calendar.startOfDay(for: selectedDate)
 
         return schedules.filter { schedule in
-                guard let endDate = schedule.endDate else {
-                    return calendar.isDate(schedule.startDate, inSameDayAs: selectedDate)
-                }
-                return (schedule.startDate <= cellDate) && (cellDate <= endDate)
+            guard let endDate = schedule.endDate else {
+                return calendar.isDate(schedule.startDate, inSameDayAs: selectedDate)
             }
+            return (schedule.startDate <= cellDate) && (cellDate <= endDate)
+        }
     }
     
     func addGroup(body: GroupRequest, completion: @escaping (Result<GroupModel, Error>) -> Void) {
@@ -145,13 +148,19 @@ class MainCalendarViewModel: ObservableObject {
 
 extension MainCalendarViewModel {
     func schedules(for date: Date) -> [Schedule] {
-        let calendar = Calendar.current
+        var calendar = Calendar.current
+        calendar.timeZone = TimeZone(identifier: "Asia/Seoul")!
+        
         return schedules.filter {
             guard let endDate = $0.endDate else {
                 return calendar.isDate($0.startDate, inSameDayAs: date)
             }
+            
             let cellDate = calendar.startOfDay(for: date)
-            return ($0.startDate <= cellDate) && (cellDate <= endDate)
+            let startDate = calendar.startOfDay(for: $0.startDate)
+            let endDateStart = calendar.startOfDay(for: endDate)
+            
+            return (startDate <= cellDate) && (cellDate <= endDateStart)
         }
     }
 }
