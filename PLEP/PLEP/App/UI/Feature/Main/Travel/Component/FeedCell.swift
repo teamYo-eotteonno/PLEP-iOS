@@ -16,6 +16,7 @@ struct FeedCell: View {
     let content: String
     let data: String
     var onMore: (() -> Void)?
+    @State var userImage: UIImage? = nil
     
     @State private var isLiked = false
     @State private var showFullContent = false
@@ -23,8 +24,9 @@ struct FeedCell: View {
     var body: some View {
         VStack(spacing: 11) {
             HStack {
+                
                 HStack(spacing: 13) {
-//                    ProfileCell(type: .etc, size: .small, btn: false)
+                    ProfileCell(type: .way, size: .small, btn: false, image: $userImage)
                     
                     VStack(alignment: .leading, spacing: 5) {
                         Text(name)

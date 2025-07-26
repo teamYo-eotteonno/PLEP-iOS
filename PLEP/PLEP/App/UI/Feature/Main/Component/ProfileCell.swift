@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-enum ProfileCellType {
+enum ProfileCellType: String, Codable {
     case way, loke, custom
 }
 
@@ -19,8 +19,7 @@ struct ProfileCell: View {
     let type: ProfileCellType
     var size: ProfileCellSize
     let btn: Bool
-    let onButtonTap: () -> Void
-    
+    var onButtonTap: (() -> Void)?
     @Binding var image: UIImage?
     
     var bgSize: CGSize {
@@ -64,7 +63,7 @@ struct ProfileCell: View {
                 }
             }
             if btn {
-                Button(action: { onButtonTap() }) {
+                Button(action: { onButtonTap?() }) {
                     Image(Asset.camera)
                         .resizable()
                         .frame(width: size == .medium ? 15 : 24, height: size == .medium ? 15 : 24)

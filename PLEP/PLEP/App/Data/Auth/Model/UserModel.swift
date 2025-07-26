@@ -7,7 +7,7 @@
 
 import Foundation
 
-struct UserModel: Decodable {
+struct UserModel: Decodable, Equatable {
     let id: Int
     var email: String?
     let name: String
@@ -18,7 +18,7 @@ struct UserModel: Decodable {
     let deletedAt: String?
 }
 
-struct PhotoData: Decodable {
+struct PhotoData: Decodable, Equatable {
     let id: String
     let path: String
 }

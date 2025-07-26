@@ -15,11 +15,20 @@ struct ProfileFeedTitleCell: View {
     let following: Int
     let onEdit: () -> Void
     @State private var isLiked = false
+    @State var userImage: UIImage? = nil
     
     var body: some View {
         VStack(spacing: 29) {
             HStack(spacing: 10) {
-//                ProfileCell(type: .loke, size: .medium, btn: false)
+                FollowUserCell(type: .custom, Name: false, name: "이다경", image: $userImage)
+//                        .onAppear {
+//                            loadImage(from: imageURL) { result in
+//                                switch result {
+//                                case .success(let img): userImage = img
+//                                case .failure(let err): print(err)
+//                                }
+//                            }
+//                        }
                 VStack(alignment: .leading, spacing: 14) {
                     VStack(alignment: .leading, spacing: 5) {
                         HStack {

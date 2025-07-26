@@ -60,6 +60,7 @@ struct JoinFourthView: View {
                         size: .medium,
                         enabled: true
                     ) {
+                        viewModel.updateDefaultPhoto(photo: "default/path", type: randomType)
                         flow.push(joinViewDi.fifthView(joinViewDi: joinViewDi))
                     }
                     .padding(.bottom, 65)

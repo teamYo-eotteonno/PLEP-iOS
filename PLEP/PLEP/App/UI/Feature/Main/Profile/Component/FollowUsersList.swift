@@ -34,7 +34,7 @@ struct FollowUsersList: View {
                 ScrollView(.horizontal, showsIndicators: false) {
                     HStack(spacing: 12) {
                         ForEach(0..<follow) { _ in
-                            FollowUserCell(type: .etc, name: "전정국")
+//                            FollowUserCell(type: .custom, name: "전정국", image: <#Binding<UIImage?>#>)
                         }
                     }
                 }

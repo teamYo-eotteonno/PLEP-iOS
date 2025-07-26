@@ -8,32 +8,41 @@
 import SwiftUI
 
 enum FollowUserCellType {
-    case way, loke, etc
+    case way, loke, custom
 }
 
 struct FollowUserCell: View {
     let type: FollowUserCellType
-    let name: String
+    let Name: Bool
+    var name: String?
+    @Binding var image: UIImage?
     
     var body: some View {
         VStack(spacing: 5) {
-            switch type {
-            case.way:
-//                ProfileCell(type: .way, size: .small, btn: false)
-                Rectangle()
-            case.loke:
-//                ProfileCell(type: .loke, size: .small, btn: false)
-                Rectangle()
-            case.etc:
-//                ProfileCell(type: .etc, size: .small, btn: false)
-                Rectangle()
+            ProfileCell(
+                type: convertToProfileCellType(type),
+                size: .small,
+                btn: false,
+                image: $image
+            )
+            Rectangle()
+            
+            if Name == true {
+                Text(name ?? "")
+                    .textStyle.title.pre
+                    .foregroundColor(.txt.primary)
+                    .frame(maxWidth: 55)
+                    .lineLimit(1)
+                    .truncationMode(.tail)
             }
-            Text(name)
-                .textStyle.title.pre
-                .foregroundColor(.txt.primary)
-                .frame(maxWidth: 55)
-                .lineLimit(1)
-                .truncationMode(.tail)
+        }
+    }
+    
+    private func convertToProfileCellType(_ type: FollowUserCellType) -> ProfileCellType {
+        switch type {
+        case .way: return .way
+        case .loke: return .loke
+        case .custom: return .custom
         }
     }
 }

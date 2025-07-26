@@ -56,6 +56,17 @@ class JoinViewModel: ObservableObject {
         joinData.accept(data)
     }
     
+    func updateDefaultPhoto(photo: String?, type: ProfileCellType) {
+        var data = joinData.value
+        data.photo = photo ?? ""
+        joinData.accept(data)
+
+        let userId = joinData.value.email
+        ProfileTypeStorage.shared.saveProfileType(userId: userId, type: type)
+
+        print("[JoinViewModel] 기본 프로필 저장됨 - userId: \(userId), type: \(type)")
+    }
+    
     func updateIntro(_ intro: String) {
         var data = joinData.value
         data.intro = intro
