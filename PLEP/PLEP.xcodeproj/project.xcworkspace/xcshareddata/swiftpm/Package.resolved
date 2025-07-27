@@ -1,5 +1,5 @@
 {
-  "originHash" : "265650bea67b33c0dfb960c41e3860aff79a51e227c2065ec28fc14f1c74ace7",
+  "originHash" : "d3d8400354588470284f48e67b996653bc87a6821eaa527b9903570bf2d4ad0c",
   "pins" : [
     {
       "identity" : "alamofire",
@@ -17,6 +17,24 @@
       "state" : {
         "branch" : "main",
         "revision" : "02db5ea87c1fd46b57bbf87e6594d433d0768aac"
+      }
+    },
+    {
+      "identity" : "kakao-ios-sdk",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/kakao/kakao-ios-sdk",
+      "state" : {
+        "revision" : "394ccfc67b206894f55dcaf2dd15e06bf451c4d3",
+        "version" : "2.24.5"
+      }
+    },
+    {
+      "identity" : "kakaomapssdk-spm",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/kakao-mapsSDK/KakaoMapsSDK-SPM.git",
+      "state" : {
+        "revision" : "7de4397ed27f43ee924b1002767c867c1a808270",
+        "version" : "2.12.8"
       }
     },
     {

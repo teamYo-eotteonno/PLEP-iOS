@@ -7,10 +7,15 @@
 
 import SwiftUI
 import FlowKit
+import KakaoSDKCommon
 
 @main
 struct PLEPApp: App {
     @StateObject private var authManager = AuthManager.shared
+    
+    init() {
+        KakaoSDK.initSDK(appKey: "653216cff32758398d4fdcf80225c8bc")
+    }
     
     var body: some Scene {
         WindowGroup {

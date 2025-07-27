@@ -82,6 +82,9 @@ struct HomeView: View {
         switch selectedTab {
         case .home:
             ZStack {
+                KakaoMap()
+                    .ignoresSafeArea()
+                    .edgesIgnoringSafeArea(.all)
                 MainBottomSheet(showButton: true) { PlacesListSheet() }
             }
         case .calendar:
