@@ -10,9 +10,8 @@
 		AF8F403E2E1818AA00337A52 /* RxCocoa in Frameworks */ = {isa = PBXBuildFile; productRef = AF8F403D2E1818AA00337A52 /* RxCocoa */; };
 		AF8F40412E1818BA00337A52 /* FlowKit in Frameworks */ = {isa = PBXBuildFile; productRef = AF8F40402E1818BA00337A52 /* FlowKit */; };
 		AF8F491D2E193C4900337A52 /* Alamofire in Frameworks */ = {isa = PBXBuildFile; productRef = AF8F491C2E193C4900337A52 /* Alamofire */; };
-		AFCE92442E35E04B000F6F8A /* KakaoMapsSDK-SPM in Frameworks */ = {isa = PBXBuildFile; productRef = AFCE92432E35E04B000F6F8A /* KakaoMapsSDK-SPM */; };
-		AFCE924D2E36023E000F6F8A /* KakaoSDK in Frameworks */ = {isa = PBXBuildFile; productRef = AFCE924C2E36023E000F6F8A /* KakaoSDK */; };
 		AFCE924F2E36023E000F6F8A /* KakaoSDKCommon in Frameworks */ = {isa = PBXBuildFile; productRef = AFCE924E2E36023E000F6F8A /* KakaoSDKCommon */; };
+		AFCE940A2E3759FE000F6F8A /* KakaoMapsSDK-SPM in Frameworks */ = {isa = PBXBuildFile; productRef = AFCE94092E3759FE000F6F8A /* KakaoMapsSDK-SPM */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -46,11 +45,10 @@
 			buildActionMask = 2147483647;
 			files = (
 				AF8F491D2E193C4900337A52 /* Alamofire in Frameworks */,
-				AFCE924D2E36023E000F6F8A /* KakaoSDK in Frameworks */,
 				AF8F403E2E1818AA00337A52 /* RxCocoa in Frameworks */,
+				AFCE940A2E3759FE000F6F8A /* KakaoMapsSDK-SPM in Frameworks */,
 				AF8F40412E1818BA00337A52 /* FlowKit in Frameworks */,
 				AFCE924F2E36023E000F6F8A /* KakaoSDKCommon in Frameworks */,
-				AFCE92442E35E04B000F6F8A /* KakaoMapsSDK-SPM in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -96,9 +94,8 @@
 				AF8F403D2E1818AA00337A52 /* RxCocoa */,
 				AF8F40402E1818BA00337A52 /* FlowKit */,
 				AF8F491C2E193C4900337A52 /* Alamofire */,
-				AFCE92432E35E04B000F6F8A /* KakaoMapsSDK-SPM */,
-				AFCE924C2E36023E000F6F8A /* KakaoSDK */,
 				AFCE924E2E36023E000F6F8A /* KakaoSDKCommon */,
+				AFCE94092E3759FE000F6F8A /* KakaoMapsSDK-SPM */,
 			);
 			productName = PLEP;
 			productReference = AFBD1E122D9E4AE8008E7ABB /* PLEP.app */;
@@ -132,8 +129,8 @@
 				AF8F403C2E1818AA00337A52 /* XCRemoteSwiftPackageReference "RxSwift" */,
 				AF8F403F2E1818BA00337A52 /* XCRemoteSwiftPackageReference "FlowKit" */,
 				AF8F491B2E193C4900337A52 /* XCRemoteSwiftPackageReference "Alamofire" */,
-				AFCE92422E35E04B000F6F8A /* XCRemoteSwiftPackageReference "KakaoMapsSDK-SPM" */,
 				AFCE924B2E36023E000F6F8A /* XCRemoteSwiftPackageReference "kakao-ios-sdk" */,
+				AFCE94082E3759FE000F6F8A /* XCRemoteSwiftPackageReference "KakaoMapsSDK-SPM" */,
 			);
 			preferredProjectObjectVersion = 77;
 			productRefGroup = AFBD1E132D9E4AE8008E7ABB /* Products */;
@@ -393,20 +390,20 @@
 				minimumVersion = 5.10.2;
 			};
 		};
-		AFCE92422E35E04B000F6F8A /* XCRemoteSwiftPackageReference "KakaoMapsSDK-SPM" */ = {
-			isa = XCRemoteSwiftPackageReference;
-			repositoryURL = "https://github.com/kakao-mapsSDK/KakaoMapsSDK-SPM.git";
-			requirement = {
-				kind = upToNextMajorVersion;
-				minimumVersion = 2.12.8;
-			};
-		};
 		AFCE924B2E36023E000F6F8A /* XCRemoteSwiftPackageReference "kakao-ios-sdk" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/kakao/kakao-ios-sdk";
 			requirement = {
 				kind = upToNextMajorVersion;
 				minimumVersion = 2.24.5;
+			};
+		};
+		AFCE94082E3759FE000F6F8A /* XCRemoteSwiftPackageReference "KakaoMapsSDK-SPM" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/kakao-mapsSDK/KakaoMapsSDK-SPM.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 2.12.9;
 			};
 		};
 /* End XCRemoteSwiftPackageReference section */
@@ -427,20 +424,15 @@
 			package = AF8F491B2E193C4900337A52 /* XCRemoteSwiftPackageReference "Alamofire" */;
 			productName = Alamofire;
 		};
-		AFCE92432E35E04B000F6F8A /* KakaoMapsSDK-SPM */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = AFCE92422E35E04B000F6F8A /* XCRemoteSwiftPackageReference "KakaoMapsSDK-SPM" */;
-			productName = "KakaoMapsSDK-SPM";
-		};
-		AFCE924C2E36023E000F6F8A /* KakaoSDK */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = AFCE924B2E36023E000F6F8A /* XCRemoteSwiftPackageReference "kakao-ios-sdk" */;
-			productName = KakaoSDK;
-		};
 		AFCE924E2E36023E000F6F8A /* KakaoSDKCommon */ = {
 			isa = XCSwiftPackageProductDependency;
 			package = AFCE924B2E36023E000F6F8A /* XCRemoteSwiftPackageReference "kakao-ios-sdk" */;
 			productName = KakaoSDKCommon;
+		};
+		AFCE94092E3759FE000F6F8A /* KakaoMapsSDK-SPM */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = AFCE94082E3759FE000F6F8A /* XCRemoteSwiftPackageReference "KakaoMapsSDK-SPM" */;
+			productName = "KakaoMapsSDK-SPM";
 		};
 /* End XCSwiftPackageProductDependency section */
 	};

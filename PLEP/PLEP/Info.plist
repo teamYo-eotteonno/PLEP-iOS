@@ -2,17 +2,8 @@
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
 <dict>
-	<key>CFBundleURLTypes</key>
-	<array>
-		<dict>
-			<key>CFBundleURLName</key>
-			<string></string>
-		</dict>
-		<dict>
-			<key>kakaokompassauth</key>
-			<string></string>
-		</dict>
-	</array>
+	<key>CFBundleURLSchemes</key>
+	<string>kakao653216cf</string>
 	<key>KMAuthKey</key>
 	<string>653216cff32758398d4fdcf80225c8bc</string>
 	<key>NSAppTransportSecurity</key>

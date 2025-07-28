@@ -8,106 +8,61 @@
 import SwiftUI
 import KakaoMapsSDK
 
-struct KakaoMap: View {
-    var body: some View {
-        KakaoMapViewControllerRepresentable()
-            .edgesIgnoringSafeArea(.all)
-    }
-}
+struct KakaoMapView: UIViewRepresentable {
+    @Binding var draw: Bool
 
-struct KakaoMapViewControllerRepresentable: UIViewControllerRepresentable {
-    func makeUIViewController(context: Context) -> KakaoMapViewController {
-        let vc = KakaoMapViewController()
-        return vc
+    func makeCoordinator() -> KakaoMapCoordinator {
+        KakaoMapCoordinator()
     }
 
-    func updateUIViewController(_ uiViewController: KakaoMapViewController, context: Context) {
-        // 필요 시 상태 기반 업데이트
-    }
-}
-
-class KakaoMapViewController: UIViewController, MapControllerDelegate {
-    private var mapContainer: KMViewContainer!
-    private var mapController: KMController!
-
-    override func viewDidLoad() {
-        super.viewDidLoad()
-
-//        // AppKey 설정 (필수)
-//        if let path = Bundle.main.path(forResource: "AppKey", ofType: "plist"),
-//           let dict = NSDictionary(contentsOfFile: path),
-//           let appKey = dict["APP_KEY"] as? String {
-//            KMController.setAppKey(appKey)
-//        } else {
-//            print("❌ AppKey.plist에서 APP_KEY를 찾을 수 없습니다.")
-//        }
-
-        mapContainer = KMViewContainer(frame: view.bounds)
-        view.addSubview(mapContainer)
-
-        mapController = KMController(viewContainer: mapContainer)
-        mapController.delegate = self
-        mapController.prepareEngine()
+    func makeUIView(context: Context) -> KMViewContainer {
+        let viewContainer = KMViewContainer()
+        context.coordinator.createController(viewContainer)
+        context.coordinator.controller?.prepareEngine()
+        return viewContainer
     }
 
-    override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(animated)
-        if mapController.isEngineActive == false {
-            mapController.activateEngine()  // 렌더링 시작
+    func updateUIView(_ uiView: KMViewContainer, context: Context) {
+        if draw {
+            context.coordinator.controller?.activateEngine()
+        } else {
+            context.coordinator.controller?.resetEngine()
         }
     }
 
-    override func viewWillDisappear(_ animated: Bool) {
-        super.viewWillDisappear(animated)
-        mapController.pauseEngine()       // 렌더링 일시 정지
+    static func dismantleUIView(_ uiView: KMViewContainer, coordinator: KakaoMapCoordinator) {
+        coordinator.controller?.resetEngine()
     }
 
-    deinit {
-        mapController.resetEngine()       // 엔진 리셋 (정리)
-    }
+    class KakaoMapCoordinator: NSObject, MapControllerDelegate {
+        var controller: KMController?
 
-    // MapControllerDelegate
-    func addViews() {
-        let defaultPos = MapPoint(longitude: 127.027636, latitude: 37.497950)
-        let mapInfo = MapviewInfo(
-            viewName: "mainMap",
-            viewInfoName: "map0",
-            defaultPosition: defaultPos,
-            defaultLevel: 5
-        )
-        mapController.addView(mapInfo)
-    }
+        func createController(_ view: KMViewContainer) {
+            controller = KMController(viewContainer: view)
+            controller?.delegate = self
+        }
 
-    func addViewSucceeded(_ viewName: String, viewInfoName: String) {
-        // 지도 뷰 추가 성공 시 추가 동작 가능
-    }
+        @objc func addViews() {
+            let defaultPosition = MapPoint(longitude: 127.027636, latitude: 37.497950)
+            let mapviewInfo = MapviewInfo(
+                viewName: "mapview",
+                viewInfoName: "map",
+                defaultPosition: defaultPosition,
+                defaultLevel: 7)
+            controller?.addView(mapviewInfo)
+        }
 
-    func addViewFailed(_ viewName: String, viewInfoName: String) {
-        print("addViewFailed: \(viewName), \(viewInfoName)")
-    }
+        func addViewSucceeded(_ viewName: String, viewInfoName: String) {
+            print("지도 추가 성공: \(viewName) / \(viewInfoName)")
+            if let mapView = controller?.getView(viewName) as? KakaoMap {
+                mapView.showOverlay("roadview_line")
+            }
+        }
 
-    func containerDidResized(_ size: CGSize) {
-        // 컨테이너 크기 다변경 시 처리
-    }
-
-    func authenticationFailed(_ errorCode: Int, desc: String) {
-        print("Auth failed: \(errorCode), \(desc)")
+        func addViewFailed(_ viewName: String, viewInfoName: String) {}
+        func containerDidResized(_ size: CGSize) {}
+        func authenticationFailed(_ errorCode: Int, desc: String) {
+            print("KakaoMap Auth failed: \(errorCode) \(desc)")
+        }
     }
 }
-
-//struct KakaoMap: View {
-//    var body: some View {
-//        KakaoMapViewControllerRepresentable()
-//            .edgesIgnoringSafeArea(.all)
-//    }
-//}
-//
-//struct KakaoMapViewControllerRepresentable: UIViewControllerRepresentable {
-//    func makeUIViewController(context: Context) -> KMMapViewController {
-//        return KMMapViewController()
-//    }
-//
-//    func updateUIViewController(_ uiViewController: KMMapViewController, context: Context) {
-//        // 필요하다면 상태 기반 업데이트 로직 구현
-//    }
-//}
