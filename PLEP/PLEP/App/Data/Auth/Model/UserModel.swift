@@ -12,23 +12,18 @@ struct UserModel: Decodable, Equatable {
     var email: String?
     let name: String
     let bio: String
-    let photo: PhotoData?
+    let photo: FileModel?
     let createdAt: String
     let updatedAt: String
     let deletedAt: String?
 }
 
-struct PhotoData: Decodable, Equatable {
-    let id: String
-    let path: String
-}
-
 struct otherUserModel: Decodable {
     let id: Int
     let name: String
-    let photo: PhotoData?
+    var photo: FileModel?
     let bio: String
-    let isFollowed: Bool
+    var isFollowed: Bool?
     let createdAt: String
     let updatedAt: String
     let deletedAt: String?

@@ -8,35 +8,42 @@
 import SwiftUI
 
 struct FeedCellImage: View {
+    let imagePaths: [String]
+    let isEditable: Bool
     @State private var feedIndex: Int = 0
-    let images = Array(0..<10)
 
     var body: some View {
         ZStack(alignment: .bottom) {
             TabView(selection: $feedIndex) {
-                ForEach(0..<images.count, id: \.self) { index in
-                    Image("Dummy3")
-                        .resizable()
-                        .scaledToFit()
-                        .frame(maxWidth: .infinity, maxHeight: 378)
-                        .clipped()
-                        .tag(index)
-                        .background(Color.g[100])
+                ForEach(imagePaths.indices, id: \.self) { index in
+                    AsyncImage(url: URL(string: imagePaths[index])) { image in
+                        image
+                            .resizable()
+                            .scaledToFill()
+                            .frame(maxWidth: .infinity, maxHeight: 378)
+                            .clipped()
+                    } placeholder: {
+                        Rectangle()
+                            .fill(Color.g[100])
+                            .frame(height: 378)
+                    }
+                    .tag(index)
                 }
 
-                VStack(spacing: 5) {
-                    Image(Asset.Img.add)
-                        .resizable()
-                        .scaledToFit()
-                        .frame(width: 35, height: 35)
-                        .foregroundColor(.blue)
-                    Text("이미지 추가")
-                        .textStyle.body.bold
-                        .foregroundColor(.txt.quartemary)
+                if isEditable {
+                    VStack(spacing: 5) {
+                        Image(systemName: "plus.circle")
+                            .resizable()
+                            .frame(width: 35, height: 35)
+                            .foregroundColor(.blue)
+                        Text("이미지 추가")
+                            .textStyle.body.bold
+                            .foregroundColor(.txt.quartemary)
+                    }
+                    .frame(maxWidth: .infinity, maxHeight: UIScreen.main.bounds.width)
+                    .background(Color.g[100])
+                    .tag(imagePaths.count)
                 }
-                .frame(maxWidth: .infinity, maxHeight: UIScreen.main.bounds.width)
-                .background(Color.g[100])
-                .tag(images.count)
             }
             .tabViewStyle(.page(indexDisplayMode: .never))
             .frame(width: UIScreen.main.bounds.width, height: UIScreen.main.bounds.width)
@@ -61,7 +68,7 @@ struct FeedCellImage: View {
 
                 Spacer()
 
-                if feedIndex < images.count {
+                if feedIndex < imagePaths.count + (isEditable ? 0 : -1) {
                     Button(action: {
                         withAnimation {
                             feedIndex += 1
@@ -79,9 +86,9 @@ struct FeedCellImage: View {
                 }
             }
             .frame(height: UIScreen.main.bounds.width)
-            
+
             VStack {
-                Text("\(min(feedIndex + 1, images.count)) / \(images.count)")
+                Text("\(min(feedIndex + 1, imagePaths.count + (isEditable ? 1 : 0))) / \(imagePaths.count + (isEditable ? 1 : 0))")
                     .textStyle.title.pre
                     .foregroundColor(.icon.white)
                     .padding(8)
@@ -91,9 +98,5 @@ struct FeedCellImage: View {
             }
         }
     }
-}
-
-#Preview {
-    FeedCellImage()
 }
 

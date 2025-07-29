@@ -11,7 +11,7 @@ struct UploadResponse: Decodable {
     let file: FileModel
 }
 
-struct FileModel: Decodable {
+struct FileModel: Decodable, Equatable {
     let id: String
     let path: String
 }
