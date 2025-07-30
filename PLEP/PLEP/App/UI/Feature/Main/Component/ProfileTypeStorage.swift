@@ -14,13 +14,13 @@ final class ProfileTypeStorage {
 
     private init() {}
 
-    func saveProfileType(userId: String, type: ProfileCellType) {
-        let key = keyPrefix + userId
+    func saveProfileType(userId: Int, type: ProfileCellType) {
+        let key = keyPrefix + String(userId)
         userDefaults.set(type.rawValue, forKey: key)
     }
 
-    func loadProfileType(userId: String) -> ProfileCellType? {
-        let key = keyPrefix + userId
+    func loadProfileType(userId: Int) -> ProfileCellType? {
+        let key = keyPrefix + String(userId)
         guard let raw = userDefaults.string(forKey: key),
               let type = ProfileCellType(rawValue: raw) else {
             return nil
@@ -28,12 +28,12 @@ final class ProfileTypeStorage {
         return type
     }
 
-    func clearProfileType(userId: String) {
-        let key = keyPrefix + userId
+    func clearProfileType(userId: Int) {
+        let key = keyPrefix + String(userId)
         userDefaults.removeObject(forKey: key)
     }
     
-    func loadOrAssignDefault(userId: String) -> ProfileCellType {
+    func loadOrAssignDefault(userId: Int) -> ProfileCellType {
         if let type = loadProfileType(userId: userId) {
             return type
         } else {

@@ -62,7 +62,7 @@ class JoinViewModel: ObservableObject {
         joinData.accept(data)
 
         let userId = joinData.value.email
-        ProfileTypeStorage.shared.saveProfileType(userId: userId, type: type)
+        ProfileTypeStorage.shared.saveProfileType(userId: Int(userId) ?? 0, type: type)
 
         print("[JoinViewModel] 기본 프로필 저장됨 - userId: \(userId), type: \(type)")
     }

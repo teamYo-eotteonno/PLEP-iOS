@@ -96,7 +96,8 @@ struct HomeView: View {
             FlowPresenter(rootView: TravelFeedView())
                 .padding(.bottom, 100)
         case .profile:
-            FlowPresenter(rootView: ProfileFeedView(name: "dd", intro: "dd", followers: 19, following: 29, null: false))
+            FlowPresenter(rootView: ProfileView())
+                .ignoresSafeArea()
                 .padding(.bottom, 80)
         }
     }
@@ -119,8 +120,3 @@ struct HomeView: View {
         }
     }
 }
-
-//#Preview {
-//    FlowPresenter(rootView: HomeView())
-//        .ignoresSafeArea()
-//}

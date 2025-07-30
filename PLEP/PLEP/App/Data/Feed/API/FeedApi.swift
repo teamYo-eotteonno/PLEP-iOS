@@ -55,4 +55,27 @@ class FeedApi: FeedProtocol {
         }
         .observe(on: MainScheduler.instance)
     }
+    
+    func getFeeds(userId: Int) -> Single<FeedResponse> {
+        return Single.create { single in
+            let parameters: [String: Any] = ["userId": userId]
+            let request = API.session.request(
+                PLEPURL.Feeds.getFeeds,
+                method: .get,
+                parameters: parameters,
+                encoding: URLEncoding.default
+            )
+            .validate()
+            .responseDecodable(of: FeedResponse.self) { response in
+                switch response.result {
+                case .success(let feedResponse):
+                    single(.success(feedResponse))
+                case .failure(let error):
+                    single(.failure(error))
+                }
+            }
+            return Disposables.create { request.cancel() }
+        }
+        .observe(on: MainScheduler.instance)
+    }
 }

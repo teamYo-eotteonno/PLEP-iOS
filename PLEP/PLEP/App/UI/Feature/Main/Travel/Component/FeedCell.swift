@@ -126,9 +126,17 @@ struct FeedCell: View {
 
     private func loadProfileImage() {
         guard let urlString = profileImageURL, let url = URL(string: urlString) else { return }
+
         Task {
-            if let data = try? Data(contentsOf: url), let image = UIImage(data: data) {
-                userImage = image
+            do {
+                let (data, _) = try await URLSession.shared.data(from: url)
+                if let image = UIImage(data: data) {
+                    await MainActor.run {
+                        userImage = image
+                    }
+                }
+            } catch {
+                print("프로필 이미지 로딩 실패: \(error)")
             }
         }
     }
