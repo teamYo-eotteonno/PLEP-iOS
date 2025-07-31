@@ -14,6 +14,7 @@ class ProfileFeedViewModel: ObservableObject {
     
     @Published var user: UserModel?
     @Published var feeds: [FeedModel] = []
+    @Published var follows: FollowModel?
     @Published var isLoading = false
     @Published var errorMessage: String?
     
@@ -43,6 +44,19 @@ class ProfileFeedViewModel: ObservableObject {
                 self?.isLoading = false
                 self?.errorMessage = error.localizedDescription
                 print("유저(\(userId)) 피드 가져오기 실패: \(error.localizedDescription)")
+            }
+            .disposed(by: disposeBag)
+    }
+    
+    func getFollows(userId: Int) {
+        isLoading = true
+        FollowApi().getfollow(userId: userId)
+            .subscribe { [weak self] followList in
+                self?.isLoading = false
+                self?.follows = followList.first
+            } onFailure: { [weak self] error in
+                self?.isLoading = false
+                self?.errorMessage = error.localizedDescription
             }
             .disposed(by: disposeBag)
     }

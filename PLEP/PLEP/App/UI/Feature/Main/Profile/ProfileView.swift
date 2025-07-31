@@ -20,8 +20,8 @@ struct ProfileView: View {
                     my: true,
                     name: user.name,
                     intro: user.bio,
-                    followers: 10,
-                    following: 10,
+                    followers: userViewModel.follows?.followers ?? 0,
+                    following: userViewModel.follows?.followings ?? 0,
                     onEdit: { showEdit = true },
                     userImage: $userImage,
                     imageURL: user.photo?.path
@@ -44,16 +44,20 @@ struct ProfileView: View {
             )
         }
         .onChange(of: userViewModel.user) { user in
-            guard let urlString = user?.photo?.path,
-                  let url = URL(string: urlString) else { return }
+                    guard let user = user else { return }
 
-            URLSession.shared.dataTask(with: url) { data, _, error in
-                guard let data = data, error == nil, let image = UIImage(data: data) else { return }
-                DispatchQueue.main.async {
-                    self.userImage = image
+                    if let urlString = user.photo?.path,
+                       let url = URL(string: urlString) {
+                        URLSession.shared.dataTask(with: url) { data, _, error in
+                            guard let data = data, error == nil, let image = UIImage(data: data) else { return }
+                            DispatchQueue.main.async {
+                                self.userImage = image
+                            }
+                        }.resume()
+                    }
+
+                    userViewModel.getFollows(userId: user.id)
                 }
-            }.resume()
-        }
         .background(Color.g[50])
         .edgesIgnoringSafeArea(.all)
     }
