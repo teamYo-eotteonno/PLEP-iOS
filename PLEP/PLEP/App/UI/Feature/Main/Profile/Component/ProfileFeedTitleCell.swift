@@ -17,13 +17,12 @@ struct ProfileFeedTitleCell: View {
     @State private var isLiked = false
     @Binding var userImage: UIImage?
     let imageURL: String?
-
+    
     var body: some View {
         VStack(spacing: 29) {
             HStack(spacing: 10) {
-                // ① 프로필 타입 설정 (imageURL 유무로)
                 let profileType: ProfileCellType = (imageURL == nil) ? .way : .custom
-
+                
                 ProfileCell(
                     type: profileType,
                     size: .medium,
@@ -45,7 +44,7 @@ struct ProfileFeedTitleCell: View {
                         }
                     }
                 }
-
+                
                 VStack(alignment: .leading, spacing: 14) {
                     VStack(alignment: .leading, spacing: 5) {
                         HStack {
@@ -59,6 +58,7 @@ struct ProfileFeedTitleCell: View {
                                         .resizable()
                                         .frame(width: 24, height: 24)
                                 }
+                                
                             } else {
                                 Button(action: { isLiked.toggle() }) {
                                     Image(isLiked ? Asset.Heart.tap : Asset.Heart.default)
@@ -67,6 +67,7 @@ struct ProfileFeedTitleCell: View {
                                 }
                             }
                         }
+                        
                         Text(intro)
                             .textStyle.body.small
                             .foregroundColor(.txt.secondary)
@@ -74,7 +75,7 @@ struct ProfileFeedTitleCell: View {
                             .fixedSize(horizontal: false, vertical: true)
                     }
                     .frame(maxWidth: .infinity, alignment: .leading)
-
+                    
                     HStack(spacing: 14) {
                         Text("팔로워 \(followers)")
                         Text("팔로잉 \(following)")
@@ -84,7 +85,7 @@ struct ProfileFeedTitleCell: View {
                 }
                 .padding(.horizontal, 8)
             }
-
+            
             if my {
                 PLEPButton(
                     title: "피드생성",
@@ -97,9 +98,8 @@ struct ProfileFeedTitleCell: View {
             }
         }
         .frame(maxWidth: .infinity)
-        .padding(.vertical, 20)
     }
-
+    
     private func downloadImage(from url: URL, completion: @escaping (UIImage?) -> Void) {
         DispatchQueue.global().async {
             guard let data = try? Data(contentsOf: url),
@@ -109,7 +109,7 @@ struct ProfileFeedTitleCell: View {
                 }
                 return
             }
-
+            
             DispatchQueue.main.async {
                 completion(image)
             }

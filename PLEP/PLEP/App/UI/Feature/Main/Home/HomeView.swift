@@ -96,8 +96,8 @@ struct HomeView: View {
             FlowPresenter(rootView: TravelFeedView())
                 .padding(.bottom, 100)
         case .profile:
-            FlowPresenter(rootView: ProfileView())
-                .ignoresSafeArea()
+            FlowPresenter(rootView: ProfileViewDi().profileView)
+//                .ignoresSafeArea()
                 .padding(.bottom, 80)
         }
     }
