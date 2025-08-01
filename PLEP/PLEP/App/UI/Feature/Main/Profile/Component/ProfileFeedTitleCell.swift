@@ -14,6 +14,7 @@ struct ProfileFeedTitleCell: View {
     let followers: Int
     let following: Int
     let onEdit: () -> Void
+    let onCreate: () -> Void
     @State private var isLiked = false
     @Binding var userImage: UIImage?
     let imageURL: String?
@@ -93,7 +94,7 @@ struct ProfileFeedTitleCell: View {
                     size: .small,
                     enabled: true,
                     icon: Asset.plus,
-                    action: {}
+                    action: onCreate
                 )
             }
         }

@@ -10,6 +10,7 @@ import FlowKit
 
 struct ProfileView: View {
     @StateObject private var userViewModel: ProfileFeedViewModel
+    @State private var showCreate = false
     @State private var showEdit = false
     @State private var userImage: UIImage? = nil
     
@@ -29,9 +30,8 @@ struct ProfileView: View {
                             intro: user.bio,
                             followers: userViewModel.follows?.followers ?? 0,
                             following: userViewModel.follows?.followings ?? 0,
-                            onEdit: {
-                                showEdit = true
-                            },
+                            onEdit: { showEdit = true },
+                            onCreate: { showCreate = true},
                             userImage: $userImage,
                             imageURL: user.photo?.path
                         )
@@ -47,6 +47,14 @@ struct ProfileView: View {
                             userViewModel.getUser()
                         }
                 }
+            }
+            .fullScreenCover(isPresented: $showCreate) {
+                TravelFeedCreateView(
+                    onDismiss: {
+                        print("취소")
+                        showCreate = false
+                    }
+                )
             }
             .fullScreenCover(isPresented: $showEdit) {
                 ProfileEditMainView(
@@ -71,7 +79,6 @@ struct ProfileView: View {
                 
                 userViewModel.getFollows(userId: user.id)
             }
-            .ignoresSafeArea()
         }
     }
 }

@@ -12,6 +12,7 @@ struct TravelFeedCreateView: View {
     @Flow var flow
     @State private var showCategory = false
     @State private var showCalendar = false
+    var onDismiss: (() -> Void)? = nil
     
     var today: String {
         let formatter = DateFormatter()
@@ -26,7 +27,13 @@ struct TravelFeedCreateView: View {
         ZStack {
             Color.g[50].ignoresSafeArea()
             VStack(spacing: 0) {
-                PLEPTopbar(type: .text("피드 생성"), action: { flow.pop() })
+                PLEPTopbar(
+                    type: .text("피드 생성"),
+                    action: {
+                        flow.pop()
+                        onDismiss?()
+                    }
+                )
                 
                 Button(action: {}) {
                     VStack(spacing: 5) {
