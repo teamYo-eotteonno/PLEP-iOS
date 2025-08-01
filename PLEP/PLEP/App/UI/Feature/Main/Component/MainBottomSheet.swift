@@ -10,6 +10,7 @@ import SwiftUI
 struct MainBottomSheet<Content: View>: View {
     @State private var offset: CGFloat = UIScreen.main.bounds.height * 0.5
     @State private var dragAmount: CGFloat = 0
+    @State private var showPlace = false
 
     var sheetContent: Content
     var showButton: Bool
@@ -79,7 +80,7 @@ struct MainBottomSheet<Content: View>: View {
                                 size: .small,
                                 enabled: true,
                                 icon: Asset.User.Users.color,
-                                action: {}
+                                action: { showPlace = true }
                             )
                             .frame(width: 183)
                         }
@@ -95,7 +96,7 @@ struct MainBottomSheet<Content: View>: View {
                             size: .small,
                             enabled: true,
                             icon: Asset.User.Users.color,
-                            action: {}
+                            action: { showPlace = true }
                         )
                         .frame(width: 183)
                         .padding(.leading, 25)
@@ -107,6 +108,14 @@ struct MainBottomSheet<Content: View>: View {
             }
         }
         .ignoresSafeArea()
+        .fullScreenCover(isPresented: $showPlace) {
+            ShareRoomCreateView(
+                onDismiss: {
+                    print("취소")
+                    showPlace = false
+                }
+            )
+        }
     }
 }
 
