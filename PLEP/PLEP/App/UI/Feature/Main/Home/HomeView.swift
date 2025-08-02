@@ -93,7 +93,7 @@ struct HomeView: View {
         case .aiSearch:
             FlowPresenter(rootView: SearchingView())
         case .travel:
-            FlowPresenter(rootView: TravelFeedView())
+            FlowPresenter(rootView: TravelFeedViewDi().travelfeedView)
                 .padding(.bottom, 100)
         case .profile:
             FlowPresenter(rootView: ProfileViewDi().profileView)

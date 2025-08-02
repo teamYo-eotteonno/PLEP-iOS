@@ -33,4 +33,27 @@ class FollowApi: FollowProtocol {
         }
         .observe(on: MainScheduler.instance)
     }
+    
+    func getFollowing(userId: Int) -> Single<[otherUserModel]> {
+        return Single.create { single in
+            let parameters: [String: Any] = ["userId": userId]
+            let request = API.session.request(
+                PLEPURL.Follow.getFollowings(userId: userId),
+                method: .get,
+                parameters: parameters,
+                encoding: URLEncoding.default
+            )
+            .validate()
+            .responseDecodable(of: [otherUserModel].self) { response in
+                switch response.result {
+                case .success(let following):
+                    single(.success(following))
+                case .failure(let error):
+                    single(.failure(error))
+                }
+            }
+            return Disposables.create { request.cancel() }
+        }
+        .observe(on: MainScheduler.instance)
+    }
 }

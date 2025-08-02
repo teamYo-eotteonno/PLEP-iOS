@@ -25,9 +25,8 @@ struct FollowUserCell: View {
                 btn: false,
                 image: $image
             )
-            Rectangle()
             
-            if Name == true {
+            if Name {
                 Text(name ?? "")
                     .textStyle.title.pre
                     .foregroundColor(.txt.primary)

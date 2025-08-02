@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct FollowUsersList: View {
-    var follow: Int
+    let followings: [otherUserModel]
     
     var body: some View {
         VStack(alignment: .leading, spacing: 15) {
@@ -16,13 +16,13 @@ struct FollowUsersList: View {
                 Text("내가 팔로우한 인물")
                     .textStyle.body.small
                     .foregroundColor(.txt.primary)
-                Text(String(follow))
+                Text(String(followings.count))
                 + Text("명")
             }
             .textStyle.title.pre
             .foregroundColor(.p[500])
             
-            if follow == 0 {
+            if followings.isEmpty {
                 Text("아직 팔로우한 유저가 없습니다!\n관심있는 유저를 팔로우해보세요.")
                     .textStyle.title.pre
                     .foregroundColor(.txt.tertiary)
@@ -33,19 +33,19 @@ struct FollowUsersList: View {
             } else {
                 ScrollView(.horizontal, showsIndicators: false) {
                     HStack(spacing: 12) {
-                        ForEach(0..<follow) { _ in
-//                            FollowUserCell(type: .custom, name: "전정국", image: <#Binding<UIImage?>#>)
+                        ForEach(followings, id: \.id) { user in
+                            FollowUserCell(
+                                type: .custom,
+                                Name: true,
+                                name: user.name,
+                                image: .constant(nil)
+                            )
                         }
                     }
                 }
             }
         }
-//        .padding(.horizontal, 25)
         .padding(.vertical, 15)
         .background(Color.g[0])
     }
-}
-
-#Preview {
-    FollowUsersList(follow: 27)
 }

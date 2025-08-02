@@ -11,9 +11,15 @@ import FlowKit
 struct TravelFeedView: View {
     @Flow var flow
     @StateObject private var viewModel = TravelFeedViewModel()
+    @StateObject private var userviewModel = ProfileEditViewModel()
     @State private var showMoreSheet = false
     @State private var search = ""
 
+    init(viewModel: TravelFeedViewModel, userviewModel: ProfileEditViewModel) {
+        _viewModel = StateObject(wrappedValue: viewModel)
+        _userviewModel = StateObject(wrappedValue: userviewModel)
+    }
+    
     var body: some View {
         ZStack {
             Color.g[0].ignoresSafeArea()
@@ -21,7 +27,7 @@ struct TravelFeedView: View {
                 VStack(spacing: 0) {
                     VStack(spacing: 0) {
                         if search.isEmpty {
-                            FollowUsersList(follow: 10)
+                            FollowUsersList(followings: viewModel.followings)
                         }
                         FeedSearch(search: $search)
                     }
@@ -52,7 +58,16 @@ struct TravelFeedView: View {
                 }
             }
             .onAppear {
-                viewModel.fetchFeeds()
+                userviewModel.getUser()
+                
+                DispatchQueue.main.asyncAfter(deadline: .now() + 0.3) {
+                    if let userId = userviewModel.user?.id {
+                        viewModel.fetchFeeds()
+                        viewModel.fetchFollowings(for: userId)
+                    } else {
+                        print("유저 ID가 nil입니다.")
+                    }
+                }
             }
             .sheet(isPresented: $showMoreSheet) {
                 ZStack {
