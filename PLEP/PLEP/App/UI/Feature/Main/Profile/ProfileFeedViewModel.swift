@@ -51,12 +51,14 @@ class ProfileFeedViewModel: ObservableObject {
     func getFollows(userId: Int) {
         isLoading = true
         FollowApi().getfollow(userId: userId)
-            .subscribe { [weak self] followList in
+            .subscribe { [weak self] followModel in
                 self?.isLoading = false
-                self?.follows = followList.first
+                self?.follows = followModel
+                print("팔로우 정보: \(followModel)")
             } onFailure: { [weak self] error in
                 self?.isLoading = false
                 self?.errorMessage = error.localizedDescription
+                print("팔로우 정보 가져오기 실패: \(error.localizedDescription)")
             }
             .disposed(by: disposeBag)
     }

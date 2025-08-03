@@ -32,7 +32,7 @@ struct ProfileView: View {
                             following: userViewModel.follows?.followings ?? 0,
                             onEdit: { showEdit = true },
                             onCreate: { showCreate = true},
-                            userImage: $userImage,
+//                            userImage: $userImage,
                             imageURL: user.photo?.path
                         )
                         .contentShape(Rectangle())

@@ -16,7 +16,7 @@ struct ProfileFeedTitleCell: View {
     let onEdit: () -> Void
     let onCreate: () -> Void
     @State private var isLiked = false
-    @Binding var userImage: UIImage?
+    @State private var userImage: UIImage? = nil
     let imageURL: String?
     
     var body: some View {
@@ -28,22 +28,13 @@ struct ProfileFeedTitleCell: View {
                     type: profileType,
                     size: .medium,
                     btn: false,
-                    image: $userImage
+                    profileImageURL: imageURL
                 )
                 .onAppear {
-                    if let urlString = imageURL, let url = URL(string: urlString) {
-                        downloadImage(from: url) { image in
-                            self.userImage = image
-                        }
-                    }
+                    loadImage()
                 }
-                .onChange(of: imageURL) { newURL in
-                    print("imageURL changed to: \(newURL ?? "nil")")
-                    if let urlString = newURL, let url = URL(string: urlString) {
-                        downloadImage(from: url) { image in
-                            self.userImage = image
-                        }
-                    }
+                .onChange(of: imageURL) { _ in
+                    loadImage()
                 }
                 
                 VStack(alignment: .leading, spacing: 14) {
@@ -59,7 +50,6 @@ struct ProfileFeedTitleCell: View {
                                         .resizable()
                                         .frame(width: 24, height: 24)
                                 }
-                                
                             } else {
                                 Button(action: { isLiked.toggle() }) {
                                     Image(isLiked ? Asset.Heart.tap : Asset.Heart.default)
@@ -72,7 +62,6 @@ struct ProfileFeedTitleCell: View {
                         Text(intro)
                             .textStyle.body.small
                             .foregroundColor(.txt.secondary)
-                            .lineLimit(nil)
                             .fixedSize(horizontal: false, vertical: true)
                     }
                     .frame(maxWidth: .infinity, alignment: .leading)
@@ -101,18 +90,13 @@ struct ProfileFeedTitleCell: View {
         .frame(maxWidth: .infinity)
     }
     
-    private func downloadImage(from url: URL, completion: @escaping (UIImage?) -> Void) {
+    private func loadImage() {
+        guard let urlString = imageURL, let url = URL(string: urlString) else { return }
         DispatchQueue.global().async {
             guard let data = try? Data(contentsOf: url),
-                  let image = UIImage(data: data) else {
-                DispatchQueue.main.async {
-                    completion(nil)
-                }
-                return
-            }
-            
+                  let loadedImage = UIImage(data: data) else { return }
             DispatchQueue.main.async {
-                completion(image)
+                self.userImage = loadedImage
             }
         }
     }

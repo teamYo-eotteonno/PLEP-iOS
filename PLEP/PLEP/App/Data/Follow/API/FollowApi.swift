@@ -11,7 +11,7 @@ import Alamofire
 
 class FollowApi: FollowProtocol {
     
-    func getfollow(userId: Int) -> Single<[FollowModel]> {
+    func getfollow(userId: Int) -> Single<FollowModel> {
         return Single.create { single in
             let parameters: [String: Any] = ["userId": userId]
             let request = API.session.request(
@@ -21,7 +21,7 @@ class FollowApi: FollowProtocol {
                 encoding: URLEncoding.default
             )
             .validate()
-            .responseDecodable(of: [FollowModel].self) { response in
+            .responseDecodable(of: FollowModel.self) { response in
                 switch response.result {
                 case .success(let followers):
                     single(.success(followers))

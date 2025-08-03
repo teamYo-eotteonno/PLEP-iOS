@@ -30,7 +30,13 @@ struct ProfileEditMainView: View {
                     let profileType: ProfileCellType = (user.photo?.path == nil) ? .way : .custom
 
                     VStack(spacing: 19) {
-                        ProfileCell(type: profileType, size: .medium, btn: true, onButtonTap: {}, image: $userImage)
+                        ProfileCell(
+                            type: profileType,
+                            size: .medium,
+                            btn: true,
+                            onButtonTap: {},
+                            profileImageURL: user.photo?.path
+                        )
 
                         VStack(spacing: 5) {
                             Text(user.name)

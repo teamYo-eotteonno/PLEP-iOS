@@ -9,15 +9,14 @@ import SwiftUI
 
 struct FollowUsersList: View {
     let followings: [otherUserModel]
-    
+
     var body: some View {
         VStack(alignment: .leading, spacing: 15) {
             HStack(spacing: 10) {
                 Text("내가 팔로우한 인물")
                     .textStyle.body.small
                     .foregroundColor(.txt.primary)
-                Text(String(followings.count))
-                + Text("명")
+                Text(String(followings.count)) + Text("명")
             }
             .textStyle.title.pre
             .foregroundColor(.p[500])
@@ -38,7 +37,7 @@ struct FollowUsersList: View {
                                 type: .custom,
                                 Name: true,
                                 name: user.name,
-                                image: .constant(nil)
+                                imageURL: user.photo?.path
                             )
                         }
                     }

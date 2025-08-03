@@ -47,7 +47,7 @@ struct JoinFourthView: View {
                             onButtonTap: {
                                 showPicker = true
                             },
-                            image: $selectedImage
+                            inputImage: selectedImage
                         )
                         Spacer()
                     }

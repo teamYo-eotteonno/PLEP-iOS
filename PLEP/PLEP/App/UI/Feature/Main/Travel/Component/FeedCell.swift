@@ -22,17 +22,20 @@ struct FeedCell: View {
     
     @State private var isLiked = false
     @State private var showFullContent = false
-    @State private var userImage: UIImage? = nil
     
     var body: some View {
         VStack(spacing: 11) {
             HStack {
                 HStack(spacing: 13) {
-                    ProfileCell(type: .way, size: .small, btn: false, image: $userImage)
-                        .onAppear {
-                            loadProfileImage()
-                        }
+                    let profileType: ProfileCellType = (profileImageURL == nil || profileImageURL!.isEmpty) ? .way : .custom
 
+                    ProfileCell(
+                        type: profileType,
+                        size: .small,
+                        btn: false,
+                        profileImageURL: profileImageURL
+                    )
+                    
                     VStack(alignment: .leading, spacing: 5) {
                         Text(name)
                             .textStyle.body.bold
@@ -122,22 +125,5 @@ struct FeedCell: View {
         .frame(maxWidth: .infinity)
         .padding(.vertical, 25)
         .background(Color.g[0])
-    }
-
-    private func loadProfileImage() {
-        guard let urlString = profileImageURL, let url = URL(string: urlString) else { return }
-
-        Task {
-            do {
-                let (data, _) = try await URLSession.shared.data(from: url)
-                if let image = UIImage(data: data) {
-                    await MainActor.run {
-                        userImage = image
-                    }
-                }
-            } catch {
-                print("프로필 이미지 로딩 실패: \(error)")
-            }
-        }
     }
 }

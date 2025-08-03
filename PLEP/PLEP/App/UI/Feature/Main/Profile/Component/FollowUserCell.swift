@@ -15,7 +15,9 @@ struct FollowUserCell: View {
     let type: FollowUserCellType
     let Name: Bool
     var name: String?
-    @Binding var image: UIImage?
+    let imageURL: String?
+    
+    @State private var image: UIImage? = nil
     
     var body: some View {
         VStack(spacing: 5) {
@@ -23,8 +25,14 @@ struct FollowUserCell: View {
                 type: convertToProfileCellType(type),
                 size: .small,
                 btn: false,
-                image: $image
+                profileImageURL: imageURL
             )
+            .onAppear {
+                loadImage()
+            }
+            .onChange(of: imageURL) { _ in
+                loadImage()
+            }
             
             if Name {
                 Text(name ?? "")
@@ -42,6 +50,17 @@ struct FollowUserCell: View {
         case .way: return .way
         case .loke: return .loke
         case .custom: return .custom
+        }
+    }
+    
+    private func loadImage() {
+        guard let urlString = imageURL, let url = URL(string: urlString) else { return }
+        DispatchQueue.global().async {
+            guard let data = try? Data(contentsOf: url),
+                  let loadedImage = UIImage(data: data) else { return }
+            DispatchQueue.main.async {
+                self.image = loadedImage
+            }
         }
     }
 }

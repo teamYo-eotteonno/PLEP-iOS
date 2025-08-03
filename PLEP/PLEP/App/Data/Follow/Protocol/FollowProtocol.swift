@@ -10,6 +10,6 @@ import RxSwift
 import Alamofire
 
 protocol FollowProtocol {
-    func getfollow(userId: Int) -> Single<[FollowModel]>
+    func getfollow(userId: Int) -> Single<FollowModel>
     func getFollowing(userId: Int) -> Single<[otherUserModel]>
 }
