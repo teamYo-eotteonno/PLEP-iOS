@@ -10,7 +10,6 @@ import FlowKit
 
 struct HomeView: View {
     @State private var selectedTab: Tab = .home
-    @State private var draw: Bool = true
     
     enum Tab {
         case home
@@ -83,9 +82,8 @@ struct HomeView: View {
         switch selectedTab {
         case .home:
             ZStack {
-                KakaoMapView(draw: $draw)
+                KakaoMapView()
                     .ignoresSafeArea()
-                    .edgesIgnoringSafeArea(.all)
                 MainBottomSheet(showButton: true) { PlacesListSheet() }
             }
         case .calendar:
@@ -97,7 +95,6 @@ struct HomeView: View {
                 .padding(.bottom, 100)
         case .profile:
             FlowPresenter(rootView: ProfileViewDi().profileView)
-//                .ignoresSafeArea()
                 .padding(.bottom, 80)
         }
     }
