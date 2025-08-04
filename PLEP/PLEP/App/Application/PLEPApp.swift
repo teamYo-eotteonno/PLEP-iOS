@@ -27,6 +27,8 @@ struct PLEPApp: App {
                 if authManager.isLoggedIn {
                     FlowPresenter(rootView: HomeView())
                 } else {
+//                    FlowPresenter(rootView: OnboardingFirstView())
+//                    FlowPresenter(rootView: JoinViewDi().firstView(joinViewDi: JoinViewDi()))
                     FlowPresenter(rootView: LoginViewDi().loginView)
                 }
             }
